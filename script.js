@@ -29,7 +29,9 @@ async function connect() {
     signer = provider.getSigner();
     wallet = await signer.getAddress();
 
-    document.getElementById("walletBox").innerText = "Wallet: " + wallet;
+    // wallet ย่อ
+    const short = wallet.substring(0, 6) + "..." + wallet.substring(wallet.length - 4);
+    document.getElementById("walletBox").innerText = "Wallet: " + short;
 
     updateData();
 }
@@ -38,17 +40,19 @@ async function updateData() {
     const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, provider);
     const farm = new ethers.Contract(FARM, FARM_ABI, provider);
 
+    // Balance
     const bal = await mgx.balanceOf(wallet);
     document.getElementById("balanceBox").innerText =
         "Balance: " + ethers.utils.formatEther(bal) + " MGX";
 
+    // Staked
     const user = await farm.userInfo(wallet);
     document.getElementById("stakedBox").innerText =
         "Staked: " + ethers.utils.formatEther(user.amount) + " MGX";
 
+    // Reward
     const rew = await farm.pendingReward(wallet);
-    const short = wallet.substring(0, 6) + "..." + wallet.substring(wallet.length - 4);
-document.getElementById("walletBox").innerText = "Wallet: " + short;
+    document.getElementById("rewardBox").innerText =
         "Reward: " + ethers.utils.formatEther(rew) + " MGX";
 }
 
