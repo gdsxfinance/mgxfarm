@@ -47,7 +47,8 @@ async function updateData() {
         "Staked: " + ethers.utils.formatEther(user.amount) + " MGX";
 
     const rew = await farm.pendingReward(wallet);
-    document.getElementById("rewardBox").innerText =
+    const short = wallet.substring(0, 6) + "..." + wallet.substring(wallet.length - 4);
+document.getElementById("walletBox").innerText = "Wallet: " + short;
         "Reward: " + ethers.utils.formatEther(rew) + " MGX";
 }
 
