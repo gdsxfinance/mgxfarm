@@ -19,7 +19,7 @@ const FARM_ABI = [
 
 
 // --------------------
-// ENTER DASHBOARD
+// ENTER MINING DASHBOARD
 // --------------------
 function openFarm() {
     document.querySelector(".landing").classList.add("hidden");
@@ -37,7 +37,7 @@ async function connect() {
     signer = provider.getSigner();
     wallet = await signer.getAddress();
 
-    // แสดงเลขกระเป๋าแบบย่อ
+    // Short wallet
     const short = wallet.substring(0, 6) + "..." + wallet.substring(wallet.length - 4);
     document.getElementById("walletBox").innerText = "Wallet: " + short;
 
@@ -46,14 +46,14 @@ async function connect() {
 
 
 // --------------------
-// UPDATE DASHBOARD
+// UPDATE DASHBOARD DATA
 // --------------------
 async function updateData() {
     try {
         const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, provider);
         const farm = new ethers.Contract(FARM, FARM_ABI, provider);
 
-        // MGX Balance
+        // Balance
         const bal = await mgx.balanceOf(wallet);
         document.getElementById("balanceBox").innerText =
             "Balance: " + ethers.utils.formatEther(bal) + " MGX";
@@ -63,7 +63,7 @@ async function updateData() {
         document.getElementById("stakedBox").innerText =
             "Staked: " + ethers.utils.formatEther(user.amount) + " MGX";
 
-        // Reward
+        // Reward ( FIXED )
         const rew = await farm.pendingReward(wallet);
         document.getElementById("rewardBox").innerText =
             "Reward: " + ethers.utils.formatEther(rew) + " MGX";
