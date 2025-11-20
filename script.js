@@ -17,47 +17,73 @@ const FARM_ABI = [
     "function userInfo(address) view returns(uint256 amount, uint256 rewardDebt)"
 ];
 
+
+// --------------------
+// ENTER DASHBOARD
+// --------------------
 function openFarm() {
     document.querySelector(".landing").classList.add("hidden");
     document.querySelector("#dashboard").classList.remove("hidden");
     connect();
 }
 
+
+// --------------------
+// CONNECT WALLET
+// --------------------
 async function connect() {
     provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
     signer = provider.getSigner();
     wallet = await signer.getAddress();
 
-    // wallet ย่อ
+    // แสดงเลขกระเป๋าแบบย่อ
     const short = wallet.substring(0, 6) + "..." + wallet.substring(wallet.length - 4);
     document.getElementById("walletBox").innerText = "Wallet: " + short;
 
     updateData();
 }
 
+
+// --------------------
+// UPDATE DASHBOARD
+// --------------------
 async function updateData() {
-    const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, provider);
-    const farm = new ethers.Contract(FARM, FARM_ABI, provider);
+    try {
+        const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, provider);
+        const farm = new ethers.Contract(FARM, FARM_ABI, provider);
 
-    // Balance
-    const bal = await mgx.balanceOf(wallet);
-    document.getElementById("balanceBox").innerText =
-        "Balance: " + ethers.utils.formatEther(bal) + " MGX";
+        // MGX Balance
+        const bal = await mgx.balanceOf(wallet);
+        document.getElementById("balanceBox").innerText =
+            "Balance: " + ethers.utils.formatEther(bal) + " MGX";
 
-    // Staked
-    const user = await farm.userInfo(wallet);
-    document.getElementById("stakedBox").innerText =
-        "Staked: " + ethers.utils.formatEther(user.amount) + " MGX";
+        // Staked
+        const user = await farm.userInfo(wallet);
+        document.getElementById("stakedBox").innerText =
+            "Staked: " + ethers.utils.formatEther(user.amount) + " MGX";
 
-    // Reward
-    const rew = await farm.pendingReward(wallet);
-    document.getElementById("rewardBox").innerText =
-        "Reward: " + ethers.utils.formatEther(rew) + " MGX";
+        // Reward
+        const rew = await farm.pendingReward(wallet);
+        document.getElementById("rewardBox").innerText =
+            "Reward: " + ethers.utils.formatEther(rew) + " MGX";
+
+    } catch (err) {
+        console.error("Update error:", err);
+    }
 }
 
+
+// --------------------
+// DEPOSIT (START MINING)
+// --------------------
 async function deposit() {
     const amount = document.getElementById("amountInput").value;
+    if (!amount || Number(amount) <= 0) {
+        alert("Enter amount first!");
+        return;
+    }
+
     const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, signer);
     const farm = new ethers.Contract(FARM, FARM_ABI, signer);
 
@@ -72,17 +98,31 @@ async function deposit() {
     updateData();
 }
 
+
+// --------------------
+// CLAIM REWARD
+// --------------------
 async function claim() {
     const farm = new ethers.Contract(FARM, FARM_ABI, signer);
     await farm.claim();
     updateData();
 }
 
+
+// --------------------
+// WITHDRAW ALL (STOP MINING)
+// --------------------
 async function withdraw() {
-    const amount = document.getElementById("amountInput").value;
     const farm = new ethers.Contract(FARM, FARM_ABI, signer);
 
-    const value = ethers.utils.parseEther(amount);
-    await farm.withdraw(value);
+    const user = await farm.userInfo(wallet);
+    const amount = user.amount;
+
+    if (amount.eq(0)) {
+        alert("❗ You have no MGX staked.");
+        return;
+    }
+
+    await farm.withdraw(amount);
     updateData();
 }
