@@ -14,8 +14,14 @@
 <div class="bg"></div>
 <div class="shade"></div>
 
+<!-- Top Buttons -->
+<div class="top-buttons">
+    <button class="back-btn" onclick="goBack()">⬅ Back</button>
+    <button class="connect-btn" onclick="connect()">🪐 Connect</button>
+</div>
+
 <!-- Landing Page -->
-<section class="landing">
+<section class="landing" id="landing">
     <h1 class="title">MGX GALAXY MINING</h1>
     <p class="subtitle">The Future of Space Mining Begins Here</p>
     <button class="enter-btn" onclick="openFarm()">🚀 Enter Mining Station</button>
@@ -41,6 +47,9 @@
         <button class="btn" onclick="claim()">✨ Claim Reward</button>
         <button class="btn stop" onclick="withdraw()">🛑 Stop Mining</button>
     </div>
+
+    <!-- Refresh Button -->
+    <button class="refresh-btn" onclick="updateData()">🔄 Refresh</button>
 
 </section>
 
