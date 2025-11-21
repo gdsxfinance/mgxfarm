@@ -16,7 +16,15 @@
 
 <!-- Top Buttons -->
 <div class="top-buttons">
-    <button class="back-btn" onclick="goBack()">⬅ Back</button>
+    <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+
+<!-- Dropdown Menu -->
+<div id="dropdownMenu" class="dropdown hidden">
+    <a onclick="location.href='/'">🏠 Home</a>
+    <a onclick="openFarm()">⛏️ Dashboard</a>
+    <a href="#chart">📈 Live Chart</a>
+    <a onclick="connect()">🧩 Connect Wallet</a>
+</div>
     <button class="connect-btn" onclick="connect()">🪐 Connect</button>
 </div>
 
