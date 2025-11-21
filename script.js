@@ -1,128 +1,187 @@
-const MGX_TOKEN = "0xc2B5cf3312C532B628A2e510f4653B844c1597A9";
-const FARM = "0xa63Dbdd62E482633F8Ee7F240ed311Eb974120D3";
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Orbitron", sans-serif;
+  overflow-x: hidden;
+  color: white;
+}
 
-let provider, signer, wallet;
+/* Background */
+.bg {
+  background: url("mgx-ultra-bg.png") no-repeat center center;
+  background-size: cover;
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+}
 
-const MGX_ABI = [
-    "function balanceOf(address) view returns(uint256)",
-    "function allowance(address,address) view returns(uint256)",
-    "function approve(address,uint256)"
-];
+.shade {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -2;
+}
 
-const FARM_ABI = [
-    "function deposit(uint256)",
-    "function withdraw(uint256)",
-    "function claim()",
-    "function pendingReward(address) view returns(uint256)",
-    "function userInfo(address) view returns(uint256 amount, uint256 rewardDebt)"
-];
+.landing {
+  text-align: center;
+  margin-top: 28vh;
+}
 
+.title {
+  font-size: 3.2em;
+  font-weight: 900;
+  text-shadow: 0 0 35px #ffd700, 0 0 75px #ffaa00;
+}
 
-// --------------------
-// ENTER MINING DASHBOARD
-// --------------------
-function openFarm() {
-    document.querySelector(".landing").classList.add("hidden");
-    document.querySelector("#dashboard").classList.remove("hidden");
-    connect();
+.subtitle {
+  margin-top: -10px;
+  font-size: 1.2em;
+  opacity: 0.85;
+}
+
+.enter-btn {
+  margin-top: 25px;
+  padding: 15px 40px;
+  font-size: 1.3em;
+  border: none;
+  border-radius: 15px;
+  background: linear-gradient(45deg, #ffdd55, #ffb300);
+  color: #000;
+  box-shadow: 0 0 25px #ffdd55;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.enter-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 40px #ffe97a;
+}
+
+.hidden { display: none; }
+
+.dashboard {
+  margin-top: 10vh;
+  text-align: center;
+}
+
+.dash-title {
+  font-size: 2.5em;
+  text-shadow: 0 0 20px #ffe08a;
+}
+
+.wallet-box {
+  margin: 20px auto;
+  width: 280px;
+  padding: 12px;
+  background: rgba(255, 200, 80, 0.15);
+  border: 1px solid #ffd700;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 200, 80, 0.35);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  width: 90%;
+  max-width: 450px;
+  margin: auto;
+  margin-top: 25px;
+}
+
+.info-card {
+  padding: 18px;
+  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid #ffaa33;
+  box-shadow: 0 0 20px rgba(255, 200, 80, 0.35);
+  font-size: 1em;
+}
+
+.action-box {
+  margin-top: 35px;
+}
+
+.amount {
+  width: 70%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+.btn {
+  margin-top: 15px;
+  padding: 15px;
+  width: 75%;
+  font-size: 1.2em;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(45deg, #ffdd55, #ffb300);
+  color: #000;
+  box-shadow: 0 0 20px #ffc94d;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.stop {
+  background: linear-gradient(45deg, #ff4444, #cc0000);
+  color: white;
+  box-shadow: 0 0 20px #ff5555;
 }
 
 
-// --------------------
-// CONNECT WALLET
-// --------------------
-async function connect() {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
-    signer = provider.getSigner();
-    wallet = await signer.getAddress();
+/* -------------------------
+   TOP BUTTONS (NO SHIFT)
+--------------------------- */
+.top-left, .top-right {
+  position: fixed;
+  top: 12px;
+  z-index: 100;
+}
 
-    // Short wallet
-    const short = wallet.substring(0, 6) + "..." + wallet.substring(wallet.length - 4);
-    document.getElementById("walletBox").innerText = "Wallet: " + short;
+.top-left { left: 12px; }
+.top-right { right: 12px; }
 
-    updateData();
+.back-btn, .connect-btn {
+  padding: 6px 12px;
+  font-size: 0.8em;
+  border-radius: 8px;
+  border: 1px solid #ffd700;
+  background: rgba(0, 0, 0, 0.45);
+  color: #ffd700;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.back-btn:hover, .connect-btn:hover {
+  background: rgba(255, 215, 0, 0.2);
 }
 
 
-// --------------------
-// UPDATE DASHBOARD DATA
-// --------------------
-async function updateData() {
-    try {
-        const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, provider);
-        const farm = new ethers.Contract(FARM, FARM_ABI, provider);
-
-        // Balance
-        const bal = await mgx.balanceOf(wallet);
-        document.getElementById("balanceBox").innerText =
-            "Balance: " + ethers.utils.formatEther(bal) + " MGX";
-
-        // Staked
-        const user = await farm.userInfo(wallet);
-        document.getElementById("stakedBox").innerText =
-            "Staked: " + ethers.utils.formatEther(user.amount) + " MGX";
-
-        // Reward ( FIXED )
-        const rew = await farm.pendingReward(wallet);
-        document.getElementById("rewardBox").innerText =
-            "Reward: " + ethers.utils.formatEther(rew) + " MGX";
-
-    } catch (err) {
-        console.error("Update error:", err);
-    }
+/* -------------------------
+   REFRESH BUTTON
+--------------------------- */
+.refresh-btn {
+  display: block;
+  margin: 25px auto;
+  padding: 8px 16px;
+  font-size: 0.85em;
+  border-radius: 10px;
+  border: 1px solid #ffaa22;
+  background: rgba(0,0,0,0.5);
+  color: #ffaa22;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(255,180,40,0.45);
+  transition: 0.2s;
 }
 
-
-// --------------------
-// DEPOSIT (START MINING)
-// --------------------
-async function deposit() {
-    const amount = document.getElementById("amountInput").value;
-    if (!amount || Number(amount) <= 0) {
-        alert("Enter amount first!");
-        return;
-    }
-
-    const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, signer);
-    const farm = new ethers.Contract(FARM, FARM_ABI, signer);
-
-    const value = ethers.utils.parseEther(amount);
-    const allow = await mgx.allowance(wallet, FARM);
-
-    if (allow.lt(value)) {
-        await mgx.approve(FARM, value);
-    }
-
-    await farm.deposit(value);
-    updateData();
-}
-
-
-// --------------------
-// CLAIM REWARD
-// --------------------
-async function claim() {
-    const farm = new ethers.Contract(FARM, FARM_ABI, signer);
-    await farm.claim();
-    updateData();
-}
-
-
-// --------------------
-// WITHDRAW ALL (STOP MINING)
-// --------------------
-async function withdraw() {
-    const farm = new ethers.Contract(FARM, FARM_ABI, signer);
-
-    const user = await farm.userInfo(wallet);
-    const amount = user.amount;
-
-    if (amount.eq(0)) {
-        alert("❗ You have no MGX staked.");
-        return;
-    }
-
-    await farm.withdraw(amount);
-    updateData();
+.refresh-btn:hover {
+  transform: scale(1.05);
+  background: rgba(255,180,40,0.15);
 }
