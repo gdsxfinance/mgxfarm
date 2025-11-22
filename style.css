@@ -159,3 +159,6 @@ footer p {
     filter: drop-shadow(0 0 30px #ffe48a);
   }
 }
+ /* ทำให้หมุน */
+  animation: spin 10s linear infinite;
+}
