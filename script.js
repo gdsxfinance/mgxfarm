@@ -1,102 +1,79 @@
-const MGX_TOKEN = "0xc2B5cf3312C532B628A2e510f4653B844c1597A9";
-const FARM = "0xa63Dbdd62E482633F8Ee7F240ed311Eb974120D3";
+const TOKEN = "0xc2B5cf3312C532B628A2e510f4653B844c1597A9";
+const STAKING = "0xa63Dbdd62E482633F8Ee7F240ed311Eb974120D3";
 
-let provider, signer, wallet;
+let provider, signer, account;
 
-const MGX_ABI = [
-    "function balanceOf(address) view returns(uint256)",
-    "function allowance(address,address) view returns(uint256)",
-    "function approve(address,uint256)"
+const abiToken = [
+  "function approve(address spender,uint256 amount) external returns(bool)",
+  "function balanceOf(address) view returns(uint256)",
+  "function allowance(address owner,address spender) view returns(uint256)"
 ];
 
-const FARM_ABI = [
-    "function deposit(uint256)",
-    "function withdraw(uint256)",
-    "function claim()",
-    "function pendingReward(address) view returns(uint256)",
-    "function userInfo(address) view returns(uint256 amount, uint256 rewardDebt)"
+const abiStaking = [
+  "function deposit(uint256 amount) external",
+  "function withdraw(uint256 amount) external",
+  "function users(address) view returns (uint256 amount,uint256 rewardDebt)",
+  "function pendingReward(address userAddr) view returns (uint256)"
 ];
 
-/* BACK BUTTON */
-function goBack() {
-    document.getElementById("dashboard").classList.add("hidden");
-    document.getElementById("landing").classList.remove("hidden");
+function $(id){ return document.getElementById(id); }
+
+async function connect(){
+  provider = new ethers.providers.Web3Provider(window.ethereum);
+  await provider.send("eth_requestAccounts",[]);
+  signer = provider.getSigner();
+  account = await signer.getAddress();
+
+  $("wallet").textContent = account.slice(0,6)+"..."+account.slice(-4);
+  refresh();
 }
 
-/* OPEN DASHBOARD */
-function openFarm() {
-    document.getElementById("landing").classList.add("hidden");
-    document.getElementById("dashboard").classList.remove("hidden");
-    connect();
+async function refresh(){
+  const token = new ethers.Contract(TOKEN, abiToken, signer);
+  const stake = new ethers.Contract(STAKING, abiStaking, signer);
+
+  const [userData, pending, walletBal] = await Promise.all([
+    stake.users(account),
+    stake.pendingReward(account),
+    token.balanceOf(account)
+  ]);
+
+  $("stake").textContent = ethers.utils.formatUnits(userData.amount,18);
+  $("reward").textContent = ethers.utils.formatUnits(pending,18);
+  $("totalGdsx").textContent = ethers.utils.formatUnits(walletBal,18);
 }
 
-/* CONNECT WALLET */
-async function connect() {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
-    signer = provider.getSigner();
-    wallet = await signer.getAddress();
+async function deposit(){
+  const val = $("amount").value;
+  if(!val) return;
 
-    const short = wallet.substring(0, 6) + "..." + wallet.substring(wallet.length - 4);
-    document.getElementById("walletBox").innerText = "Wallet: " + short;
+  const token = new ethers.Contract(TOKEN, abiToken, signer);
+  const stake = new ethers.Contract(STAKING, abiStaking, signer);
 
-    updateData();
+  const amt = ethers.utils.parseUnits(val,18);
+
+  const allowance = await token.allowance(account, STAKING);
+  if(allowance.lt(amt)){
+    await (await token.approve(STAKING, ethers.constants.MaxUint256)).wait();
+  }
+
+  await (await stake.deposit(amt)).wait();
+  refresh();
 }
 
-/* UPDATE DASHBOARD */
-async function updateData() {
-    if (!wallet) return;
+async function withdraw(){
+  const val = $("amount").value;
+  if(!val) return;
 
-    const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, provider);
-    const farm = new ethers.Contract(FARM, FARM_ABI, provider);
+  const stake = new ethers.Contract(STAKING, abiStaking, signer);
+  const amt = ethers.utils.parseUnits(val,18);
 
-    const bal = await mgx.balanceOf(wallet);
-    document.getElementById("balanceBox").innerText =
-        "Balance: " + ethers.utils.formatEther(bal) + " MGX";
-
-    const user = await farm.userInfo(wallet);
-    document.getElementById("stakedBox").innerText =
-        "Staked: " + ethers.utils.formatEther(user.amount) + " MGX";
-
-    const rew = await farm.pendingReward(wallet);
-    document.getElementById("rewardBox").innerText =
-        "Reward: " + ethers.utils.formatEther(rew) + " MGX";
+  await (await stake.withdraw(amt)).wait();
+  refresh();
 }
 
-/* DEPOSIT */
-async function deposit() {
-    const amount = document.getElementById("amountInput").value;
-    const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, signer);
-    const farm = new ethers.Contract(FARM, FARM_ABI, signer);
-
-    const value = ethers.utils.parseEther(amount);
-    const allow = await mgx.allowance(wallet, FARM);
-
-    if (allow.lt(value)) {
-        await mgx.approve(FARM, value);
-    }
-
-    await farm.deposit(value);
-    updateData();
-}
-
-/* CLAIM */
-async function claim() {
-    const farm = new ethers.Contract(FARM, FARM_ABI, signer);
-    await farm.claim();
-    updateData();
-}
-
-/* WITHDRAW */
-async function withdraw() {
-    const amount = document.getElementById("amountInput").value;
-    const farm = new ethers.Contract(FARM, FARM_ABI, signer);
-    const value = ethers.utils.parseEther(amount);
-
-    await farm.withdraw(value);
-    updateData();
-}
-function toggleMenu() {
-    const menu = document.getElementById("dropdownMenu");
-    menu.classList.toggle("hidden");
+async function claim(){
+  const stake = new ethers.Contract(STAKING, abiStaking, signer);
+  await (await stake.withdraw(0)).wait();
+  refresh();
 }
