@@ -1,4 +1,4 @@
-/* GLOBAL =================================================*/
+/* GLOBAL ===============================*/
 body {
     margin: 0;
     font-family: "Poppins", Arial, sans-serif;
@@ -7,7 +7,7 @@ body {
     text-align: center;
 }
 
-/* STARFIELD BACKGROUND ===================================*/
+/* STARFIELD BACKGROUND */
 #stars {
     position: fixed;
     top: 0; left: 0;
@@ -16,49 +16,17 @@ body {
     background: black;
 }
 
-/* SHADE LAYER */
+/* SHADE DARKEN */
 .shade {
     background: rgba(0,0,0,0.45);
     backdrop-filter: blur(2px);
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    z-index: -1;
+    z-index: -2;
 }
 
-/* EFFECTS =================================================*/
-.glow-gold {
-    text-shadow: 0 0 15px #ffdd66, 0 0 30px #ffaa00, 0 0 60px #ff8800;
-}
-
-.glow-box {
-    box-shadow: 0 0 15px rgba(255,215,0,0.4);
-}
-
-.neon-btn {
-    background: rgba(255,255,255,0.15);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.5);
-    padding: 10px 18px;
-    border-radius: 12px;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 0 10px #00fff2, 0 0 20px #0088ff inset;
-    transition: 0.2s;
-}
-.neon-btn:hover {
-    transform: scale(1.07);
-    box-shadow: 0 0 20px #00fff2, 0 0 30px #0088ff inset;
-}
-
-.neon-red {
-    background: rgba(255,50,50,0.4);
-    box-shadow: 0 0 10px #ff5555, 0 0 20px #ff0000 inset;
-}
-.neon-red:hover {
-    box-shadow: 0 0 20px #ff7777, 0 0 40px #ff0000 inset;
-}
-
-/* MENU ====================================================*/
+/* MENU BUTTON */
 .menu-btn {
   position: fixed;
   top: 20px;
@@ -66,26 +34,65 @@ body {
   z-index: 9999;
 }
 
-.dropdown {
-  position: fixed;
-  top: 80px;
-  left: 20px;
-  width: 170px;
-  padding: 12px;
-  border-radius: 12px;
+/* NEON BUTTON */
+.neon-btn {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.5);
+    padding: 10px 18px;
+    border-radius: 14px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 10px #00fff2, 0 0 20px #00aaff inset;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.neon-btn:hover {
+    transform: scale(1.07);
+    box-shadow: 0 0 20px #00fff2, 0 0 40px #00aaff inset;
 }
 
-.dropdown a {
-  display: block;
-  padding: 10px;
-  background: rgba(255,255,255,0.8);
-  border-radius: 8px;
-  margin-bottom: 8px;
-  color: #000;
-  font-weight: 600;
+/* RED BUTTON */
+.neon-red {
+    background: rgba(255,50,50,0.4);
+    box-shadow: 0 0 10px #ff4444, 0 0 20px #ff0000 inset;
+}
+.neon-red:hover {
+    box-shadow: 0 0 25px #ff7777, 0 0 45px #ff0000 inset;
 }
 
-/* BACK & CONNECT =========================================*/
+/* MENU BOX (Glass UI) */
+.menu-box {
+    position: fixed;
+    top: 90px;
+    left: 20px;
+    width: 220px;
+    padding: 14px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(14px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.25);
+    box-shadow: 0 0 25px rgba(0,255,255,0.35), 0 0 45px rgba(255,255,255,0.1) inset;
+    z-index: 99999;
+}
+
+.menu-item {
+    padding: 12px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 14px;
+    margin-bottom: 12px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: 0 0 12px rgba(0,255,255,0.25);
+    transition: 0.18s;
+}
+.menu-item:hover {
+    background: rgba(255,255,255,0.30);
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(0,255,255,0.45);
+}
+
+/* BACK & CONNECT BUTTON */
 .back-btn {
   position: fixed;
   top: 100px;
@@ -100,70 +107,71 @@ body {
   z-index: 9999;
 }
 
-/* LANDING =================================================*/
-.landing {
-    margin-top: 170px;
-}
+/* LANDING */
+.landing { margin-top: 170px; }
 
 .title {
     font-size: 34px;
     font-weight: 800;
 }
 
-.enter-btn {
-    margin-top: 25px;
-    font-size: 20px;
+.glow-gold {
+    text-shadow: 0 0 15px #ffdd66, 0 0 30px #ffaa00, 0 0 70px #ff8800;
 }
 
-/* DASHBOARD ===============================================*/
+/* GOLD VALUE CARD */
+.gold-value {
+    border: 1px solid rgba(255,215,0,0.45);
+    box-shadow: 0 0 25px rgba(255,215,0,0.40),
+                0 0 40px rgba(255,180,0,0.35) inset;
+    text-shadow: 0 0 10px #ffd700;
+}
+
+/* DASHBOARD */
 .dashboard {
     margin-top: 200px;
 }
 
-.wallet-box {
-    font-size: 20px;
-    padding: 12px;
-    margin: 10px auto;
-    width: 260px;
-}
-
 .info-grid {
     display: grid;
-    gap: 16px;
+    gap: 18px;
     padding: 20px;
 }
 
 .info-card {
-    padding: 14px;
+    padding: 15px;
     border-radius: 14px;
     font-size: 18px;
 }
 
 .amount {
     padding: 12px;
-    border-radius: 12px;
-    margin-top: 15px;
-    width: 70%;
+    width: 75%;
     font-size: 18px;
+    border-radius: 14px;
+    margin-top: 12px;
 }
 
-/* GLASS EFFECT ============================================*/
+/* GLASS BASE */
 .glass {
     background: rgba(255,255,255,0.12);
     backdrop-filter: blur(10px);
-    border-radius: 14px;
+    border-radius: 16px;
     border: 1px solid rgba(255,255,255,0.25);
 }
 
-/* CHART ====================================================*/
+/* CHART */
 .chart-box {
     width: 90%;
     margin: auto;
-    border-radius: 15px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 0 25px rgba(255,215,0,0.4);
+    box-shadow: 0 0 25px rgba(0,255,255,0.35);
 }
 .chart-frame {
     width: 100%;
     height: 420px;
 }
+
+/* HIDDEN */
+.hidden { display:none; }
