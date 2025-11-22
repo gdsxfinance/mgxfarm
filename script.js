@@ -1,87 +1,128 @@
-const TOKEN = "0xc2B5cf3312C532B628A2e510f4653B844c1597A9";
-const STAKING = "0xa63Dbdd62E482633F8Ee7F240ed311Eb974120D3";
+const MGX_TOKEN = "0xc2B5cf3312C532B628A2e510f4653B844c1597A9";
+const FARM = "0xa63Dbdd62E482633F8Ee7F240ed311Eb974120D3";
 
-let provider, signer, account;
+let provider, signer, wallet;
 
-function toggleMenu() {
-  document.getElementById("popupMenu").classList.toggle("active");
+const MGX_ABI = [
+    "function balanceOf(address) view returns(uint256)",
+    "function allowance(address,address) view returns(uint256)",
+    "function approve(address,uint256)"
+];
+
+const FARM_ABI = [
+    "function deposit(uint256)",
+    "function withdraw(uint256)",
+    "function claim()",
+    "function pendingReward(address) view returns(uint256)",
+    "function userInfo(address) view returns(uint256 amount, uint256 rewardDebt)"
+];
+
+
+// --------------------
+// ENTER MINING DASHBOARD
+// --------------------
+function openFarm() {
+    document.querySelector(".landing").classList.add("hidden");
+    document.querySelector("#dashboard").classList.remove("hidden");
+    connect();
 }
 
-async function connect(){
-  provider = new ethers.providers.Web3Provider(window.ethereum);
-  await provider.send("eth_requestAccounts",[]);
-  signer = provider.getSigner();
-  account = await signer.getAddress();
 
-  document.getElementById("wallet").textContent =
-    account.slice(0,6)+"..."+account.slice(-4);
+// --------------------
+// CONNECT WALLET
+// --------------------
+async function connect() {
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    signer = provider.getSigner();
+    wallet = await signer.getAddress();
 
-  refresh();
+    // Short wallet
+    const short = wallet.substring(0, 6) + "..." + wallet.substring(wallet.length - 4);
+    document.getElementById("walletBox").innerText = "Wallet: " + short;
+
+    updateData();
 }
 
-async function refresh(){
-  if (!signer) return;
 
-  const token = new ethers.Contract(TOKEN, ["function balanceOf(address) view returns(uint256)"], signer);
-  const stake = new ethers.Contract(STAKING, [
-    "function users(address) view returns (uint256 amount,uint256 rewardDebt)",
-    "function pendingReward(address) view returns (uint256)"
-  ], signer);
+// --------------------
+// UPDATE DASHBOARD DATA
+// --------------------
+async function updateData() {
+    try {
+        const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, provider);
+        const farm = new ethers.Contract(FARM, FARM_ABI, provider);
 
-  const [userData, pending, walletBal] = await Promise.all([
-    stake.users(account),
-    stake.pendingReward(account),
-    token.balanceOf(account)
-  ]);
+        // Balance
+        const bal = await mgx.balanceOf(wallet);
+        document.getElementById("balanceBox").innerText =
+            "Balance: " + ethers.utils.formatEther(bal) + " MGX";
 
-  document.getElementById("stake").textContent = parseFloat(
-    ethers.utils.formatUnits(userData.amount,18)
-  ).toFixed(4);
+        // Staked
+        const user = await farm.userInfo(wallet);
+        document.getElementById("stakedBox").innerText =
+            "Staked: " + ethers.utils.formatEther(user.amount) + " MGX";
 
-  document.getElementById("reward").textContent = parseFloat(
-    ethers.utils.formatUnits(pending,18)
-  ).toFixed(4);
+        // Reward ( FIXED )
+        const rew = await farm.pendingReward(wallet);
+        document.getElementById("rewardBox").innerText =
+            "Reward: " + ethers.utils.formatEther(rew) + " MGX";
 
-  document.getElementById("totalGdsx").textContent = parseFloat(
-    ethers.utils.formatUnits(walletBal,18)
-  ).toFixed(4);
+    } catch (err) {
+        console.error("Update error:", err);
+    }
 }
 
-async function deposit(){
-  const val = document.getElementById("amount").value;
-  if (!val) return;
-  
-  const token = new ethers.Contract(TOKEN, [
-    "function approve(address,uint256)",
-    "function allowance(address,address) view returns(uint256)"
-  ], signer);
 
-  const stake = new ethers.Contract(STAKING, ["function deposit(uint256)"], signer);
+// --------------------
+// DEPOSIT (START MINING)
+// --------------------
+async function deposit() {
+    const amount = document.getElementById("amountInput").value;
+    if (!amount || Number(amount) <= 0) {
+        alert("Enter amount first!");
+        return;
+    }
 
-  const amt = ethers.utils.parseUnits(val,18);
-  const allowance = await token.allowance(account, STAKING);
+    const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, signer);
+    const farm = new ethers.Contract(FARM, FARM_ABI, signer);
 
-  if (allowance.lt(amt)) {
-    await (await token.approve(STAKING, ethers.constants.MaxUint256)).wait();
-  }
+    const value = ethers.utils.parseEther(amount);
+    const allow = await mgx.allowance(wallet, FARM);
 
-  await (await stake.deposit(amt)).wait();
-  refresh();
+    if (allow.lt(value)) {
+        await mgx.approve(FARM, value);
+    }
+
+    await farm.deposit(value);
+    updateData();
 }
 
-async function withdraw(){
-  const val = document.getElementById("amount").value;
-  if (!val) return;
 
-  const stake = new ethers.Contract(STAKING, ["function withdraw(uint256)"], signer);
-  const amt = ethers.utils.parseUnits(val,18);
-
-  await (await stake.withdraw(amt)).wait();
-  refresh();
+// --------------------
+// CLAIM REWARD
+// --------------------
+async function claim() {
+    const farm = new ethers.Contract(FARM, FARM_ABI, signer);
+    await farm.claim();
+    updateData();
 }
 
-async function claim(){
-  const stake = new ethers.Contract(STAKING, ["function withdraw(uint256)"], signer);
-  await (await stake.withdraw(0)).wait();
-  refresh();
+
+// --------------------
+// WITHDRAW ALL (STOP MINING)
+// --------------------
+async function withdraw() {
+    const farm = new ethers.Contract(FARM, FARM_ABI, signer);
+
+    const user = await farm.userInfo(wallet);
+    const amount = user.amount;
+
+    if (amount.eq(0)) {
+        alert("❗ You have no MGX staked.");
+        return;
+    }
+
+    await farm.withdraw(amount);
+    updateData();
 }
