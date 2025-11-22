@@ -3,20 +3,9 @@ const STAKING = "0xa63Dbdd62E482633F8Ee7F240ed311Eb974120D3";
 
 let provider, signer, account;
 
-const abiToken = [
-  "function approve(address spender,uint256 amount) external returns(bool)",
-  "function balanceOf(address) view returns(uint256)",
-  "function allowance(address owner,address spender) view returns(uint256)"
-];
-
-const abiStaking = [
-  "function deposit(uint256 amount) external",
-  "function withdraw(uint256 amount) external",
-  "function users(address) view returns (uint256 amount,uint256 rewardDebt)",
-  "function pendingReward(address userAddr) view returns (uint256)"
-];
-
-function $(id){ return document.getElementById(id); }
+function toggleMenu() {
+  document.getElementById("popupMenu").classList.toggle("active");
+}
 
 async function connect(){
   provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -24,15 +13,20 @@ async function connect(){
   signer = provider.getSigner();
   account = await signer.getAddress();
 
-  $("wallet").textContent = account.slice(0,6)+"..."+account.slice(-4);
+  document.getElementById("wallet").textContent =
+    account.slice(0,6)+"..."+account.slice(-4);
+
   refresh();
 }
 
 async function refresh(){
-  if(!signer) return;
+  if (!signer) return;
 
-  const token = new ethers.Contract(TOKEN, abiToken, signer);
-  const stake = new ethers.Contract(STAKING, abiStaking, signer);
+  const token = new ethers.Contract(TOKEN, ["function balanceOf(address) view returns(uint256)"], signer);
+  const stake = new ethers.Contract(STAKING, [
+    "function users(address) view returns (uint256 amount,uint256 rewardDebt)",
+    "function pendingReward(address) view returns (uint256)"
+  ], signer);
 
   const [userData, pending, walletBal] = await Promise.all([
     stake.users(account),
@@ -40,30 +34,34 @@ async function refresh(){
     token.balanceOf(account)
   ]);
 
-  $("stake").textContent = parseFloat(
-    ethers.utils.formatUnits(userData.amount, 18)
+  document.getElementById("stake").textContent = parseFloat(
+    ethers.utils.formatUnits(userData.amount,18)
   ).toFixed(4);
 
-  $("reward").textContent = parseFloat(
-    ethers.utils.formatUnits(pending, 18)
+  document.getElementById("reward").textContent = parseFloat(
+    ethers.utils.formatUnits(pending,18)
   ).toFixed(4);
 
-  $("totalGdsx").textContent = parseFloat(
-    ethers.utils.formatUnits(walletBal, 18)
+  document.getElementById("totalGdsx").textContent = parseFloat(
+    ethers.utils.formatUnits(walletBal,18)
   ).toFixed(4);
 }
 
 async function deposit(){
-  const val = $("amount").value;
-  if(!val) return;
+  const val = document.getElementById("amount").value;
+  if (!val) return;
+  
+  const token = new ethers.Contract(TOKEN, [
+    "function approve(address,uint256)",
+    "function allowance(address,address) view returns(uint256)"
+  ], signer);
 
-  const token = new ethers.Contract(TOKEN, abiToken, signer);
-  const stake = new ethers.Contract(STAKING, abiStaking, signer);
+  const stake = new ethers.Contract(STAKING, ["function deposit(uint256)"], signer);
 
   const amt = ethers.utils.parseUnits(val,18);
-
   const allowance = await token.allowance(account, STAKING);
-  if(allowance.lt(amt)){
+
+  if (allowance.lt(amt)) {
     await (await token.approve(STAKING, ethers.constants.MaxUint256)).wait();
   }
 
@@ -72,10 +70,10 @@ async function deposit(){
 }
 
 async function withdraw(){
-  const val = $("amount").value;
-  if(!val) return;
+  const val = document.getElementById("amount").value;
+  if (!val) return;
 
-  const stake = new ethers.Contract(STAKING, abiStaking, signer);
+  const stake = new ethers.Contract(STAKING, ["function withdraw(uint256)"], signer);
   const amt = ethers.utils.parseUnits(val,18);
 
   await (await stake.withdraw(amt)).wait();
@@ -83,7 +81,7 @@ async function withdraw(){
 }
 
 async function claim(){
-  const stake = new ethers.Contract(STAKING, abiStaking, signer);
+  const stake = new ethers.Contract(STAKING, ["function withdraw(uint256)"], signer);
   await (await stake.withdraw(0)).wait();
   refresh();
 }
