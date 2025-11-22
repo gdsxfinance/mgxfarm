@@ -3,69 +3,69 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>🌌 MGX Galaxy Mining — Ultra Premium</title>
+<title>🌌 MGX Galaxy Mining — Supernova Edition</title>
 <link rel="stylesheet" href="style.css" />
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 
 <body>
 
-<!-- Background -->
-<div class="bg"></div>
+<!-- ⭐ STARFIELD BACKGROUND -->
+<canvas id="stars"></canvas>
+
+<!-- MAIN BG SHADE -->
 <div class="shade"></div>
 
-<!-- Top Buttons -->
-<button class="menu-btn">☰ Menu</button>
+<!-- TOP MENU -->
+<button class="menu-btn neon-btn">☰ Menu</button>
 
-<div id="dropdownMenu" class="dropdown hidden">
+<div id="dropdownMenu" class="dropdown hidden glass">
     <a onclick="location.href='/'">🏠 Home</a>
     <a onclick="openFarm()">⛏️ Dashboard</a>
     <a href="#chart">📈 Live Chart</a>
     <a onclick="connect()">🧩 Connect Wallet</a>
 </div>
 
-<!-- Landing Page -->
+<!-- LANDING -->
 <section class="landing" id="landing">
-    <h1 class="title">MGX GALAXY MINING</h1>
+    <h1 class="title glow-gold">✨ MGX GALAXY MINING ✨</h1>
     <p class="subtitle">The Future of Space Mining Begins Here</p>
-    <button class="enter-btn" onclick="openFarm()">🚀 Enter Mining Station</button>
+    <button class="enter-btn neon-btn" onclick="openFarm()">🚀 Enter Mining Station</button>
 
 <section class="chart-section">
     <h2 class="chart-title">📉 MGX Live Chart</h2>
-    <div style="width:100%; height:420px; border-radius:12px; overflow:hidden; margin-top:10px;">
+    <div class="chart-box glass">
         <iframe
         src="https://www.geckoterminal.com/bsc/pools/0x00581eb976846f57fe8ad8909413c71deaa3fa6e?embed=1&info=0&swaps=0"
-        width="100%"
-        height="420"
-        frameborder="0"
-        sandbox="allow-same-origin allow-scripts"></iframe>
+        class="chart-frame"
+        sandbox="allow-same-origin allow-scripts"
+        ></iframe>
     </div>
 </section>
 </section>
 
-<!-- Dashboard -->
+<!-- DASHBOARD -->
 <section class="dashboard hidden" id="dashboard">
 
-    <!-- NEW: Proper Button Positions -->
-    <button class="back-btn">⬅️ Back</button>
-    <button class="connect-btn">🪙 Connect</button>
+    <button class="back-btn neon-btn">⬅️ Back</button>
+    <button class="connect-btn neon-btn">🪙 Connect</button>
 
-    <h2 class="dash-title">⛏️ MGX Mining Dashboard</h2>
+    <h2 class="dash-title glow-gold">⛏️ MGX Mining Dashboard</h2>
 
-    <div class="wallet-box" id="walletBox">Wallet: -</div>
+    <div class="wallet-box glass" id="walletBox">Wallet: -</div>
 
     <div class="info-grid">
-        <div class="info-card" id="balanceBox">Balance: - MGX</div>
-        <div class="info-card" id="stakedBox">Staked: - MGX</div>
-        <div class="info-card" id="rewardBox">Reward: - MGX</div>
-        <div class="info-card">APR: ~26–58% (auto)</div>
+        <div class="info-card glass glow-box" id="balanceBox">Balance: - MGX</div>
+        <div class="info-card glass glow-box" id="stakedBox">Staked: - MGX</div>
+        <div class="info-card glass glow-box" id="rewardBox">Reward: - MGX</div>
+        <div class="info-card glass glow-box">APR: ~26–58% (auto)</div>
     </div>
 
     <div class="action-box">
-        <input id="amountInput" class="amount" placeholder="Enter MGX amount" />
-        <button class="btn" onclick="deposit()">⛏️ Start Mining</button>
-        <button class="btn" onclick="claim()">✨ Claim Reward</button>
-        <button class="btn stop" onclick="withdraw()">🛑 Stop Mining</button>
+        <input id="amountInput" class="amount glass" placeholder="Enter MGX amount" />
+        <button class="btn neon-btn" onclick="deposit()">⛏️ Start Mining</button>
+        <button class="btn neon-btn" onclick="claim()">✨ Claim Reward</button>
+        <button class="btn stop neon-red" onclick="withdraw()">🛑 Stop Mining</button>
     </div>
 
 </section>
