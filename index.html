@@ -15,14 +15,13 @@
 <div class="shade"></div>
 
 <!-- Top Buttons -->
-<div class="top-buttons">
-    <button class="menu-btn">☰ Menu</button>
-    <div id="dropdownMenu" class="dropdown hidden">
-        <a onclick="location.href='/'">🏠 Home</a>
-        <a onclick="openFarm()">⛏️ Dashboard</a>
-        <a href="#chart">📈 Live Chart</a>
-        <a onclick="connect()">🧩 Connect Wallet</a>
-    </div>
+<button class="menu-btn">☰ Menu</button>
+
+<div id="dropdownMenu" class="dropdown hidden">
+    <a onclick="location.href='/'">🏠 Home</a>
+    <a onclick="openFarm()">⛏️ Dashboard</a>
+    <a href="#chart">📈 Live Chart</a>
+    <a onclick="connect()">🧩 Connect Wallet</a>
 </div>
 
 <!-- Landing Page -->
@@ -33,7 +32,6 @@
 
 <section class="chart-section">
     <h2 class="chart-title">📉 MGX Live Chart</h2>
-
     <div style="width:100%; height:420px; border-radius:12px; overflow:hidden; margin-top:10px;">
         <iframe
         src="https://www.geckoterminal.com/bsc/pools/0x00581eb976846f57fe8ad8909413c71deaa3fa6e?embed=1&info=0&swaps=0"
@@ -48,10 +46,9 @@
 <!-- Dashboard -->
 <section class="dashboard hidden" id="dashboard">
 
-    <div class="dash-top-buttons">
-        <button class="back-btn">⬅️ Back</button>
-        <button class="connect-btn">🪙 Connect</button>
-    </div>
+    <!-- NEW: Proper Button Positions -->
+    <button class="back-btn">⬅️ Back</button>
+    <button class="connect-btn">🪙 Connect</button>
 
     <h2 class="dash-title">⛏️ MGX Mining Dashboard</h2>
 
