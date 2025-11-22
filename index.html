@@ -1,71 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>🌌 MGX Galaxy Mining — Ultra Premium</title>
+<img class="logo" src="mgxfarm/mgx-ultra-bg.png" alt="MGX Logo">
 
-<link rel="stylesheet" href="style.css" />
-<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-</head>
+<h1>💎 MGX FARM ULTRA++</h1>
+<p class="subtitle">MetaGold X — ระบบเหมืองทองคำดิจิทัลแห่งอนาคต</p>
 
-<body>
-
-<!-- Background -->
-<div class="bg"></div>
-<div class="overlay"></div>
-
-<!-- Top Buttons -->
-<div class="top-buttons">
-    <button class="menu-btn" onclick="goBack()">☰ Menu</button>
-    <button class="connect-btn" onclick="connect()">🥜 Connect</button>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+<div class="popup-menu" id="popupMenu">
+  <a href="#">💎 Farm</a>
+  <a href="#">🏦 Treasury</a>
+  <a href="https://gdsxfinance.github.io/game.html" target="_blank">🎮 MGX Game Center</a>
+  <a href="https://gdsxfinance.github.io/whitepaper.html" target="_blank">📘 Whitepaper</a>
+  <a href="community.html" class="menu-item">💬 Community</a>
 </div>
 
-<!-- Landing Page -->
-<section class="landing" id="landing">
-    <h1 class="title">MGX GALAXY MINING</h1>
-    <p class="subtitle">The Future of Space Mining Begins Here</p>
-
-    <button class="enter-btn" onclick="openFarm()">🚀 Enter Mining Station</button>
-
-    <!-- Chart Title -->
-    <h2 class="chart-title">📈 MGX Live Chart</h2>
-
-    <!-- Chart -->
-    <div class="chart-box">
-        <iframe 
-            src="https://www.geckoterminal.com/bsc/pools/0x00581eb976846f57fe8ad8909413c71deaa3fa6e?embed=1&info=0&swaps=0"
-            width="100%" height="100%" frameborder="0">
-        </iframe>
+<button class="connect-btn" onclick="connect()"></button>
+<button class="lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
+<div class="panel" id="panelBox">
+  <div class="data-box">
+    <div class="box" id="walletBox">Wallet<span id="wallet">—</span></div>
+    <div class="box" id="totalBox">Total MGX<span id="totalGdsx">0.0000</span></div>
+    <div class="box" id="stakeBox">Your Mining Stake<span id="stake">0.0000</span></div>
+    <div class="box" id="rewardBox">Pending Rewards<span id="reward">0.0000</span>
+      <small id="rewardUsd">≈ — USD</small>
     </div>
-</section>
+  </div>
 
-<!-- Dashboard -->
-<section class="dashboard hidden" id="dashboard">
+  <input type="number" id="amount" placeholder="Enter amount MGX">
 
-    <button class="back-btn" onclick="goHome()">← Back</button>
-    <button class="connect-small" onclick="connect()">🥜</button>
+  <div>
+    <button id="btnDeposit" class="mgx-btn" onclick="deposit()">⛏️ Start Mining MGX</button>
+    <button id="btnWithdraw" class="mgx-btn" onclick="withdraw()">🛑 Stop Mining</button>
+    <button class="claim mgx-claim" id="btnClaim" onclick="claim()">✨ Claim MGX</button>
 
-    <h2 class="dash-title">⛏️ MGX Mining Dashboard</h2>
+    <button class="buy mgx-buy" id="btnBuy" onclick="window.location.href='https://gdsxfinance.github.io/buy-pro.html'">💰 BUY MGX</button>
 
-    <div class="wallet-box" id="walletBox">Wallet: -</div>
+    <a href="https://gdsxfinance.github.io/game.html" target="_blank" class="game-center-btn">
+      🎮 MGX Game Center
+    </a>
 
-    <div class="info-grid">
-        <div class="info-card" id="balanceBox">Balance: - MGX</div>
-        <div class="info-card" id="stakedBox">Staked: - MGX</div>
-        <div class="info-card" id="rewardBox">Reward: - MGX</div>
-        <div class="info-card">APR: ~26–58% (auto)</div>
-    </div>
+    <button id="btnRefresh" class="mgx-refresh" onclick="refresh()">🔄 Refresh</button>
+  </div>
 
-    <div class="action-box">
-        <input id="amountInput" class="amount" placeholder="Enter MGX amount" />
-        <button class="btn" onclick="deposit()">⛏️ Start Mining</button>
-        <button class="btn" onclick="claim()">✨ Claim Reward</button>
-        <button class="btn stop" onclick="withdraw()">🛑 Stop Mining</button>
-    </div>
-
-</section>
-
-<script src="script.js"></script>
-</body>
-</html>
+  <div class="powered">Powered by MetaGoldX © 2025</div>
+</div>
