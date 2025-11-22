@@ -1,59 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>💎 MGX FARM ULTRA++</title>
-
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>🌌 MGX Galaxy Mining — Ultra Premium</title>
+<link rel="stylesheet" href="style.css" />
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
 </head>
 
 <body>
 
-<!-- LOGO -->
-<img class="logo" src="mgx-logo.png" alt="MGX Logo">
+<!-- Background -->
+<div class="bg"></div>
+<div class="shade"></div>
 
-<!-- FIXED BUTTONS -->
-<div class="top-left-menu" onclick="toggleMenu()">☰</div>
-<button class="top-right-connect" onclick="connect()">🔗</button>
-
-<h1>💎 MGX FARM ULTRA++</h1>
-<p class="subtitle">MetaGold X — ระบบเหมืองทองคำดิจิทัลแห่งอนาคต</p>
-
-<!-- POPUP MENU -->
-<div class="popup-menu" id="popupMenu">
-  <a href="#">💎 Farm</a>
-  <a href="#">🏦 Treasury</a>
-  <a href="https://gdsxfinance.github.io/game.html" target="_blank">🎮 MGX Game Center</a>
-  <a href="https://gdsxfinance.github.io/whitepaper.html" target="_blank">📘 Whitepaper</a>
-  <a href="community.html" class="menu-item">💬 Community</a>
+<!-- Top Buttons -->
+<div class="top-buttons">
+<!-- Dropdown Menu --> 
+    <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+<div id="dropdownMenu" class="dropdown hidden">
+    <a onclick="location.href='/'">🏠 Home</a>
+    <a onclick="openFarm()">⛏️ Dashboard</a>
+    <a href="#chart">📈 Live Chart</a>
+    <a onclick="connect()">🧩 Connect Wallet</a>
 </div>
-
-<!-- MAIN PANEL -->
-<div class="panel">
-
-  <div class="data-box">
-    <div class="box">Wallet<span id="wallet">—</span></div>
-    <div class="box">Total MGX<span id="totalMgx">0.0000</span></div>
-    <div class="box">Your Stake<span id="stake">0.0000</span></div>
-    <div class="box">Pending Rewards<span id="reward">0.0000</span></div>
-  </div>
-
-  <input type="number" id="amount" placeholder="Enter amount MGX">
-
-  <div>
-    <button class="mgx-btn" onclick="deposit()">⛏️ Start Mining MGX</button>
-    <button class="mgx-btn" onclick="withdraw()">🛑 Stop Mining</button>
-    <button class="mgx-claim" onclick="claim()">✨ Claim MGX</button>
-    <button class="mgx-refresh" onclick="refresh()">🔄 Refresh</button>
-  </div>
-
-  <div class="powered">Powered by MetaGoldX © 2025</div>
+    
 </div>
+<!-- Landing Page -->
+<section class="landing" id="landing">
+    <h1 class="title">MGX GALAXY MINING</h1>
+    <p class="subtitle">The Future of Space Mining Begins Here</p>
+    <button class="enter-btn" onclick="openFarm()">🚀 Enter Mining Station</button>
 
-<footer><p>💎 The Future of MetaGold — MGX</p></footer>
-<div id="toast" class="toast"></div>
+<!-- INSERT CHART HERE -->
+<section class="chart-section">
+    <!-- MGX Live Chart -->
+<!-- Chart Title -->
+<h2 class="chart-title">📉 MGX Live Chart</h2>
+<!-- GeckoTerminal Chart -->
+<div style="width:100%; height:420px; border-radius:12px; overflow:hidden; margin-top:10px;">
+<iframe
+  src="https://www.geckoterminal.com/bsc/pools/0x00581eb976846f57fe8ad8909413c71deaa3fa6e?embed=1&info=0&swaps=0"
+  width="100%"
+  height="420"
+  frameborder="0"
+  sandbox="allow-same-origin allow-scripts"
+></iframe>
+</div>
+</section>
+</section>
+
+<!-- Dashboard -->
+<section class="dashboard hidden" id="dashboard">
+<!-- Top Buttons (Dashboard Only) -->
+    <div class="top-buttons-dashboard">
+        <button class="back-btn" onclick="goBack()">⬅️ Back</button>
+        <button class="connect-btn" onclick="connect()">🪙 Connect</button>
+    </div>
+    <h2 class="dash-title">⛏️ MGX Mining Dashboard</h2>
+
+    <div class="wallet-box" id="walletBox">Wallet: -</div>
+
+    <div class="info-grid">
+        <div class="info-card" id="balanceBox">Balance: - MGX</div>
+        <div class="info-card" id="stakedBox">Staked: - MGX</div>
+        <div class="info-card" id="rewardBox">Reward: - MGX</div>
+        <div class="info-card">APR: ~26–58% (auto)</div>
+    </div>
+
+    <div class="action-box">
+        <input id="amountInput" class="amount" placeholder="Enter MGX amount" />
+        <button class="btn" onclick="deposit()">⛏️ Start Mining</button>
+        <button class="btn" onclick="claim()">✨ Claim Reward</button>
+        <button class="btn stop" onclick="withdraw()">🛑 Stop Mining</button>
+    </div>
+
+    <!-- Refresh Button -->
+
+</section>
 
 <script src="script.js"></script>
 </body>
