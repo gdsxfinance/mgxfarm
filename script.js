@@ -18,7 +18,7 @@ const FARM_ABI = [
 ];
 
 // --------------------
-// ENTER MINING DASHBOARD
+// ENTER MINING
 // --------------------
 function openFarm() {
     document.querySelector(".landing").classList.add("hidden");
@@ -42,7 +42,7 @@ async function connect() {
 }
 
 // --------------------
-// UPDATE DASHBOARD DATA
+// UPDATE DATA
 // --------------------
 async function updateData() {
     try {
@@ -62,7 +62,7 @@ async function updateData() {
             "Reward: " + ethers.utils.formatEther(rew) + " MGX";
 
     } catch (err) {
-        console.error("Update error:", err);
+        console.error("Update:", err);
     }
 }
 
@@ -71,7 +71,7 @@ async function updateData() {
 // --------------------
 async function deposit() {
     const amount = document.getElementById("amountInput").value;
-    if (!amount || Number(amount) <= 0) return alert("Enter amount first!");
+    if (!amount || Number(amount) <= 0) return alert("Enter amount!");
 
     const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, signer);
     const farm = new ethers.Contract(FARM, FARM_ABI, signer);
@@ -107,21 +107,20 @@ async function withdraw() {
     updateData();
 }
 
-// ===============================
-// FIX BUTTONS (Menu / Back / Connect)
-// ===============================
+// --------------------
+// BUTTON FIXES
+// --------------------
 document.addEventListener("DOMContentLoaded", () => {
 
-    const menuBtn = document.querySelector(".menu-btn");
-    const dropdown = document.getElementById("dropdownMenu");
-    menuBtn.onclick = () => dropdown.classList.toggle("hidden");
+    document.querySelector(".menu-btn").onclick = () => {
+        document.getElementById("dropdownMenu").classList.toggle("hidden");
+    };
 
-    const backBtn = document.querySelector(".back-btn");
-    backBtn.onclick = () => {
+    document.querySelector(".back-btn").onclick = () => {
         document.getElementById("dashboard").classList.add("hidden");
         document.querySelector(".landing").classList.remove("hidden");
     };
 
-    const connectBtn = document.querySelector(".connect-btn");
-    connectBtn.onclick = () => connect();
+    document.querySelector(".connect-btn").onclick = () => connect();
+
 });
