@@ -1,3 +1,4 @@
+/* ======== MGX SMART CONTRACT SYSTEM ============ */
 const MGX_TOKEN = "0xc2B5cf3312C532B628A2e510f4653B844c1597A9";
 const FARM = "0xa63Dbdd62E482633F8Ee7F240ed311Eb974120D3";
 
@@ -17,104 +18,81 @@ const FARM_ABI = [
     "function userInfo(address) view returns(uint256 amount, uint256 rewardDebt)"
 ];
 
-// --------------------
-// ENTER MINING
-// --------------------
+/* ===== ENTER DASHBOARD ===== */
 function openFarm() {
     document.querySelector(".landing").classList.add("hidden");
     document.querySelector("#dashboard").classList.remove("hidden");
     connect();
 }
 
-// --------------------
-// CONNECT WALLET
-// --------------------
+/* ===== CONNECT ===== */
 async function connect() {
     provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
     signer = provider.getSigner();
     wallet = await signer.getAddress();
 
-    const short = wallet.substring(0,6) + "..." + wallet.substring(wallet.length-4);
+    const short = wallet.slice(0,6) + "..." + wallet.slice(-4);
     document.getElementById("walletBox").innerText = "Wallet: " + short;
 
     updateData();
 }
 
-// --------------------
-// UPDATE DATA
-// --------------------
+/* ===== UPDATE DATA ===== */
 async function updateData() {
     try {
         const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, provider);
         const farm = new ethers.Contract(FARM, FARM_ABI, provider);
 
-        const bal = await mgx.balanceOf(wallet);
         document.getElementById("balanceBox").innerText =
-            "Balance: " + ethers.utils.formatEther(bal) + " MGX";
+            "Balance: " + ethers.utils.formatEther(await mgx.balanceOf(wallet)) + " MGX";
 
-        const user = await farm.userInfo(wallet);
+        const u = await farm.userInfo(wallet);
         document.getElementById("stakedBox").innerText =
-            "Staked: " + ethers.utils.formatEther(user.amount) + " MGX";
+            "Staked: " + ethers.utils.formatEther(u.amount) + " MGX";
 
-        const rew = await farm.pendingReward(wallet);
         document.getElementById("rewardBox").innerText =
-            "Reward: " + ethers.utils.formatEther(rew) + " MGX";
+            "Reward: " + ethers.utils.formatEther(await farm.pendingReward(wallet)) + " MGX";
 
-    } catch (err) {
-        console.error("Update:", err);
-    }
+    } catch (e) { console.log(e); }
 }
 
-// --------------------
-// DEPOSIT
-// --------------------
+/* ===== DEPOSIT ===== */
 async function deposit() {
     const amount = document.getElementById("amountInput").value;
-    if (!amount || Number(amount) <= 0) return alert("Enter amount!");
+    if (!amount) return alert("Enter amount!");
 
     const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, signer);
     const farm = new ethers.Contract(FARM, FARM_ABI, signer);
 
     const value = ethers.utils.parseEther(amount);
-    const allow = await mgx.allowance(wallet, FARM);
+    if ((await mgx.allowance(wallet, FARM)).lt(value))
+        await mgx.approve(FARM, value);
 
-    if (allow.lt(value)) await mgx.approve(FARM, value);
     await farm.deposit(value);
-
     updateData();
 }
 
-// --------------------
-// CLAIM
-// --------------------
+/* ===== CLAIM ===== */
 async function claim() {
-    const farm = new ethers.Contract(FARM, FARM_ABI, signer);
-    await farm.claim();
+    await new ethers.Contract(FARM, FARM_ABI, signer).claim();
     updateData();
 }
 
-// --------------------
-// WITHDRAW ALL
-// --------------------
+/* ===== WITHDRAW ===== */
 async function withdraw() {
     const farm = new ethers.Contract(FARM, FARM_ABI, signer);
-    const user = await farm.userInfo(wallet);
-
-    if (user.amount.eq(0)) return alert("❗ No MGX staked.");
-
-    await farm.withdraw(user.amount);
+    const u = await farm.userInfo(wallet);
+    if (u.amount.eq(0)) return alert("No MGX staked");
+    await farm.withdraw(u.amount);
     updateData();
 }
 
-// --------------------
-// BUTTON FIXES
-// --------------------
+/* ===== UI BUTTONS ===== */
 document.addEventListener("DOMContentLoaded", () => {
 
-    document.querySelector(".menu-btn").onclick = () => {
-        document.getElementById("dropdownMenu").classList.toggle("hidden");
-    };
+    document.querySelector(".menu-btn").onclick =
+        () => document.getElementById("dropdownMenu").classList.toggle("hidden");
 
     document.querySelector(".back-btn").onclick = () => {
         document.getElementById("dashboard").classList.add("hidden");
@@ -124,3 +102,39 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".connect-btn").onclick = () => connect();
 
 });
+
+/* ===== STARFIELD ANIMATION ===== */
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+const stars = [];
+for (let i = 0; i < 200; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        z: Math.random() * 2 + 0.2
+    });
+}
+
+function animateStars() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    stars.forEach(s => {
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.z, 0, Math.PI*2);
+        ctx.fill();
+
+        s.y += s.z;
+        if (s.y > canvas.height) {
+            s.y = 0;
+            s.x = Math.random() * canvas.width;
+        }
+    });
+
+    requestAnimationFrame(animateStars);
+}
+animateStars();
