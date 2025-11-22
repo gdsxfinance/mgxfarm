@@ -1,8 +1,23 @@
-<img class="logo" src="mgxfarm/mgx-ultra-bg.png" alt="MGX Logo">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💎 MGX FARM ULTRA++</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+</head>
+
+<body>
+
+<!-- LOGO -->
+<img class="logo" src="logo.png" alt="MGX Logo">
 
 <h1>💎 MGX FARM ULTRA++</h1>
 <p class="subtitle">MetaGold X — ระบบเหมืองทองคำดิจิทัลแห่งอนาคต</p>
 
+<!-- MENU -->
 <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 <div class="popup-menu" id="popupMenu">
   <a href="#">💎 Farm</a>
@@ -12,33 +27,42 @@
   <a href="community.html" class="menu-item">💬 Community</a>
 </div>
 
+<!-- CONNECT -->
 <button class="connect-btn" onclick="connect()"></button>
 <button class="lang-btn" id="lang-btn" onclick="toggleLang()">EN</button>
+
+<!-- MAIN PANEL -->
 <div class="panel" id="panelBox">
+
   <div class="data-box">
-    <div class="box" id="walletBox">Wallet<span id="wallet">—</span></div>
-    <div class="box" id="totalBox">Total MGX<span id="totalGdsx">0.0000</span></div>
-    <div class="box" id="stakeBox">Your Mining Stake<span id="stake">0.0000</span></div>
-    <div class="box" id="rewardBox">Pending Rewards<span id="reward">0.0000</span>
-      <small id="rewardUsd">≈ — USD</small>
-    </div>
+    <div class="box">Wallet<span id="wallet">—</span></div>
+    <div class="box">Total MGX<span id="totalGdsx">0.0000</span></div>
+    <div class="box">Your Stake<span id="stake">0.0000</span></div>
+    <div class="box">Pending Rewards<span id="reward">0.0000</span><small id="rewardUsd">≈ — USD</small></div>
   </div>
 
   <input type="number" id="amount" placeholder="Enter amount MGX">
 
   <div>
-    <button id="btnDeposit" class="mgx-btn" onclick="deposit()">⛏️ Start Mining MGX</button>
-    <button id="btnWithdraw" class="mgx-btn" onclick="withdraw()">🛑 Stop Mining</button>
-    <button class="claim mgx-claim" id="btnClaim" onclick="claim()">✨ Claim MGX</button>
+    <button class="mgx-btn" onclick="deposit()">⛏️ Start Mining MGX</button>
+    <button class="mgx-btn" onclick="withdraw()">🛑 Stop Mining</button>
+    <button class="mgx-claim" onclick="claim()">✨ Claim MGX</button>
 
-    <button class="buy mgx-buy" id="btnBuy" onclick="window.location.href='https://gdsxfinance.github.io/buy-pro.html'">💰 BUY MGX</button>
+    <button class="mgx-buy" onclick="window.location.href='https://gdsxfinance.github.io/buy-pro.html'">💰 BUY MGX</button>
 
     <a href="https://gdsxfinance.github.io/game.html" target="_blank" class="game-center-btn">
       🎮 MGX Game Center
     </a>
 
-    <button id="btnRefresh" class="mgx-refresh" onclick="refresh()">🔄 Refresh</button>
+    <button class="mgx-refresh" onclick="refresh()">🔄 Refresh</button>
   </div>
 
   <div class="powered">Powered by MetaGoldX © 2025</div>
 </div>
+
+<footer><p>💎 The Future of MetaGold — MGX</p></footer>
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
