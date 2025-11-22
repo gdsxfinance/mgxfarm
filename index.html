@@ -16,47 +16,43 @@
 
 <!-- Top Buttons -->
 <div class="top-buttons">
-<!-- Dropdown Menu --> 
-    <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
-<div id="dropdownMenu" class="dropdown hidden">
-    <a onclick="location.href='/'">🏠 Home</a>
-    <a onclick="openFarm()">⛏️ Dashboard</a>
-    <a href="#chart">📈 Live Chart</a>
-    <a onclick="connect()">🧩 Connect Wallet</a>
+    <button class="menu-btn">☰ Menu</button>
+    <div id="dropdownMenu" class="dropdown hidden">
+        <a onclick="location.href='/'">🏠 Home</a>
+        <a onclick="openFarm()">⛏️ Dashboard</a>
+        <a href="#chart">📈 Live Chart</a>
+        <a onclick="connect()">🧩 Connect Wallet</a>
+    </div>
 </div>
-    
-</div>
+
 <!-- Landing Page -->
 <section class="landing" id="landing">
     <h1 class="title">MGX GALAXY MINING</h1>
     <p class="subtitle">The Future of Space Mining Begins Here</p>
     <button class="enter-btn" onclick="openFarm()">🚀 Enter Mining Station</button>
 
-<!-- INSERT CHART HERE -->
 <section class="chart-section">
-    <!-- MGX Live Chart -->
-<!-- Chart Title -->
-<h2 class="chart-title">📉 MGX Live Chart</h2>
-<!-- GeckoTerminal Chart -->
-<div style="width:100%; height:420px; border-radius:12px; overflow:hidden; margin-top:10px;">
-<iframe
-  src="https://www.geckoterminal.com/bsc/pools/0x00581eb976846f57fe8ad8909413c71deaa3fa6e?embed=1&info=0&swaps=0"
-  width="100%"
-  height="420"
-  frameborder="0"
-  sandbox="allow-same-origin allow-scripts"
-></iframe>
-</div>
+    <h2 class="chart-title">📉 MGX Live Chart</h2>
+
+    <div style="width:100%; height:420px; border-radius:12px; overflow:hidden; margin-top:10px;">
+        <iframe
+        src="https://www.geckoterminal.com/bsc/pools/0x00581eb976846f57fe8ad8909413c71deaa3fa6e?embed=1&info=0&swaps=0"
+        width="100%"
+        height="420"
+        frameborder="0"
+        sandbox="allow-same-origin allow-scripts"></iframe>
+    </div>
 </section>
 </section>
 
 <!-- Dashboard -->
 <section class="dashboard hidden" id="dashboard">
-<!-- Top Buttons (Dashboard Only) -->
-    <div class="top-buttons-dashboard">
-        <button class="back-btn" onclick="goBack()">⬅️ Back</button>
-        <button class="connect-btn" onclick="connect()">🪙 Connect</button>
+
+    <div class="dash-top-buttons">
+        <button class="back-btn">⬅️ Back</button>
+        <button class="connect-btn">🪙 Connect</button>
     </div>
+
     <h2 class="dash-title">⛏️ MGX Mining Dashboard</h2>
 
     <div class="wallet-box" id="walletBox">Wallet: -</div>
@@ -74,8 +70,6 @@
         <button class="btn" onclick="claim()">✨ Claim Reward</button>
         <button class="btn stop" onclick="withdraw()">🛑 Stop Mining</button>
     </div>
-
-    <!-- Refresh Button -->
 
 </section>
 
