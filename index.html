@@ -14,7 +14,7 @@
 <!-- LOGO -->
 <img class="logo" src="mgx-logo.png" alt="MGX Logo">
 
-<!-- FIXED TOP BUTTONS -->
+<!-- FIXED BUTTONS -->
 <div class="top-left-menu" onclick="toggleMenu()">☰</div>
 <button class="top-right-connect" onclick="connect()">🔗</button>
 
@@ -31,13 +31,13 @@
 </div>
 
 <!-- MAIN PANEL -->
-<div class="panel" id="panelBox">
+<div class="panel">
 
   <div class="data-box">
     <div class="box">Wallet<span id="wallet">—</span></div>
     <div class="box">Total MGX<span id="totalGdsx">0.0000</span></div>
     <div class="box">Your Stake<span id="stake">0.0000</span></div>
-    <div class="box">Pending Rewards<span id="reward">0.0000</span><small id="rewardUsd">≈ — USD</small></div>
+    <div class="box">Pending Rewards<span id="reward">0.0000</span></div>
   </div>
 
   <input type="number" id="amount" placeholder="Enter amount MGX">
@@ -46,13 +46,6 @@
     <button class="mgx-btn" onclick="deposit()">⛏️ Start Mining MGX</button>
     <button class="mgx-btn" onclick="withdraw()">🛑 Stop Mining</button>
     <button class="mgx-claim" onclick="claim()">✨ Claim MGX</button>
-
-    <button class="mgx-buy" onclick="window.location.href='https://gdsxfinance.github.io/buy-pro.html'">💰 BUY MGX</button>
-
-    <a href="https://gdsxfinance.github.io/game.html" target="_blank" class="game-center-btn">
-      🎮 MGX Game Center
-    </a>
-
     <button class="mgx-refresh" onclick="refresh()">🔄 Refresh</button>
   </div>
 
