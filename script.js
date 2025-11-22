@@ -40,21 +40,18 @@ async function connect() {
 
 /* ===== UPDATE DATA ===== */
 async function updateData() {
-    try {
-        const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, provider);
-        const farm = new ethers.Contract(FARM, FARM_ABI, provider);
+    const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, provider);
+    const farm = new ethers.Contract(FARM, FARM_ABI, provider);
 
-        document.getElementById("balanceBox").innerText =
-            "Balance: " + ethers.utils.formatEther(await mgx.balanceOf(wallet)) + " MGX";
+    document.getElementById("balanceBox").innerText =
+        "Balance: " + ethers.utils.formatEther(await mgx.balanceOf(wallet)) + " MGX";
 
-        const u = await farm.userInfo(wallet);
-        document.getElementById("stakedBox").innerText =
-            "Staked: " + ethers.utils.formatEther(u.amount) + " MGX";
+    const u = await farm.userInfo(wallet);
+    document.getElementById("stakedBox").innerText =
+        "Staked: " + ethers.utils.formatEther(u.amount) + " MGX";
 
-        document.getElementById("rewardBox").innerText =
-            "Reward: " + ethers.utils.formatEther(await farm.pendingReward(wallet)) + " MGX";
-
-    } catch (e) { console.log(e); }
+    document.getElementById("rewardBox").innerText =
+        "Reward: " + ethers.utils.formatEther(await farm.pendingReward(wallet)) + " MGX";
 }
 
 /* ===== DEPOSIT ===== */
@@ -88,53 +85,47 @@ async function withdraw() {
     updateData();
 }
 
-/* ===== UI BUTTONS ===== */
-document.addEventListener("DOMContentLoaded", () => {
+/* ===== UI MENU ===== */
+document.querySelector(".menu-btn").onclick = () => {
+    document.getElementById("dropdownMenu").classList.toggle("hidden");
+};
 
-    document.querySelector(".menu-btn").onclick =
-        () => document.getElementById("dropdownMenu").classList.toggle("hidden");
+/* ===== BACK BUTTON ===== */
+document.querySelector(".back-btn").onclick = () => {
+    document.getElementById("dashboard").classList.add("hidden");
+    document.querySelector(".landing").classList.remove("hidden");
+};
 
-    document.querySelector(".back-btn").onclick = () => {
-        document.getElementById("dashboard").classList.add("hidden");
-        document.querySelector(".landing").classList.remove("hidden");
-    };
-
-    document.querySelector(".connect-btn").onclick = () => connect();
-
-});
-
-/* ===== STARFIELD ANIMATION ===== */
+/* ===== STARFIELD BACKGROUND ===== */
 const canvas = document.getElementById("stars");
 const ctx = canvas.getContext("2d");
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
-const stars = [];
-for (let i = 0; i < 200; i++) {
-    stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        z: Math.random() * 2 + 0.2
-    });
-}
+const stars = Array.from({length: 200}, () => ({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    z: Math.random()*2 + 0.2
+}));
 
 function animateStars() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    stars.forEach(s => {
-        ctx.fillStyle = "white";
+    stars.forEach(s=>{
+        ctx.fillStyle="white";
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.z, 0, Math.PI*2);
         ctx.fill();
 
         s.y += s.z;
-        if (s.y > canvas.height) {
-            s.y = 0;
-            s.x = Math.random() * canvas.width;
+        if(s.y>canvas.height){
+            s.y=0;
+            s.x=Math.random()*canvas.width;
         }
     });
 
     requestAnimationFrame(animateStars);
 }
+
 animateStars();
