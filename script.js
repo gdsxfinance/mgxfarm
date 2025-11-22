@@ -29,6 +29,8 @@ async function connect(){
 }
 
 async function refresh(){
+  if(!signer) return;
+
   const token = new ethers.Contract(TOKEN, abiToken, signer);
   const stake = new ethers.Contract(STAKING, abiStaking, signer);
 
@@ -38,9 +40,17 @@ async function refresh(){
     token.balanceOf(account)
   ]);
 
-  $("stake").textContent = ethers.utils.formatUnits(userData.amount,18);
-  $("reward").textContent = ethers.utils.formatUnits(pending,18);
-  $("totalGdsx").textContent = ethers.utils.formatUnits(walletBal,18);
+  $("stake").textContent = parseFloat(
+    ethers.utils.formatUnits(userData.amount, 18)
+  ).toFixed(4);
+
+  $("reward").textContent = parseFloat(
+    ethers.utils.formatUnits(pending, 18)
+  ).toFixed(4);
+
+  $("totalGdsx").textContent = parseFloat(
+    ethers.utils.formatUnits(walletBal, 18)
+  ).toFixed(4);
 }
 
 async function deposit(){
