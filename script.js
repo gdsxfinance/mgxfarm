@@ -17,7 +17,6 @@ const FARM_ABI = [
     "function userInfo(address) view returns(uint256 amount, uint256 rewardDebt)"
 ];
 
-
 // --------------------
 // ENTER MINING DASHBOARD
 // --------------------
@@ -26,7 +25,6 @@ function openFarm() {
     document.querySelector("#dashboard").classList.remove("hidden");
     connect();
 }
-
 
 // --------------------
 // CONNECT WALLET
@@ -37,13 +35,11 @@ async function connect() {
     signer = provider.getSigner();
     wallet = await signer.getAddress();
 
-    // Short wallet
-    const short = wallet.substring(0, 6) + "..." + wallet.substring(wallet.length - 4);
+    const short = wallet.substring(0,6) + "..." + wallet.substring(wallet.length-4);
     document.getElementById("walletBox").innerText = "Wallet: " + short;
 
     updateData();
 }
-
 
 // --------------------
 // UPDATE DASHBOARD DATA
@@ -53,17 +49,14 @@ async function updateData() {
         const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, provider);
         const farm = new ethers.Contract(FARM, FARM_ABI, provider);
 
-        // Balance
         const bal = await mgx.balanceOf(wallet);
         document.getElementById("balanceBox").innerText =
             "Balance: " + ethers.utils.formatEther(bal) + " MGX";
 
-        // Staked
         const user = await farm.userInfo(wallet);
         document.getElementById("stakedBox").innerText =
             "Staked: " + ethers.utils.formatEther(user.amount) + " MGX";
 
-        // Reward ( FIXED )
         const rew = await farm.pendingReward(wallet);
         document.getElementById("rewardBox").innerText =
             "Reward: " + ethers.utils.formatEther(rew) + " MGX";
@@ -73,16 +66,12 @@ async function updateData() {
     }
 }
 
-
 // --------------------
-// DEPOSIT (START MINING)
+// DEPOSIT
 // --------------------
 async function deposit() {
     const amount = document.getElementById("amountInput").value;
-    if (!amount || Number(amount) <= 0) {
-        alert("Enter amount first!");
-        return;
-    }
+    if (!amount || Number(amount) <= 0) return alert("Enter amount first!");
 
     const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, signer);
     const farm = new ethers.Contract(FARM, FARM_ABI, signer);
@@ -90,17 +79,14 @@ async function deposit() {
     const value = ethers.utils.parseEther(amount);
     const allow = await mgx.allowance(wallet, FARM);
 
-    if (allow.lt(value)) {
-        await mgx.approve(FARM, value);
-    }
-
+    if (allow.lt(value)) await mgx.approve(FARM, value);
     await farm.deposit(value);
+
     updateData();
 }
 
-
 // --------------------
-// CLAIM REWARD
+// CLAIM
 // --------------------
 async function claim() {
     const farm = new ethers.Contract(FARM, FARM_ABI, signer);
@@ -108,21 +94,34 @@ async function claim() {
     updateData();
 }
 
-
 // --------------------
-// WITHDRAW ALL (STOP MINING)
+// WITHDRAW ALL
 // --------------------
 async function withdraw() {
     const farm = new ethers.Contract(FARM, FARM_ABI, signer);
-
     const user = await farm.userInfo(wallet);
-    const amount = user.amount;
 
-    if (amount.eq(0)) {
-        alert("❗ You have no MGX staked.");
-        return;
-    }
+    if (user.amount.eq(0)) return alert("❗ No MGX staked.");
 
-    await farm.withdraw(amount);
+    await farm.withdraw(user.amount);
     updateData();
 }
+
+// ===============================
+// FIX BUTTONS (Menu / Back / Connect)
+// ===============================
+document.addEventListener("DOMContentLoaded", () => {
+
+    const menuBtn = document.querySelector(".menu-btn");
+    const dropdown = document.getElementById("dropdownMenu");
+    menuBtn.onclick = () => dropdown.classList.toggle("hidden");
+
+    const backBtn = document.querySelector(".back-btn");
+    backBtn.onclick = () => {
+        document.getElementById("dashboard").classList.add("hidden");
+        document.querySelector(".landing").classList.remove("hidden");
+    };
+
+    const connectBtn = document.querySelector(".connect-btn");
+    connectBtn.onclick = () => connect();
+});
