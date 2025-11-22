@@ -159,3 +159,50 @@ footer p {
     filter: drop-shadow(0 0 30px #ffe48a);
   }
 }
+/* ปุ่มแฮมเบอร์เกอร์ซ้ายบน */
+.top-left-menu {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: rgba(255, 215, 0, 0.15);
+  color: gold;
+  font-size: 28px;
+  padding: 6px 14px;
+  border-radius: 12px;
+  border: 1px solid gold;
+  cursor: pointer;
+  z-index: 5000;
+  box-shadow: 0 0 15px rgba(255, 215, 0, .7);
+  backdrop-filter: blur(6px);
+  transition: .25s;
+}
+
+.top-left-menu:hover {
+  background: rgba(255, 215, 0, .35);
+  box-shadow: 0 0 25px gold;
+}
+
+/* ปุ่ม Connect ขวาบน */
+.top-right-connect {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffe27a 10%, #b8860b 80%);
+  border: 2px solid gold;
+  box-shadow: 0 0 20px rgba(255,215,0,.9);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  z-index: 5000;
+  transition: .25s;
+}
+
+.top-right-connect:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px gold;
+}
