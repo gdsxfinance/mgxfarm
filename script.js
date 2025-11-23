@@ -25,7 +25,7 @@ function openFarm() {
     connect();
 }
 
-/* ===== CONNECT ===== */
+/* ===== CONNECT WALLET ===== */
 async function connect() {
     provider = new ethers.providers.Web3Provider(window.ethereum);
     await provider.send("eth_requestAccounts", []);
@@ -44,29 +44,30 @@ async function updateData() {
     const farm = new ethers.Contract(FARM, FARM_ABI, provider);
 
     document.getElementById("balanceBox").innerText =
-        "Balance: " + ethers.utils.formatEther(await mgx.balanceOf(wallet)) + " MGX";
+        "Balance: " + ethers.utils.formatEther(await mgx.balanceOf(wallet));
 
     const u = await farm.userInfo(wallet);
     document.getElementById("stakedBox").innerText =
-        "Staked: " + ethers.utils.formatEther(u.amount) + " MGX";
+        "Staked: " + ethers.utils.formatEther(u.amount);
 
     document.getElementById("rewardBox").innerText =
-        "Reward: " + ethers.utils.formatEther(await farm.pendingReward(wallet)) + " MGX";
+        "Reward: " + ethers.utils.formatEther(await farm.pendingReward(wallet));
 }
 
 /* ===== DEPOSIT ===== */
 async function deposit() {
-    const amount = document.getElementById("amountInput").value;
-    if (!amount) return alert("Enter amount!");
+    const value = document.getElementById("amountInput").value;
+    if (!value) return alert("Enter amount!");
 
     const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, signer);
     const farm = new ethers.Contract(FARM, FARM_ABI, signer);
 
-    const value = ethers.utils.parseEther(amount);
-    if ((await mgx.allowance(wallet, FARM)).lt(value))
-        await mgx.approve(FARM, value);
+    const amount = ethers.utils.parseEther(value);
+    const allow = await mgx.allowance(wallet, FARM);
 
-    await farm.deposit(value);
+    if (allow.lt(amount)) await mgx.approve(FARM, amount);
+    await farm.deposit(amount);
+
     updateData();
 }
 
@@ -79,13 +80,13 @@ async function claim() {
 /* ===== WITHDRAW ===== */
 async function withdraw() {
     const farm = new ethers.Contract(FARM, FARM_ABI, signer);
-    const u = await farm.userInfo(wallet);
-    if (u.amount.eq(0)) return alert("No MGX staked");
-    await farm.withdraw(u.amount);
+    const user = await farm.userInfo(wallet);
+    if (user.amount.eq(0)) return alert("No MGX staked");
+    await farm.withdraw(user.amount);
     updateData();
 }
 
-/* ===== UI MENU ===== */
+/* ===== MENU ===== */
 document.querySelector(".menu-btn").onclick = () => {
     document.getElementById("dropdownMenu").classList.toggle("hidden");
 };
