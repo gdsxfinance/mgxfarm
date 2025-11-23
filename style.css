@@ -55,7 +55,7 @@ body {
 /* MENU BUTTON */
 .menu-btn {
   position: fixed;
-  top: 20px;
+  top: 30px;       /* 🔥 แก้ให้ไม่โดนแถบกล่อง URL */
   left: 20px;
   z-index: 9999;
 }
@@ -63,7 +63,7 @@ body {
 /* MENU BOX (Glass UI) */
 .menu-box {
     position: fixed;
-    top: 90px;
+    top: 105px;    /* 🔥 จาก 90 → 105 เพื่อไม่ให้โดนบัง */
     left: 20px;
     width: 240px;
     padding: 14px;
