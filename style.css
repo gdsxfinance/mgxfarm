@@ -26,14 +26,6 @@ body {
     z-index: -2;
 }
 
-/* MENU BUTTON */
-.menu-btn {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 9999;
-}
-
 /* NEON BUTTON */
 .neon-btn {
     background: rgba(255,255,255,0.15);
@@ -60,15 +52,23 @@ body {
     box-shadow: 0 0 25px #ff7777, 0 0 45px #ff0000 inset;
 }
 
+/* MENU BUTTON */
+.menu-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 9999;
+}
+
 /* MENU BOX (Glass UI) */
 .menu-box {
     position: fixed;
     top: 90px;
     left: 20px;
-    width: 220px;
+    width: 240px;
     padding: 14px;
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(14px);
+    background: rgba(255,255,255,0.10);
+    backdrop-filter: blur(16px);
     border-radius: 20px;
     border: 1px solid rgba(255,255,255,0.25);
     box-shadow: 0 0 25px rgba(0,255,255,0.35), 0 0 45px rgba(255,255,255,0.1) inset;
@@ -76,19 +76,19 @@ body {
 }
 
 .menu-item {
-    padding: 12px;
-    background: rgba(255,255,255,0.18);
+    padding: 14px;
+    background: rgba(255,255,255,0.22);
     border-radius: 14px;
     margin-bottom: 12px;
     color: #fff;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 17px;
     box-shadow: 0 0 12px rgba(0,255,255,0.25);
     transition: 0.18s;
 }
 .menu-item:hover {
     background: rgba(255,255,255,0.30);
-    transform: scale(1.05);
+    transform: scale(1.03);
     box-shadow: 0 0 18px rgba(0,255,255,0.45);
 }
 
@@ -111,12 +111,13 @@ body {
 .landing { margin-top: 170px; }
 
 .title {
-    font-size: 34px;
-    font-weight: 800;
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: 1px;
 }
 
 .glow-gold {
-    text-shadow: 0 0 15px #ffdd66, 0 0 30px #ffaa00, 0 0 70px #ff8800;
+    text-shadow: 0 0 20px #ffdd66, 0 0 40px #ffaa00, 0 0 80px #ff8800;
 }
 
 /* GOLD VALUE CARD */
@@ -144,6 +145,7 @@ body {
     font-size: 18px;
 }
 
+/* INPUT */
 .amount {
     padding: 12px;
     width: 75%;
@@ -174,4 +176,4 @@ body {
 }
 
 /* HIDDEN */
-.hidden { display:none; }
+.hidden { display: none; }
