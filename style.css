@@ -177,3 +177,11 @@ body {
 
 /* HIDDEN */
 .hidden { display: none; }
+.logo-mgx {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 25px #ffd700;
+    margin-bottom: 10px;
+}
