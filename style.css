@@ -208,3 +208,20 @@ body {
     object-fit: cover;
     box-shadow: 0 0 25px rgba(255,215,0,0.6);
 }
+/* โลโก้หมุน + แสงทอง */
+.logo-mgx {
+  animation: spin 12s linear infinite, glow 2s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 25px #ffd700);
+}
+
+/* หมุนรอบตัวเอง */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* แสงกระพริบ */
+@keyframes glow {
+  from { filter: drop-shadow(0 0 10px #ffdd55); }
+  to { filter: drop-shadow(0 0 35px #ffd700); }
+}
