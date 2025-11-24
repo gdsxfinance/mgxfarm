@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🚀 MGX FARM V2 — MetaGoldX Mining</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <style>
+    :root {
+      --gold: #ffd700;
+      --neon: #00ffd5;
+      --bg1: #020611;
+      --bg2: #050816;
+      --card: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.12);
+      --shadow-gold: 0 0 25px #ffd700, 0 0 45px #ffb700;
+    }
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", "Noto Sans Thai", sans-serif;
+      background: radial-gradient(circle at top, #000 40%, #050816 100%);
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* STARFIELD */
+    .stars {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.15) 0, transparent 40%),
+        radial-gradient(circle at 80% 10%, rgba(0,255,213,0.18) 0, transparent 40%),
+        radial-gradient(circle at 50% 80%, rgba(255,215,0,0.2) 0, transparent 45%),
+        #000;
+      opacity: 0.6;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.18;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1600 900' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px 16px 60px;
+    }
+
+    header {
+      margin-top: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .logo-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 30px rgba(255,215,0,0.8);
+      animation: spin 10s linear infinite;
+    }
+
+    .title-block {
+      text-align: left;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      color: var(--gold);
+      text-shadow: var(--shadow-gold);
+    }
+
+    .subtitle {
+      margin-top: 2px;
+      font-size: 0.85rem;
+      color: #b5c6ff;
+      opacity: 0.9;
+    }
+
+    .wallet-box {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    #wallet {
+      font-size: 0.8rem;
+      color: #d0d5ff;
+      opacity: 0.9;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: radial-gradient(circle at top, rgba(0,255,213,0.2), rgba(0,0,0,0.7));
+      color: #fff;
+      font-size: 0.85rem;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(0,255,213,0.4);
+      backdrop-filter: blur(8px);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+      min-width: 120px;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 0 22px rgba(0,255,213,0.7);
+      background: radial-gradient(circle at top, rgba(0,255,213,0.35), rgba(0,0,0,0.9));
+    }
+
+    .btn:active {
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 0 10px rgba(0,255,213,0.4);
+    }
+
+    .btn-secondary {
+      background: radial-gradient(circle at top, rgba(255,215,0,0.16), rgba(0,0,0,0.9));
+      box-shadow: 0 0 16px rgba(255,215,0,0.5);
+      border-color: rgba(255,215,0,0.4);
+    }
+
+    .grid {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 720px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .wallet-box {
+        align-items: flex-start;
+      }
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 520px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top, rgba(255,255,255,0.08), rgba(0,0,0,0.85));
+      border-radius: 18px;
+      padding: 14px 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 0 25px rgba(0,0,0,0.9);
+      backdrop-filter: blur(10px);
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(0,255,213,0.15), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(255,215,0,0.15), transparent 55%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .card-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9fb3ff;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-value {
+      font-size: 1.2rem;
+      color: #fff;
+      font-weight: 600;
+      text-shadow: 0 0 12px rgba(255,255,255,0.4);
+      position: relative;
+      z-index: 1;
+      word-break: break-all;
+    }
+
+    .card-sub {
+      font-size: 0.75rem;
+      color: #c8d1ff;
+      opacity: 0.8;
+      margin-top: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel {
+      margin-top: 18px;
+      background: radial-gradient(circle at top, rgba(0,0,0,0.9), rgba(3,10,30,0.98));
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 0 45px rgba(0,0,0,0.9);
+      padding: 16px 14px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0, rgba(0,255,213,0.2), transparent 60%),
+        radial-gradient(circle at 100% 20%, rgba(255,215,0,0.2), transparent 60%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .panel-header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .panel-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gold);
+      text-shadow: var(--shadow-gold);
+    }
+
+    .panel-desc {
+      font-size: 0.8rem;
+      color: #c0ccff;
+      opacity: 0.9;
+      text-align: left;
+      margin-top: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .input-row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .input-row input {
+      flex: 1;
+      min-width: 0;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .input-row input::placeholder {
+      color: #888fb3;
+      font-size: 0.8rem;
+    }
+
+    .btn-group {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      justify-content: center;
+    }
+
+    .btn-small {
+      padding: 7px 12px;
+      font-size: 0.8rem;
+      min-width: 96px;
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: #c6d4ff;
+      opacity: 0.95;
+      position: relative;
+      z-index: 1;
+      min-height: 18px;
+    }
+
+    .status span {
+      color: var(--neon);
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="noise"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="logo-box">
+        <!-- ใส่โลโก้ MGX ของคุณแทน src นี้ได้ -->
+        <img class="logo" src="https://via.placeholder.com/90x90.png?text=MGX" alt="MGX Logo" />
+        <div class="title-block">
+          <h1>MGX FARM V2</h1>
+          <div class="subtitle">MetaGoldX Ultra Secure Mining — Stake MGX, Earn MGX</div>
+        </div>
+      </div>
+      <div class="wallet-box">
+        <div id="wallet">Wallet: -</div>
+        <button class="btn" onclick="connect()">🔗 Connect Wallet</button>
+      </div>
+    </header>
+
+    <!-- STATS -->
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">Wallet Balance</div>
+        <div class="card-value" id="walletBalance">0 MGX</div>
+        <div class="card-sub">จำนวนเหรียญ MGX ในกระเป๋าคุณ</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Staked in Farm</div>
+        <div class="card-value" id="stakedBalance">0 MGX</div>
+        <div class="card-sub">จำนวน MGX ที่กำลังฟาร์มอยู่</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Pending Reward</div>
+        <div class="card-value" id="rewardBalance">0 MGX</div>
+        <div class="card-sub">รีวอร์ดที่สามารถกดเคลมได้ตอนนี้</div>
+      </div>
+    </div>
+
+    <!-- FARM PANEL -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Stake MGX & Earn MGX</div>
+        <button class="btn btn-secondary btn-small" onclick="refresh()">🔄 Refresh</button>
+      </div>
+      <div class="panel-desc">
+        ใส่จำนวนเหรียญ MGX ที่ต้องการ Stake / Withdraw แล้วกดปุ่มด้านล่าง<br/>
+        * แนะนำใช้ทศนิยมไม่เกิน 6 ตำแหน่ง เพื่อความสบายตาและลด error
+      </div>
+
+      <div class="input-row">
+        <input id="amount" type="text" placeholder="ใส่จำนวน MGX เช่น 100 หรือ 250.5" />
+        <button class="btn btn-small" onclick="maxStake()">MAX</button>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-small" onclick="stake()">🚀 Stake</button>
+        <button class="btn btn-small" onclick="unstake()">⬅ Withdraw</button>
+        <button class="btn btn-small btn-secondary" onclick="claim()">💎 Claim</button>
+        <button class="btn btn-small" style="border-color:#ff4d4d;box-shadow:0 0 18px rgba(255,77,77,0.7);" onclick="emergency()">
+          ⚠ Emergency
+        </button>
+      </div>
+
+      <div class="status" id="status"></div>
+    </div>
+  </div>
+
+  <script>
+    // ====== CONFIG ======
+    const MGX_TOKEN = "0xc2B5cf3312C532B628A2e510f4653B844c1597A9";
+    const FARM      = "0x64dD036af4C12a0A0F7d1ef9A578706ec07A05ce";
+
+    const MGX_ABI = [
+      "function balanceOf(address) view returns (uint256)",
+      "function allowance(address,address) view returns (uint256)",
+      "function approve(address,uint256) returns (bool)"
+    ];
+
+    const FARM_ABI = [
+      "function deposit(uint256 amount) external",
+      "function withdraw(uint256 amount) external",
+      "function claim() external",
+      "function emergencyWithdraw() external",
+      "function pendingReward(address user) view returns (uint256)",
+      "function users(address) view returns (uint256 amount, uint256 rewardDebt)"
+    ];
+
+    let provider, signer, account;
+
+    const elWallet        = document.getElementById("wallet");
+    const elWalletBalance = document.getElementById("walletBalance");
+    const elStakedBalance = document.getElementById("stakedBalance");
+    const elRewardBalance = document.getElementById("rewardBalance");
+    const elStatus        = document.getElementById("status");
+
+    function setStatus(msg, isError = false) {
+      if (!msg) { elStatus.textContent = ""; return; }
+      elStatus.innerHTML = (isError ? "❌ " : "✅ ") + "<span>" + msg + "</span>";
+    }
+
+    async function connect() {
+      try {
+        if (!window.ethereum) {
+          alert("ไม่พบกระเป๋า Web3 (MetaMask / Trust Wallet ฯลฯ)");
+          return;
+        }
+        provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send("eth_requestAccounts", []);
+        signer  = provider.getSigner();
+        account = await signer.getAddress();
+
+        elWallet.textContent = "Wallet: " + account.slice(0, 6) + "..." + account.slice(-4);
+        setStatus("เชื่อมต่อกระเป๋าสำเร็จ 🎉");
+        await refresh();
+      } catch (err) {
+        console.error(err);
+        setStatus("เชื่อมต่อกระเป๋าไม่สำเร็จ", true);
+      }
+    }
+
+    async function refresh() {
+      try {
+        if (!signer || !account) return;
+
+        const mgx  = new ethers.Contract(MGX_TOKEN, MGX_ABI, signer);
+        const farm = new ethers.Contract(FARM, FARM_ABI, signer);
+
+        const [bal, user, pending] = await Promise.all([
+          mgx.balanceOf(account),
+          farm.users(account),
+          farm.pendingReward(account)
+        ]);
+
+        const walletMGX = ethers.utils.formatUnits(bal, 18);
+        const stakedMGX = ethers.utils.formatUnits(user.amount, 18);
+        const rewardMGX = ethers.utils.formatUnits(pending, 18);
+
+        elWalletBalance.textContent = parseFloat(walletMGX).toLocaleString("en-US", { maximumFractionDigits: 6 }) + " MGX";
+        elStakedBalance.textContent = parseFloat(stakedMGX).toLocaleString("en-US", { maximumFractionDigits: 6 }) + " MGX";
+        elRewardBalance.textContent = parseFloat(rewardMGX).toLocaleString("en-US", { maximumFractionDigits: 6 }) + " MGX";
+
+      } catch (err) {
+        console.error(err);
+        setStatus("ไม่สามารถโหลดข้อมูลฟาร์มได้", true);
+      }
+    }
+
+    function getAmountWei() {
+      const val = document.getElementById("amount").value.trim();
+      if (!val) throw new Error("กรุณาใส่จำนวน MGX ก่อน");
+      const num = Number(val);
+      if (isNaN(num) || num <= 0) throw new Error("จำนวนไม่ถูกต้อง");
+      return ethers.utils.parseUnits(val, 18);
+    }
+
+    async function stake() {
+      try {
+        if (!signer) throw new Error("กรุณาเชื่อมต่อกระเป๋าก่อน");
+        setStatus("กำลังเตรียม Stake ...");
+        const mgx  = new ethers.Contract(MGX_TOKEN, MGX_ABI, signer);
+        const farm = new ethers.Contract(FARM, FARM_ABI, signer);
+        const amountWei = getAmountWei();
+
+        const allowance = await mgx.allowance(account, FARM);
+        if (allowance.lt(amountWei)) {
+          setStatus("กำลัง Approve MGX ...");
+          const txA = await mgx.approve(FARM, amountWei);
+          await txA.wait();
+        }
+
+        setStatus("กำลัง Stake MGX ...");
+        const tx = await farm.deposit(amountWei);
+        await tx.wait();
+        setStatus("Stake สำเร็จ ✅");
+        await refresh();
+      } catch (err) {
+        console.error(err);
+        setStatus(err.message || "Stake ไม่สำเร็จ", true);
+      }
+    }
+
+    async function unstake() {
+      try {
+        if (!signer) throw new Error("กรุณาเชื่อมต่อกระเป๋าก่อน");
+        setStatus("กำลังเตรียม Withdraw ...");
+        const farm = new ethers.Contract(FARM, FARM_ABI, signer);
+        const amountWei = getAmountWei();
+
+        const tx = await farm.withdraw(amountWei);
+        await tx.wait();
+        setStatus("Withdraw สำเร็จ ✅");
+        await refresh();
+      } catch (err) {
+        console.error(err);
+        setStatus(err.message || "Withdraw ไม่สำเร็จ", true);
+      }
+    }
+
+    async function claim() {
+      try {
+        if (!signer) throw new Error("กรุณาเชื่อมต่อกระเป๋าก่อน");
+        setStatus("กำลังกด Claim ...");
+        const farm = new ethers.Contract(FARM, FARM_ABI, signer);
+        const tx = await farm.claim();
+        await tx.wait();
+        setStatus("Claim Reward สำเร็จ ✅");
+        await refresh();
+      } catch (err) {
+        console.error(err);
+        setStatus(err.message || "Claim ไม่สำเร็จ", true);
+      }
+    }
+
+    async function emergency() {
+      if (!confirm("⚠ คุณแน่ใจหรือไม่? ระบบจะถอน MGX ทั้งหมดออกจากฟาร์ม และรีเซ็ตรีวอร์ดของคุณ")) {
+        return;
+      }
+      try {
+        if (!signer) throw new Error("กรุณาเชื่อมต่อกระเป๋าก่อน");
+        setStatus("กำลังทำ Emergency Withdraw ...");
+        const farm = new ethers.Contract(FARM, FARM_ABI, signer);
+        const tx = await farm.emergencyWithdraw();
+        await tx.wait();
+        setStatus("Emergency Withdraw สำเร็จ ✅");
+        await refresh();
+      } catch (err) {
+        console.error(err);
+        setStatus(err.message || "Emergency Withdraw ไม่สำเร็จ", true);
+      }
+    }
+
+    async function maxStake() {
+      try {
+        if (!signer) throw new Error("กรุณาเชื่อมต่อกระเป๋าก่อน");
+        const mgx = new ethers.Contract(MGX_TOKEN, MGX_ABI, signer);
+        const bal = await mgx.balanceOf(account);
+        const walletMGX = ethers.utils.formatUnits(bal, 18);
+        document.getElementById("amount").value =
+          parseFloat(walletMGX).toLocaleString("en-US", { maximumFractionDigits: 6 });
+      } catch (err) {
+        console.error(err);
+        setStatus("ไม่สามารถดึงยอด MAX ได้", true);
+      }
+    }
+  </script>
+</body>
+</html>
