@@ -19,7 +19,7 @@
 <!-- MENU BUTTON -->
 <button class="menu-btn neon-btn">☰ Menu</button>
 
-<!-- MENU BOX (NEW FULL MENU) -->
+<!-- MENU BOX -->
 <div id="dropdownMenu" class="menu-box hidden">
 
     <div class="menu-item" onclick="location.href='https://pancakeswap.finance/swap?outputCurrency=0xc2B5cf3312C532B628A2e510f4653B844c1597A9'">
@@ -61,6 +61,7 @@
     <h1 class="title glow-gold">✨ MGX GALAXY MINING ✨</h1>
     <p class="subtitle">The Future of Space Mining Begins Here</p>
 
+    <!-- 🚀 FIXED BUTTON -->
     <button class="enter-btn" onclick="goFarmV2()">🚀 Enter Mining Station</button>
 
 <section class="chart-section" id="chart">
@@ -100,6 +101,13 @@
     </div>
 
 </section>
+
+<!-- ⭐ NEW FUNCTION TO OPEN FARM V2 -->
+<script>
+function goFarmV2() {
+    window.location.href = "farmv2.html";
+}
+</script>
 
 <script src="script.js"></script>
 </body>
