@@ -252,3 +252,20 @@ body {
   from { filter: drop-shadow(0 0 15px #ffdd55); }
   to { filter: drop-shadow(0 0 40px #ffd700); }
 }
+.back-small {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  z-index: 999;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 10px rgba(255,215,0,0.4);
+}
+.back-small:hover {
+  background: rgba(255,215,0,0.3);
+}
