@@ -130,3 +130,8 @@ function animateStars() {
 }
 
 animateStars();
+<script>
+function goFarmV2() {
+    window.location.href = "farmv2.html";   // ชื่อไฟล์หน้า MGX FARM V2
+}
+</script>
