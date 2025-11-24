@@ -225,3 +225,30 @@ body {
   from { filter: drop-shadow(0 0 10px #ffdd55); }
   to { filter: drop-shadow(0 0 35px #ffd700); }
 }
+/* กล่องโลโก้กลางหน้า */
+.logo-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  width: 100%;
+}
+
+/* โลโก้หมุน + แสง */
+.logo-mgx {
+  width: 160px; /* ปรับขนาดเล็กลง */
+  animation: spin 12s linear infinite, glow 2s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 25px #ffd700);
+}
+
+/* หมุน */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* แสงทอง */
+@keyframes glow {
+  from { filter: drop-shadow(0 0 15px #ffdd55); }
+  to { filter: drop-shadow(0 0 40px #ffd700); }
+}
