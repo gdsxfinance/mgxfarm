@@ -331,16 +331,61 @@
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
+    /* ปุ่ม Back ซ้ายบน */
+.back-small {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 6px 12px;
+  font-size: 13px;
+  color: white;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  z-index: 999;
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(255,215,0,0.4);
+}
+.back-small:hover {
+  background: rgba(255,215,0,0.25);
+}
+
+/* จัดโลโก้ให้อยู่ตรงกลาง */
+.logo-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+/* โลโก้หมุน + แสง */
+.logo-spin {
+  width: 260px; /* ขนาดโลโก้ใหม่ */
+  animation: spin 14s linear infinite, glow 2s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 25px #ffd700);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes glow {
+  from { filter: drop-shadow(0 0 15px #ffdd55); }
+  to { filter: drop-shadow(0 0 40px #ffd700); }
+}
+
   </style>
 </head>
 <body>
+  <button class="back-small" onclick="history.back()">← Back</button>
   <div class="stars"></div>
   <div class="noise"></div>
 
   <div class="wrap">
     <header>
       <div class="logo-box">
-    <img src="mgx-logo.png" class="logo-mgx" alt="MGX Logo" style="width:180px;">
+    <img src="mgx-logo.png" class="logo-spin" alt="MGX Logo">
 </div>
 <div class="farm-title">
 <h1 class="glow-gold">MGX FARM V2</h1>
