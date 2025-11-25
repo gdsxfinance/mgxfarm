@@ -1,114 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>🌌 MGX Galaxy Mining — Supernova Edition</title>
-<link rel="stylesheet" href="style.css" />
-<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MGX FARM V2</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, #000 40%, #111 100%);
+  font-family: "Poppins", "Noto Sans Thai", sans-serif;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* ปุ่ม Back */
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 8px 16px;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  z-index: 10;
+}
+
+/* ⭐ โลโก้ MGX ปรับใหม่ให้กลางจอจริง */
+.logo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 90px;        /* ดันลงให้สวยตรงกลาง */
+  display: block;
+  box-shadow: 0 0 40px rgba(255,215,0,0.8);
+}
+
+/* หัวข้อ */
+h1 {
+  margin-top: 25px;
+  font-size: 32px;
+  color: #ffd700;
+  text-shadow: 0 0 20px #ffd700;
+}
+
+/* คำอธิบาย */
+.sub {
+  font-size: 16px;
+  opacity: 0.85;
+  margin-bottom: 40px;
+}
+
+/* กล่องข้อมูล */
+.box {
+  width: 85%;
+  margin: auto;
+  margin-bottom: 25px;
+  padding: 18px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.3);
+  text-align: left;
+}
+
+.connect-btn {
+  width: 80%;
+  margin-top: 10px;
+  padding: 12px;
+  font-size: 18px;
+  background: rgba(0,255,213,0.2);
+  border: 1px solid rgba(0,255,213,0.6);
+  color: white;
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+}
+
+</style>
 </head>
 
 <body>
 
-<!-- ⭐ STARFIELD BACKGROUND -->
-<canvas id="stars"></canvas>
+<a href="index.html" class="back-btn">← Back</a>
 
-<!-- DARK SHADE -->
-<div class="shade"></div>
+<!-- ⭐ โลโก้ตรงกลาง -->
+<img src="mgx_logo.png" class="logo">
 
-<!-- MENU BUTTON -->
-<button class="menu-btn neon-btn">☰ Menu</button>
+<h1>MGX FARM V2</h1>
 
-<!-- MENU BOX -->
-<div id="dropdownMenu" class="menu-box hidden">
+<p class="sub">MetaGoldX Ultra Secure Mining — Stake MGX, Earn MGX</p>
 
-    <div class="menu-item" onclick="location.href='https://pancakeswap.finance/swap?outputCurrency=0xc2B5cf3312C532B628A2e510f4653B844c1597A9'">
-        💱 Buy / Sell MGX
-    </div>
-
-    <div class="menu-item" onclick="openFarm()">
-        ⛏️ Dashboard
-    </div>
-
-    <div class="menu-item" onclick="location.href='whitepaper.html'">
-        📜 Whitepaper
-    </div>
-
-    <div class="menu-item" onclick="location.href='roadmap.html'">
-        🗺️ Roadmap
-    </div>
-
-    <div class="menu-item" onclick="location.href='airdrop.html'">
-        🎁 Airdrop Center
-    </div>
-
-    <div class="menu-item" onclick="location.href='treasury.html'">
-        🏦 Treasury Monitor
-    </div>
-
-    <div class="menu-item" onclick="location.href='partners.html'">
-        🤝 Partners & Exchanges
-    </div>
-
-    <div class="menu-item" onclick="location.href='contact.html'">
-        📞 Contact Support
-    </div>
-
+<div class="box">
+  <p><strong>Wallet:</strong> -</p>
+  <button class="connect-btn">🔗 Connect Wallet</button>
 </div>
 
-<!-- LANDING -->
-<section class="landing" id="landing">
-    <h1 class="title glow-gold">✨ MGX GALAXY MINING ✨</h1>
-    <p class="subtitle">The Future of Space Mining Begins Here</p>
+<div class="box">
+  <strong>WALLET BALANCE</strong><br>
+  0 MGX
+</div>
 
-    <!-- 🚀 FIXED BUTTON -->
-    <button class="enter-btn" onclick="goFarmV2()">🚀 Enter Mining Station</button>
-
-<section class="chart-section" id="chart">
-    <h2 class="chart-title">📉 MGX Live Chart</h2>
-
-    <div class="chart-box glass">
-        <iframe
-        src="https://www.geckoterminal.com/bsc/pools/0x00581eb976846f57fe8ad8909413c71deaa3fa6e?embed=1&info=0&swaps=0"
-        class="chart-frame"
-        sandbox="allow-same-origin allow-scripts"></iframe>
-    </div>
-</section>
-</section>
-
-<!-- DASHBOARD -->
-<section class="dashboard hidden" id="dashboard">
-
-    <button class="back-btn neon-btn">⬅️ Back</button>
-    <button class="connect-btn neon-btn">🪙 Connect</button>
-
-    <h2 class="dash-title glow-gold">⛏️ MGX Mining Dashboard</h2>
-
-    <div class="wallet-box glass glow-box" id="walletBox">Wallet: -</div>
-
-    <div class="info-grid">
-        <div class="info-card glass gold-value" id="balanceBox">Balance: - MGX</div>
-        <div class="info-card glass gold-value" id="stakedBox">Staked: - MGX</div>
-        <div class="info-card glass gold-value" id="rewardBox">Reward: - MGX</div>
-        <div class="info-card glass gold-value">APR: ~26–58% (auto)</div>
-    </div>
-
-    <div class="action-box">
-        <input id="amountInput" class="amount glass" placeholder="Enter MGX amount" />
-        <button class="btn neon-btn" onclick="deposit()">⛏️ Start Mining</button>
-        <button class="btn neon-btn" onclick="claim()">✨ Claim Reward</button>
-        <button class="btn stop neon-red" onclick="withdraw()">🛑 Stop Mining</button>
-    </div>
-
-</section>
-
-<!-- ⭐ NEW FUNCTION TO OPEN FARM V2 -->
-<script>
-function goFarmV2() {
-    window.location.href = "farmv2.html";
-}
-</script>
-
-<script src="script.js"></script>
 </body>
 </html>
