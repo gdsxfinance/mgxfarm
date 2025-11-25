@@ -6,164 +6,173 @@
 <title>🤝 Partners & Exchanges — MGX</title>
 
 <style>
-  :root {
-    --gold: #ffd700;
-    --neon: #00ffd5;
-    --bg1: #020611;
-    --bg2: #050816;
-    --card: rgba(255,255,255,0.07);
-    --border: rgba(255,255,255,0.15);
-  }
+    body {
+        margin: 0;
+        font-family: "Poppins", "Noto Sans Thai", sans-serif;
+        background: radial-gradient(circle at top, #020611, #050816);
+        color: white;
+        text-align: center;
+        padding: 20px;
+        overflow-x: hidden;
+    }
 
-  body {
-    margin: 0;
-    background: radial-gradient(circle at top, var(--bg1), var(--bg2));
-    color: white;
-    font-family: "Poppins","Noto Sans Thai",sans-serif;
-    text-align: center;
-    padding: 30px 15px;
-  }
+    h1 {
+        font-size: 32px;
+        color: #ffd700;
+        text-shadow: 0 0 20px #ffd700, 0 0 45px #ffd700;
+        animation: glow 2s infinite alternate;
+        margin-bottom: 10px;
+    }
 
-  h1 {
-    font-size: 32px;
-    color: var(--gold);
-    text-shadow: 0 0 20px var(--gold), 0 0 40px var(--gold);
-    margin-bottom: 10px;
-  }
+    @keyframes glow {
+        from { text-shadow: 0 0 15px #ffd700; }
+        to   { text-shadow: 0 0 40px #ffeb8a; }
+    }
 
-  .subtitle {
-    opacity: 0.7;
-    margin-bottom: 40px;
-  }
+    p.subtitle {
+        opacity: 0.7;
+        margin-top: -5px;
+    }
 
-  .section-title {
-    font-size: 24px;
-    color: var(--gold);
-    margin: 40px 0 15px;
-    text-shadow: 0 0 12px var(--gold);
-  }
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        margin-top: 25px;
+    }
 
-  .cards {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 18px;
-    margin-bottom: 40px;
-  }
+    .card {
+        width: 330px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 22px;
+        padding: 28px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 25px rgba(255,215,0,0.15);
+        animation: fadeIn 0.8s ease;
+        transition: 0.25s;
+    }
 
-  .card {
-    width: 160px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 18px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 22px rgba(255,215,0,0.15);
-    transition: .2s;
-  }
+    .card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 35px rgba(255,215,0,0.4);
+        background: rgba(255,255,255,0.09);
+    }
 
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 30px rgba(255,215,0,0.35);
-  }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-  .logo {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    margin-bottom: 12px;
-    object-fit: contain;
-  }
+    .logo {
+        width: 78px;
+        height: 78px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+        object-fit: cover;
+        background: black;
+        padding: 8px;
+        box-shadow: 0 0 12px rgba(255,215,0,0.4);
+    }
 
-  .label {
-    font-size: 14px;
-    opacity: 0.8;
-  }
+    .label {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #ffd700;
+        text-shadow: 0 0 12px #ffd700aa;
+    }
 
-  .btn {
-    margin-top: 12px;
-    display: inline-block;
-    padding: 8px 16px;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.35);
-    color: var(--gold);
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 0 12px rgba(255,215,0,0.25);
-    transition: .2s;
-  }
+    .btn {
+        display: inline-block;
+        padding: 10px 18px;
+        background: #ffd70014;
+        border: 1px solid #ffd70066;
+        color: #ffd700;
+        font-weight: bold;
+        border-radius: 14px;
+        text-decoration: none;
+        box-shadow: 0 0 12px rgba(255,215,0,0.4);
+        backdrop-filter: blur(5px);
+        transition: 0.3s;
+    }
 
-  .btn:hover {
-    background: rgba(255,255,255,0.25);
-    box-shadow: 0 0 22px rgba(255,215,0,0.45);
-  }
+    .btn:hover {
+        background: #ffd70033;
+        box-shadow: 0 0 20px rgba(255,215,0,0.6);
+        transform: scale(1.06);
+    }
 
-  footer {
-    margin-top: 40px;
-    opacity: .4;
-    font-size: 12px;
-  }
+    footer {
+        margin-top: 55px;
+        font-size: 12px;
+        opacity: 0.5;
+    }
 </style>
+
 </head>
 <body>
 
 <h1>🤝 PARTNERS & EXCHANGES</h1>
-<p class="subtitle">พันธมิตรและกระดานเทรดของเหรียญ MGX อย่างเป็นทางการ</p>
+<p class="subtitle">เชื่อมต่อด้วยพาร์ทเนอร์ชั้นนำระดับโลก</p>
 
-<!-- EXCHANGES -->
-<div class="section-title">🌐 Exchanges</div>
+<div class="container">
 
-<div class="cards">
+    <!-- ⭐ PancakeSwap MGX/USDT -->
+    <div class="card">
+        <img src="https://assets.coingecko.com/markets/images/185/large/pancakeswap.png" class="logo">
+        <div class="label">PancakeSwap (MGX / USDT)</div>
+        <a class="btn"
+           href="https://pancakeswap.finance/swap?outputCurrency=0xc2B5cf3312C532B628A2e510f4653B844c1597A9&inputCurrency=0x55d398326f99059fF775485246999027B3197955"
+           target="_blank">Trade MGX/USDT</a>
+    </div>
 
-  <div class="card">
-    <img src="mgx-logo.png" class="logo">
-    <div class="label">PancakeSwap</div>
-    <a class="btn" href="https://pancakeswap.finance/swap" target="_blank">Trade Now</a>
-  </div>
+    <!-- ⭐ DEXTools -->
+    <div class="card">
+        <img src="https://assets.coingecko.com/coins/images/13390/standard/dext.png" class="logo">
+        <div class="label">DEXTools</div>
+        <a class="btn" href="https://www.dextools.io" target="_blank">View Chart</a>
+    </div>
 
-  <div class="card">
-    <img src="mgx-logo.png" class="logo">
-    <div class="label">DexTools</div>
-    <a class="btn" href="https://www.dextools.io/app/en/bnb" target="_blank">View Chart</a>
-  </div>
+    <!-- ⭐ PooCoin -->
+    <div class="card">
+        <img src="https://assets.coingecko.com/coins/images/14371/standard/poocoin.png" class="logo">
+        <div class="label">PooCoin</div>
+        <a class="btn" href="https://poocoin.app" target="_blank">Open Chart</a>
+    </div>
 
-  <div class="card">
-    <img src="mgx-logo.png" class="logo">
-    <div class="label">PooCoin</div>
-    <a class="btn" href="https://poocoin.app/" target="_blank">Open Chart</a>
-  </div>
+    <!-- ⭐ CoinMarketCap -->
+    <div class="card">
+        <img src="https://s2.coinmarketcap.com/static/cloud/img/coinmarketcap_1.svg" class="logo">
+        <div class="label">CoinMarketCap</div>
+        <a class="btn" href="https://coinmarketcap.com" target="_blank">View Listing</a>
+    </div>
+
+    <!-- ⭐ CoinGecko -->
+    <div class="card">
+        <img src="https://static.coingecko.com/s/coingecko-logo.png" class="logo"> 
+        <div class="label">CoinGecko</div>
+        <a class="btn" href="https://www.coingecko.com" target="_blank">View Listing</a>
+    </div>
+
+    <!-- ⭐ Bogged Finance -->
+    <div class="card">
+        <img src="https://assets.coingecko.com/coins/images/15082/standard/bog.png" class="logo">
+        <div class="label">Bogged Finance</div>
+        <a class="btn" href="https://bogged.finance" target="_blank">Trade</a>
+    </div>
+
+    <!-- ⭐ BabyDogeSwap -->
+    <div class="card">
+        <img src="https://assets.babydoge.com/babydoge-logo.png" class="logo">
+        <div class="label">BabyDogeSwap</div>
+        <a class="btn" href="https://babydoge.com/swap" target="_blank">Open DEX</a>
+    </div>
 
 </div>
 
-<!-- PARTNERS -->
-<div class="section-title">💼 Official Partners</div>
-
-<div class="cards">
-
-  <div class="card">
-    <img src="mgx-logo.png" class="logo">
-    <div class="label">MGX Mining Game</div>
-  </div>
-
-  <div class="card">
-    <img src="mgx-logo.png" class="logo">
-    <div class="label">MGX Airdrop Center</div>
-  </div>
-
-  <div class="card">
-    <img src="mgx-logo.png" class="logo">
-    <div class="label">MGX Staking Farm</div>
-  </div>
-
-  <div class="card">
-    <img src="mgx-logo.png" class="logo">
-    <div class="label">MGX Shop & Reward System</div>
-  </div>
-
-</div>
-
-<footer>© 2025 MGX Project — MetaGoldX Partnership Network</footer>
+<footer>© 2025 MGX Project — MetaGoldX Network</footer>
 
 </body>
 </html>
