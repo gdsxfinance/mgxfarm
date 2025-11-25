@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💰 MGX TREASURY MONITOR</title>
+
+<style>
+  :root {
+    --gold: #ffd700;
+    --neon: #00ffd5;
+    --bg1: #030712;
+    --bg2: #0a0f1f;
+    --card: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.12);
+  }
+
+  body {
+    margin: 0;
+    font-family: "Poppins", "Noto Sans Thai", sans-serif;
+    background: radial-gradient(circle at top, var(--bg1), var(--bg2));
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 32px;
+    color: var(--gold);
+    text-shadow: 0 0 20px var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .sub {
+    font-size: 15px;
+    opacity: 0.8;
+    margin-bottom: 30px;
+  }
+
+  /* Cards */
+  .cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .card {
+    width: 300px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 0 18px rgba(255,215,0,0.2);
+    backdrop-filter: blur(8px);
+  }
+
+  .num {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--gold);
+    text-shadow: 0 0 20px var(--gold);
+  }
+
+  .label {
+    margin-top: 5px;
+    opacity: 0.9;
+  }
+
+  /* FLOW SECTION */
+  .flow {
+    margin: 40px auto;
+    width: 90%;
+    max-width: 700px;
+    padding: 20px;
+    border-radius: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+  }
+
+  .arrow {
+    font-size: 26px;
+    margin: 10px 0;
+    color: var(--neon);
+    text-shadow: 0 0 15px var(--neon);
+  }
+
+  /* FOOTER */
+  footer {
+    margin-top: 35px;
+    font-size: 14px;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+<h1>💰 MGX TREASURY MONITOR</h1>
+<div class="sub">ระบบตรวจสอบคลัง MGX แบบโปร่งใส เรียลไทม์</div>
+
+<!-- TOP 3 CARDS -->
+<div class="cards">
+  <div class="card">
+    <div class="num" id="treasuryBalance">$0.00</div>
+    <div class="label">Treasury Balance (USD)</div>
+  </div>
+
+  <div class="card">
+    <div class="num" id="lockedMGX">0 MGX</div>
+    <div class="label">Total MGX Locked</div>
+  </div>
+
+  <div class="card">
+    <div class="num" id="rewardPool">0 MGX</div>
+    <div class="label">Reward Pool Ready</div>
+  </div>
+</div>
+
+<!-- FLOW OF FUNDS -->
+<div class="flow">
+  <h2 style="color:var(--gold);">🔁 Flow of Funds</h2>
+  <div>รายได้ &nbsp; <span class="arrow">➜</span> &nbsp; Treasury &nbsp; <span class="arrow">➜</span> &nbsp; Rewards</div>
+  <div style="margin-top:15px; font-size:14px; opacity:0.7;">
+    เงินภาษี / รายได้ต่างๆ จะถูกนำเข้าสู่ Treasury  
+    และถูกนำไปใช้ในการซื้อคืน (Buyback) หรือจ่ายรางวัลแก่ผู้ถือเหรียญ
+  </div>
+</div>
+
+<footer>© 2025 MGX Project — MetaGoldX Treasury Transparency</footer>
+
+<script>
+  // --- ตัวอย่างแสดงตัวเลข (ปรับค่าได้ตามจริง) ---
+
+  document.getElementById("treasuryBalance").textContent = "$128,532.20";
+  document.getElementById("lockedMGX").textContent = "2,948,220 MGX";
+  document.getElementById("rewardPool").textContent = "38,500 MGX";
+
+  // ถ้าต้องการเชื่อม BscScan ผมเขียนให้ได้
+</script>
+
+</body>
+</html>
