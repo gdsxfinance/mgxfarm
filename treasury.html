@@ -5,19 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>💰 MGX TREASURY MONITOR</title>
 
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
 <style>
   :root {
     --gold: #ffd700;
     --neon: #00ffd5;
-    --bg1: #030712;
-    --bg2: #0a0f1f;
-    --card: rgba(255,255,255,0.07);
-    --border: rgba(255,255,255,0.12);
+    --bg1: #020611;
+    --bg2: #050816;
+    --card: rgba(255,255,255,0.06);
+    --border: rgba(255,255,255,0.15);
   }
 
   body {
     margin: 0;
-    font-family: "Poppins", "Noto Sans Thai", sans-serif;
+    font-family: "Poppins","Noto Sans Thai",sans-serif;
     background: radial-gradient(circle at top, var(--bg1), var(--bg2));
     color: white;
     text-align: center;
@@ -27,18 +30,17 @@
   h1 {
     font-size: 32px;
     color: var(--gold);
-    text-shadow: 0 0 20px var(--gold);
-    margin-bottom: 10px;
+    text-shadow: 0 0 18px var(--gold), 0 0 40px var(--gold);
+    animation: glow 2s ease-in-out infinite alternate;
   }
 
-  .sub {
-    font-size: 15px;
-    opacity: 0.8;
-    margin-bottom: 30px;
+  @keyframes glow {
+    from { text-shadow: 0 0 15px var(--gold); }
+    to   { text-shadow: 0 0 35px var(--gold); }
   }
 
-  /* Cards */
   .cards {
+    margin-top: 30px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -49,93 +51,117 @@
     width: 300px;
     background: var(--card);
     border: 1px solid var(--border);
-    padding: 20px;
+    padding: 22px;
     border-radius: 18px;
-    box-shadow: 0 0 18px rgba(255,215,0,0.2);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 1s ease;
+    box-shadow: 0 0 25px rgba(255,215,0,0.18);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   .num {
     font-size: 28px;
     font-weight: bold;
     color: var(--gold);
-    text-shadow: 0 0 20px var(--gold);
+    text-shadow: 0 0 20px var(--gold), 0 0 40px var(--gold);
   }
 
   .label {
     margin-top: 5px;
-    opacity: 0.9;
+    opacity: 0.8;
   }
 
-  /* FLOW SECTION */
-  .flow {
-    margin: 40px auto;
-    width: 90%;
-    max-width: 700px;
-    padding: 20px;
-    border-radius: 16px;
-    background: var(--card);
-    border: 1px solid var(--border);
-  }
-
-  .arrow {
-    font-size: 26px;
-    margin: 10px 0;
-    color: var(--neon);
-    text-shadow: 0 0 15px var(--neon);
-  }
-
-  /* FOOTER */
   footer {
-    margin-top: 35px;
-    font-size: 14px;
-    opacity: 0.5;
+    margin-top: 50px;
+    opacity: 0.4;
+    font-size: 12px;
   }
+
 </style>
 </head>
 <body>
 
 <h1>💰 MGX TREASURY MONITOR</h1>
-<div class="sub">ระบบตรวจสอบคลัง MGX แบบโปร่งใส เรียลไทม์</div>
+<p style="opacity:.7">ระบบตรวจสอบคลัง MGX แบบเรียลไทม์</p>
 
-<!-- TOP 3 CARDS -->
 <div class="cards">
+
   <div class="card">
-    <div class="num" id="treasuryBalance">$0.00</div>
+    <div class="num" id="treasuryUSD">Loading...</div>
     <div class="label">Treasury Balance (USD)</div>
   </div>
 
   <div class="card">
-    <div class="num" id="lockedMGX">0 MGX</div>
+    <div class="num" id="lockedMGX">Loading...</div>
     <div class="label">Total MGX Locked</div>
   </div>
 
   <div class="card">
-    <div class="num" id="rewardPool">0 MGX</div>
-    <div class="label">Reward Pool Ready</div>
+    <div class="num" id="rewardPool">Loading...</div>
+    <div class="label">Reward Pool</div>
   </div>
-</div>
 
-<!-- FLOW OF FUNDS -->
-<div class="flow">
-  <h2 style="color:var(--gold);">🔁 Flow of Funds</h2>
-  <div>รายได้ &nbsp; <span class="arrow">➜</span> &nbsp; Treasury &nbsp; <span class="arrow">➜</span> &nbsp; Rewards</div>
-  <div style="margin-top:15px; font-size:14px; opacity:0.7;">
-    เงินภาษี / รายได้ต่างๆ จะถูกนำเข้าสู่ Treasury  
-    และถูกนำไปใช้ในการซื้อคืน (Buyback) หรือจ่ายรางวัลแก่ผู้ถือเหรียญ
-  </div>
 </div>
 
 <footer>© 2025 MGX Project — MetaGoldX Treasury Transparency</footer>
 
 <script>
-  // --- ตัวอย่างแสดงตัวเลข (ปรับค่าได้ตามจริง) ---
+const TOKEN = "0xc2B5cf3312C532B628A2e510f4653B844c1597A9";
+const TREASURY = "0x0a12e0c7180b0f5804789c06912d864af486ea77";
+const FARM = "0xa63Dbdd62E482633F8Ee7F240ed311Eb974120D3";
 
-  document.getElementById("treasuryBalance").textContent = "$128,532.20";
-  document.getElementById("lockedMGX").textContent = "2,948,220 MGX";
-  document.getElementById("rewardPool").textContent = "38,500 MGX";
+const provider = new ethers.providers.JsonRpcProvider("https://bsc-dataseed.binance.org/");
 
-  // ถ้าต้องการเชื่อม BscScan ผมเขียนให้ได้
+// ABIs
+const erc20ABI = [
+  "function balanceOf(address) view returns(uint256)",
+  "function decimals() view returns(uint8)"
+];
+
+const farmABI = [
+  "function users(address) view returns (uint256 amount, uint256 rewardDebt)",
+  "function pendingReward(address) view returns (uint256)"
+];
+
+// Contracts
+const token = new ethers.Contract(TOKEN, erc20ABI, provider);
+const farm = new ethers.Contract(FARM, farmABI, provider);
+
+async function loadData() {
+  try {
+    const decimals = await token.decimals();
+
+    // 🟡 1) Treasury MGX balance
+    const mgxBal = await token.balanceOf(TREASURY);
+    const mgx = Number(ethers.utils.formatUnits(mgxBal, decimals)).toLocaleString();
+
+    // แปลง USD (ราคาคงที่ 1 MGX = 0.0436 USD ตัวอย่าง)
+    const usdRate = 0.0436;
+    const usdValue = (mgxBal / (10 ** decimals)) * usdRate;
+
+    document.getElementById("treasuryUSD").textContent = "$" + usdValue.toLocaleString();
+
+    // 🟡 2) Total MGX Locked
+    const userInfo = await farm.users(TREASURY);
+    const locked = Number(ethers.utils.formatUnits(userInfo.amount, decimals)).toLocaleString();
+    document.getElementById("lockedMGX").textContent = locked + " MGX";
+
+    // 🟡 3) Reward Pool
+    const reward = await farm.pendingReward(TREASURY);
+    const rw = Number(ethers.utils.formatUnits(reward, decimals)).toLocaleString();
+    document.getElementById("rewardPool").textContent = rw + " MGX";
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+loadData();
+setInterval(loadData, 10000);
 </script>
 
 </body>
