@@ -80,7 +80,6 @@
     opacity: 0.4;
     font-size: 12px;
   }
-
 </style>
 </head>
 <body>
@@ -116,18 +115,17 @@ const FARM = "0xa63Dbdd62E482633F8Ee7F240ed311Eb974120D3";
 
 const provider = new ethers.providers.JsonRpcProvider("https://bsc-dataseed.binance.org/");
 
-// ABIs
+// ABI ที่ถูกต้อง
 const erc20ABI = [
   "function balanceOf(address) view returns(uint256)",
   "function decimals() view returns(uint8)"
 ];
 
 const farmABI = [
-  "function users(address) view returns (uint256 amount, uint256 rewardDebt)",
+  "function userInfo(address) view returns (uint256 amount, uint256 rewardDebt)",
   "function pendingReward(address) view returns (uint256)"
 ];
 
-// Contracts
 const token = new ethers.Contract(TOKEN, erc20ABI, provider);
 const farm = new ethers.Contract(FARM, farmABI, provider);
 
@@ -135,28 +133,27 @@ async function loadData() {
   try {
     const decimals = await token.decimals();
 
-    // 🟡 1) Treasury MGX balance
+    // 1) Treasury MGX Balance
     const mgxBal = await token.balanceOf(TREASURY);
-    const mgx = Number(ethers.utils.formatUnits(mgxBal, decimals)).toLocaleString();
+    const mgx = Number(ethers.utils.formatUnits(mgxBal, decimals));
 
-    // แปลง USD (ราคาคงที่ 1 MGX = 0.0436 USD ตัวอย่าง)
+    // Example price
     const usdRate = 0.0436;
-    const usdValue = (mgxBal / (10 ** decimals)) * usdRate;
+    const usdValue = (mgx * usdRate).toLocaleString();
+    document.getElementById("treasuryUSD").textContent = "$" + usdValue;
 
-    document.getElementById("treasuryUSD").textContent = "$" + usdValue.toLocaleString();
-
-    // 🟡 2) Total MGX Locked
-    const userInfo = await farm.users(TREASURY);
-    const locked = Number(ethers.utils.formatUnits(userInfo.amount, decimals)).toLocaleString();
+    // 2) Total MGX Locked (ใช้ userInfo จริง)
+    const info = await farm.userInfo(TREASURY);
+    const locked = Number(ethers.utils.formatUnits(info.amount, decimals)).toLocaleString();
     document.getElementById("lockedMGX").textContent = locked + " MGX";
 
-    // 🟡 3) Reward Pool
+    // 3) Reward Pool (pendingReward)
     const reward = await farm.pendingReward(TREASURY);
     const rw = Number(ethers.utils.formatUnits(reward, decimals)).toLocaleString();
     document.getElementById("rewardPool").textContent = rw + " MGX";
 
   } catch (err) {
-    console.error(err);
+    console.error("ERROR:", err);
   }
 }
 
