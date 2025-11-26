@@ -15,12 +15,28 @@
         padding: 20px;
     }
 
+    /* ปุ่ม Back */
+    .back-btn {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        background: #ffd70011;
+        border: 1px solid #ffd70066;
+        color: #ffd700;
+        padding: 8px 20px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: bold;
+        box-shadow: 0 0 15px rgba(255,215,0,0.3);
+    }
+
     h1 {
         font-size: 32px;
         color: #ffd700;
         text-shadow: 0 0 20px #ffd700, 0 0 45px #ffd700;
         animation: glow 2s infinite alternate;
         margin-bottom: 10px;
+        margin-top: 60px;
     }
 
     @keyframes glow {
@@ -76,6 +92,9 @@
 
 <body>
 
+<!-- ปุ่ม Back -->
+<a href="index.html" class="back-btn">← Back</a>
+
 <h1>🤝 PARTNERS & EXCHANGES</h1>
 
 <div class="container">
@@ -102,18 +121,18 @@
     </div>
 
     <!-- CoinMarketCap -->
-<div class="card">
-    <img src="cmc.png" class="logo">
-    <div class="label">CoinMarketCap</div>
-    <a class="btn" href="https://coinmarketcap.com" target="_blank">View Listing</a>
-</div>
+    <div class="card">
+        <img src="cmc.png" class="logo">
+        <div class="label">CoinMarketCap</div>
+        <a class="btn" href="https://coinmarketcap.com" target="_blank">View Listing</a>
+    </div>
 
-<!-- CoinGecko -->
-<div class="card">
-    <img src="coingecko.png" class="logo">
-    <div class="label">CoinGecko</div>
-    <a class="btn" href="https://www.coingecko.com" target="_blank">View Listing</a>
-</div>
+    <!-- CoinGecko -->
+    <div class="card">
+        <img src="coingecko.png" class="logo">
+        <div class="label">CoinGecko</div>
+        <a class="btn" href="https://www.coingecko.com" target="_blank">View Listing</a>
+    </div>
 
     <!-- Bogged Finance -->
     <div class="card">
@@ -122,11 +141,11 @@
         <a class="btn" href="https://bogged.finance" target="_blank">Trade</a>
     </div>
 
-    <!-- BabyDogeSwap -->
+    <!-- Biswap (แทน BabyDogeSwap ที่ลิงก์เสีย) -->
     <div class="card">
-        <img src="https://assets.coingecko.com/coins/images/16125/standard/babydoge.jpg" class="logo">
-        <div class="label">BabyDogeSwap</div>
-        <a class="btn" href="https://babydoge.com/swap" target="_blank">Open DEX</a>
+        <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/10746.png" class="logo">
+        <div class="label">Biswap</div>
+        <a class="btn" href="https://biswap.org/swap" target="_blank">Open DEX</a>
     </div>
 
 </div>
