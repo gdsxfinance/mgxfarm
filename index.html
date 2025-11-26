@@ -4,8 +4,93 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>🌌 MGX Galaxy Mining — Supernova Edition</title>
+
 <link rel="stylesheet" href="style.css" />
 <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+<!-- ⭐⭐⭐ MGX GALAXY ULTRA SIDEBAR MENU — CSS ⭐⭐⭐ -->
+<style>
+
+/* MENU BUTTON */
+#mgx-menu-btn {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  width: 58px;
+  height: 58px;
+  background: linear-gradient(135deg, #0ff, #00ffaa);
+  border-radius: 14px;
+  box-shadow: 0 0 25px #00fff2, 0 0 60px #00ffd5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  animation: mgxPulse 2s infinite alternate ease-in-out;
+}
+#mgx-menu-btn span {
+  font-size: 26px;
+  color: black;
+  font-weight: bold;
+}
+
+/* SIDEBAR */
+#mgx-sidebar {
+  position: fixed;
+  top: 0;
+  right: -360px;
+  width: 300px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(16px);
+  border-left: 2px solid rgba(255,255,255,0.12);
+  box-shadow: 0 0 40px #00ffe5, inset 0 0 60px rgba(0,255,255,0.25);
+  padding: 25px 18px;
+  transition: 0.45s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 9998;
+}
+#mgx-sidebar.active {
+  right: 0;
+}
+
+/* HEADER */
+.mgx-sidebar-header {
+  text-align: center;
+  color: #0ff;
+  text-shadow: 0 0 15px cyan, 0 0 25px #00ffd2;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+/* LINKS */
+.mgx-sidebar-links a {
+  display: block;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 18px;
+  text-decoration: none;
+  backdrop-filter: blur(6px);
+  transition: 0.25s ease;
+  box-shadow: 0 0 12px rgba(0,255,255,0.25);
+}
+.mgx-sidebar-links a:hover {
+  transform: translateX(8px);
+  background: rgba(0,255,255,0.22);
+  box-shadow: 0 0 25px #00ffe5;
+}
+
+/* ANIMATION */
+@keyframes mgxPulse {
+  0% { box-shadow: 0 0 25px #00fff2; }
+  100% { box-shadow: 0 0 45px #00ffee, 0 0 80px #00ffd5; }
+}
+
+</style>
+
 </head>
 
 <body>
@@ -16,44 +101,63 @@
 <!-- DARK SHADE -->
 <div class="shade"></div>
 
-<!-- MENU BUTTON -->
-<button class="menu-btn neon-btn">☰ Menu</button>
+<!-- ⭐⭐⭐ NEW MGX MEGA MENU BUTTON ⭐⭐⭐ -->
+<div id="mgx-menu-btn" onclick="toggleMGXMenu()">
+  <span>☰</span>
+</div>
 
-<!-- MENU BOX -->
-<div id="dropdownMenu" class="menu-box hidden">
+<!-- ⭐⭐⭐ ULTRA SIDEBAR MENU ⭐⭐⭐ -->
+<div id="mgx-sidebar">
 
-    <div class="menu-item" onclick="location.href='https://pancakeswap.finance/swap?outputCurrency=0xc2B5cf3312C532B628A2e510f4653B844c1597A9'">
-        💱 Buy / Sell MGX
-    </div>
+  <div class="mgx-sidebar-header">✨ MGX GALAXY MENU ✨</div>
 
-    <div class="menu-item" onclick="openFarm()">
-        ⛏️ Dashboard
-    </div>
+  <div class="mgx-sidebar-links">
 
-    <div class="menu-item" onclick="location.href='whitepaper.html'">
-        📜 Whitepaper
-    </div>
+    <a href="https://pancakeswap.finance/swap?outputCurrency=0xc2B5cf3312C532B628A2e510f4653B844c1597A9">
+      🔄 Swap MGX
+    </a>
 
-    <div class="menu-item" onclick="location.href='roadmap.html'">
-        🗺️ Roadmap
-    </div>
+    <a href="farmv2.html">
+      ⛏️ Mining Dashboard
+    </a>
 
-    <div class="menu-item" onclick="location.href='airdrop.html'">
-        🎁 Airdrop Center
-    </div>
+    <a href="#" onclick="alert('🎮 GameBoy Coming Soon');">
+      🎮 GameBoy Station
+    </a>
 
-    <div class="menu-item" onclick="location.href='treasury.html'">
-        🏦 Treasury Monitor
-    </div>
+    <a href="#" onclick="alert('🔮 เสี่ยงเซียมซี Coming Soon');">
+      🔮 เสี่ยงเซียมซี MGX
+    </a>
 
-    <div class="menu-item" onclick="location.href='partners.html'">
-        🤝 Partners & Exchanges
-    </div>
+    <a href="#chart">
+      📈 MGX Live Chart
+    </a>
 
-    <div class="menu-item" onclick="location.href='contact.html'">
-        📞 Contact Support
-    </div>
+    <a href="treasury.html">
+      🏦 Treasury Monitor
+    </a>
 
+    <a href="airdrop.html">
+      🎁 Airdrop Center
+    </a>
+
+    <a href="roadmap.html">
+      🗺️ Roadmap
+    </a>
+
+    <a href="whitepaper.html">
+      📜 Whitepaper
+    </a>
+
+    <a href="#" onclick="alert('👥 Community Hub Coming Soon');">
+      👥 Community Hub
+    </a>
+
+    <a href="#" onclick="toggleMGXMenu()">
+      ❌ Close Menu
+    </a>
+
+  </div>
 </div>
 
 <!-- LANDING -->
@@ -61,7 +165,6 @@
     <h1 class="title glow-gold">✨ MGX GALAXY MINING ✨</h1>
     <p class="subtitle">The Future of Space Mining Begins Here</p>
 
-    <!-- 🚀 FIXED BUTTON -->
     <button class="enter-btn" onclick="goFarmV2()">🚀 Enter Mining Station</button>
 
 <section class="chart-section" id="chart">
@@ -102,23 +205,24 @@
 
 </section>
 
-<!-- ⭐ NEW FUNCTION TO OPEN FARM V2 -->
+<!-- FUNCTIONS -->
 <script>
 function goFarmV2() {
     window.location.href = "farmv2.html";
 }
-</script>
 
-<!-- ⭐ NEW FUNCTION: OPEN LINE QR -->
-<script>
 function openLineQR() {
     window.location.href = "https://raw.githubusercontent.com/gdsxfinance/mgxfarm/main/qr-mgx.png";
+}
+
+function toggleMGXMenu() {
+    document.getElementById("mgx-sidebar").classList.toggle("active");
 }
 </script>
 
 <script src="script.js"></script>
 
-<!-- ========== MGX LEGAL DISCLAIMER ========== -->
+<!-- DISCLAIMER -->
 <div style="
   margin-top:40px;
   padding:15px 20px;
@@ -130,61 +234,6 @@ function openLineQR() {
   MGX Token เป็นสินทรัพย์ดิจิทัลสำหรับใช้งานภายใน Ecosystem เท่านั้น 
   ไม่ใช่หลักทรัพย์ ไม่รับประกันผลตอบแทน ผู้ใช้ควรศึกษาและประเมินความเสี่ยงก่อนลงทุนทุกครั้ง
 </div>
-<!-- ========== END DISCLAIMER ========== -->
-<!-- ========== MGX GALAXY MENU BUTTON ========== -->
-<div id="mgx-menu-btn" onclick="toggleMGXMenu()">
-  <span>☰</span>
-</div>
 
-<!-- ========== MGX GALAXY SIDEBAR ========== -->
-<div id="mgx-sidebar">
-  <div class="mgx-sidebar-header">
-    <h2>✨ MGX GALAXY MENU ✨</h2>
-  </div>
-
-  <div class="mgx-sidebar-links">
-
-    <a href="https://pancakeswap.finance/swap" target="_blank">
-      🔄 Swap MGX
-    </a>
-
-    <a href="#" onclick="openGameBoy()">
-      🎮 Game Boy Station
-    </a>
-
-    <a href="#" onclick="openFortune()">
-      🔮 เสี่ยงเซียมซี MGX
-    </a>
-
-    <a href="https://t.me" target="_blank">
-      👥 Community Hub
-    </a>
-
-    <a href="#livechart">
-      📈 MGX Live Chart
-    </a>
-
-    <a href="#">
-      🏦 Treasury Monitor
-    </a>
-
-    <a href="#">
-      ⭐ MGX Mission Center
-    </a>
-
-    <a href="#">
-      🚀 Galaxy Explorer
-    </a>
-
-    <a href="whitepaper.pdf" target="_blank">
-      📚 Whitepaper
-    </a>
-
-    <a href="#" onclick="toggleMGXMenu()">
-      ❌ Close Menu
-    </a>
-
-  </div>
-</div>
 </body>
 </html>
