@@ -13,7 +13,6 @@
         color: white;
         text-align: center;
         padding: 20px;
-        overflow-x: hidden;
     }
 
     h1 {
@@ -27,11 +26,6 @@
     @keyframes glow {
         from { text-shadow: 0 0 15px #ffd700; }
         to   { text-shadow: 0 0 40px #ffeb8a; }
-    }
-
-    p.subtitle {
-        opacity: 0.7;
-        margin-top: -5px;
     }
 
     .container {
@@ -50,129 +44,92 @@
         padding: 28px;
         backdrop-filter: blur(10px);
         box-shadow: 0 0 25px rgba(255,215,0,0.15);
-        animation: fadeIn 0.8s ease;
-        transition: 0.25s;
-    }
-
-    .card:hover {
-        transform: scale(1.03);
-        box-shadow: 0 0 35px rgba(255,215,0,0.4);
-        background: rgba(255,255,255,0.09);
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(12px); }
-        to { opacity: 1; transform: translateY(0); }
     }
 
     .logo {
         width: 78px;
         height: 78px;
-        border-radius: 50%;
         margin-bottom: 15px;
-        object-fit: cover;
-        background: black;
-        padding: 8px;
-        box-shadow: 0 0 12px rgba(255,215,0,0.4);
+        object-fit: contain;
+        background: transparent;
     }
 
     .label {
-        font-size: 22px;
-        font-weight: bold;
-        margin-bottom: 10px;
+        font-size: 20px;
+        margin-bottom: 12px;
         color: #ffd700;
-        text-shadow: 0 0 12px #ffd700aa;
+        font-weight: bold;
     }
 
     .btn {
         display: inline-block;
         padding: 10px 18px;
-        background: #ffd70014;
+        background: #ffd70011;
         border: 1px solid #ffd70066;
         color: #ffd700;
-        font-weight: bold;
         border-radius: 14px;
         text-decoration: none;
-        box-shadow: 0 0 12px rgba(255,215,0,0.4);
-        backdrop-filter: blur(5px);
-        transition: 0.3s;
-    }
-
-    .btn:hover {
-        background: #ffd70033;
-        box-shadow: 0 0 20px rgba(255,215,0,0.6);
-        transform: scale(1.06);
-    }
-
-    footer {
-        margin-top: 55px;
-        font-size: 12px;
-        opacity: 0.5;
+        font-weight: bold;
     }
 </style>
-
 </head>
+
 <body>
 
 <h1>🤝 PARTNERS & EXCHANGES</h1>
-<p class="subtitle">เชื่อมต่อด้วยพาร์ทเนอร์ชั้นนำระดับโลก</p>
 
 <div class="container">
 
-    <!-- ⭐ PancakeSwap MGX/USDT -->
+    <!-- PancakeSwap -->
     <div class="card">
-        <img src="https://assets.coingecko.com/markets/images/185/large/pancakeswap.png" class="logo">
+        <img src="https://cryptologos.cc/logos/pancakeswap-cake-logo.png" class="logo">
         <div class="label">PancakeSwap (MGX / USDT)</div>
-        <a class="btn"
-           href="https://pancakeswap.finance/swap?outputCurrency=0xc2B5cf3312C532B628A2e510f4653B844c1597A9&inputCurrency=0x55d398326f99059fF775485246999027B3197955"
-           target="_blank">Trade MGX/USDT</a>
+        <a class="btn" href="https://pancakeswap.finance/swap?outputCurrency=0xc2B5cf3312C532B628A2e510f4653B844c1597A9&inputCurrency=0x55d398326f99059fF775485246999027B3197955" target="_blank">Trade MGX/USDT</a>
     </div>
 
-    <!-- ⭐ DEXTools -->
+    <!-- DEXTools -->
     <div class="card">
-        <img src="https://assets.coingecko.com/coins/images/13390/standard/dext.png" class="logo">
+        <img src="https://icons.llamao.fi/icons/protocols/dextools.png" class="logo">
         <div class="label">DEXTools</div>
         <a class="btn" href="https://www.dextools.io" target="_blank">View Chart</a>
     </div>
 
-    <!-- ⭐ PooCoin -->
+    <!-- PooCoin -->
     <div class="card">
-        <img src="https://assets.coingecko.com/coins/images/14371/standard/poocoin.png" class="logo">
+        <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/9608.png" class="logo">
         <div class="label">PooCoin</div>
         <a class="btn" href="https://poocoin.app" target="_blank">Open Chart</a>
     </div>
 
-    <!-- ⭐ CoinMarketCap -->
+    <!-- CoinMarketCap -->
     <div class="card">
         <img src="https://s2.coinmarketcap.com/static/cloud/img/coinmarketcap_1.svg" class="logo">
         <div class="label">CoinMarketCap</div>
         <a class="btn" href="https://coinmarketcap.com" target="_blank">View Listing</a>
     </div>
 
-    <!-- ⭐ CoinGecko -->
+    <!-- CoinGecko -->
     <div class="card">
-        <img src="https://static.coingecko.com/s/coingecko-logo.png" class="logo"> 
+        <img src="https://static.coingecko.com/s/coingecko-logo-1.png" class="logo">
         <div class="label">CoinGecko</div>
         <a class="btn" href="https://www.coingecko.com" target="_blank">View Listing</a>
     </div>
 
-    <!-- ⭐ Bogged Finance -->
+    <!-- Bogged Finance -->
     <div class="card">
-        <img src="https://assets.coingecko.com/coins/images/15082/standard/bog.png" class="logo">
+        <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/14574.png" class="logo">
         <div class="label">Bogged Finance</div>
         <a class="btn" href="https://bogged.finance" target="_blank">Trade</a>
     </div>
 
-    <!-- ⭐ BabyDogeSwap -->
+    <!-- BabyDogeSwap -->
     <div class="card">
-        <img src="https://assets.babydoge.com/babydoge-logo.png" class="logo">
+        <img src="https://assets.coingecko.com/coins/images/16125/standard/babydoge.jpg" class="logo">
         <div class="label">BabyDogeSwap</div>
         <a class="btn" href="https://babydoge.com/swap" target="_blank">Open DEX</a>
     </div>
 
 </div>
-
-<footer>© 2025 MGX Project — MetaGoldX Network</footer>
 
 </body>
 </html>
