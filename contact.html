@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📞 Contact Support — MGX</title>
+<title>📞 MGX Contact Support</title>
 
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <style>
     body {
         margin: 0;
@@ -12,123 +13,122 @@
         background: radial-gradient(circle at top, #020611, #050816);
         color: white;
         text-align: center;
-        padding: 20px;
+        padding-bottom: 50px;
+        overflow-x: hidden;
     }
 
+    /* ✨ Header Title */
     h1 {
+        margin-top: 40px;
         font-size: 32px;
         color: #ffd700;
-        text-shadow: 0 0 20px #ffd700, 0 0 45px #ffd700;
-        animation: glow 2s infinite alternate;
-        margin-top: 20px;
+        text-shadow: 0 0 25px #ffd700, 0 0 55px #ffcc00;
+        animation: glow 2.2s ease-in-out infinite alternate;
     }
 
     @keyframes glow {
-        from { text-shadow: 0 0 15px #ffd700; }
-        to   { text-shadow: 0 0 40px #ffeb8a; }
+        from { text-shadow: 0 0 12px #ffdd55; }
+        to   { text-shadow: 0 0 35px #ffd700; }
     }
 
-    .box {
-        width: 90%;
-        max-width: 450px;
-        margin: 25px auto;
-        padding: 25px;
-        background: rgba(255,255,255,0.08);
-        border-radius: 20px;
-        border: 1px solid rgba(255,255,255,0.25);
+    /* 🔙 Back Button */
+    .back-btn {
+        position: fixed;
+        top: 25px;
+        left: 20px;
+        padding: 10px 18px;
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.4);
+        border-radius: 14px;
         backdrop-filter: blur(10px);
-        box-shadow: 0 0 20px rgba(255,215,0,0.20);
-        animation: fadeIn 0.8s ease;
+        box-shadow: 0 0 15px #00fff2, 0 0 35px #00bcd4 inset;
+        color: white;
+        font-weight: 600;
+        z-index: 9999;
+        transition: .2s;
+    }
+    .back-btn:hover { transform: scale(1.1); }
+
+    /* 🟦 Glass Card */
+    .glass-box {
+        width: 90%;
+        max-width: 420px;
+        margin: 40px auto;
+        background: rgba(255,255,255,0.08);
+        border-radius: 22px;
+        padding: 25px;
+        border: 1px solid rgba(255,255,255,0.25);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 0 25px rgba(255,215,0,0.25);
+        animation: fadeIn 1.2s ease;
     }
 
     @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
     }
 
-    .btn {
-        display: block;
-        margin: 12px auto;
-        width: 85%;
-        padding: 14px;
-        background: rgba(255,255,255,0.12);
-        border: 1px solid rgba(255,255,255,0.3);
+    /* 🟡 QR Logo Glow */
+    .qr-img {
+        width: 260px;
+        border-radius: 18px;
+        box-shadow: 0 0 35px rgba(255,215,0,0.35),
+                    0 0 65px rgba(255,200,0,0.25);
+        animation: pulse 2.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse {
+        from { box-shadow: 0 0 20px rgba(255,200,0,0.35); }
+        to   { box-shadow: 0 0 55px rgba(255,215,0,0.55); }
+    }
+
+    /* 🟢 LINE Button */
+    .line-btn {
+        margin-top: 20px;
+        background: #06C755;
+        padding: 12px 22px;
         border-radius: 14px;
-        color: #ffd700;
-        font-size: 18px;
-        font-weight: bold;
-        text-decoration: none;
-        box-shadow: 0 0 12px rgba(255,215,0,0.4);
-        transition: 0.25s;
-    }
-
-    .btn:hover {
-        background: rgba(255,255,255,0.18);
-        transform: scale(1.05);
-    }
-
-    .warning {
-        background: rgba(255,50,50,0.25);
-        border: 1px solid rgba(255,80,80,0.45);
-        box-shadow: 0 0 15px rgba(255,50,50,0.45);
-    }
-
-    .sec-title {
+        color: white;
         font-size: 20px;
-        color: #ffd700;
-        margin-bottom: 12px;
-        text-shadow: 0 0 10px #ffd700;
+        font-weight: 700;
+        display: inline-block;
+        box-shadow: 0 0 25px rgba(6,199,85,0.55),
+                    0 0 55px rgba(0,255,120,0.55) inset;
+        transition: 0.2s;
     }
+    .line-btn:hover { transform: scale(1.06); }
 
     footer {
-        margin-top: 45px;
-        opacity: 0.5;
+        margin-top: 40px;
+        opacity: 0.45;
+        font-size: 12px;
     }
 </style>
-
 </head>
+
 <body>
 
+<!-- 🔙 BACK BUTTON -->
+<a class="back-btn" href="index.html">⬅ Back</a>
+
 <h1>📞 CONTACT SUPPORT</h1>
-<p style="opacity:.7; margin-top:-5px;">ศูนย์ช่วยเหลือผู้ใช้ MGX ตอบไว ดูแลตลอด 24 ชั่วโมง</p>
+<p style="opacity:.75;margin-top:-10px;">ติดต่อทีมงาน MGX ได้ตลอด 24 ชม.</p>
 
-<!-- CONTACT BOX -->
-<div class="box">
-    <div class="sec-title">ช่องทางติดต่อด่วน</div>
+<!-- MAIN SUPPORT BOX -->
+<div class="glass-box">
+    <img src="qr-mgx.png" class="qr-img" alt="MGX QR">
 
-    <a class="btn" href="https://t.me/xxxx" target="_blank">💬 Telegram Support</a>
-    <a class="btn" href="https://line.me/ti/p/xxxx" target="_blank">💚 Line Official</a>
-    <a class="btn" href="mailto:support@mgx.finance">📧 Email : support@mgx.finance</a>
-</div>
-
-<!-- WARNING BOX -->
-<div class="box warning">
-    <div class="sec-title">⚠️ คำเตือนด้านความปลอดภัย</div>
-    <p style="line-height:1.6; font-size:15px;">
-        • ห้ามบอกรหัส Seed Phrase กับใครเด็ดขาด<br>
-        • ทีมงานจะไม่ขอให้โอนเหรียญ<br>
-        • หากมีผู้แอบอ้างให้โอนเงิน ให้หยุดทันทีและติดต่อทีมงานผ่านช่องทางด้านบน
+    <p style="margin-top:18px;font-size:18px;">
+        สแกน QR เพื่อแอด <b>LINE Official MGX</b><br>
+        มีทีมงานพร้อมช่วยตอบทุกปัญหา
     </p>
+
+    <a href="https://lin.ee/xxxxxx" target="_blank" class="line-btn">
+        ➤ เปิด LINE Official
+    </a>
 </div>
 
-<!-- FAQ -->
-<div class="box">
-    <div class="sec-title">🛠️ คำถามที่พบบ่อย (FAQ)</div>
-
-    <p><b>Q:</b> เชื่อมกระเป๋าไม่ได้?</p>
-    <p><b>A:</b> ให้ปิดแอป Trust Wallet แล้วเข้าใหม่ หรือใช้ Chrome/MetaMask</p>
-    <hr style="border-color:rgba(255,255,255,0.15);">
-
-    <p><b>Q:</b> ซื้อขาย MGX ไม่ได้?</p>
-    <p><b>A:</b> ตรวจดูว่าใช้คู่เทรด MGX/USDT ถูกต้อง และ gas มีพอ</p>
-    <hr style="border-color:rgba(255,255,255,0.15);">
-
-    <p><b>Q:</b> Claim ไม่ขึ้น?</p>
-    <p><b>A:</b> ให้รอ 10–20 วินาที จากนั้นกด Refresh แล้วลองใหม่</p>
-
-</div>
-
-<footer>© 2025 MGX Project — MetaGoldX Network</footer>
+<footer>© 2025 MGX Project — MetaGoldX Customer Support</footer>
 
 </body>
 </html>
