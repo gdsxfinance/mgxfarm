@@ -11,7 +11,30 @@
 <!-- ⭐⭐⭐ MGX GALAXY ULTRA SIDEBAR MENU — CSS ⭐⭐⭐ -->
 <style>
 
-/* MENU BUTTON */
+/* MENU LEFT BUTTON (กลับมา + ไม่ทับเมนูขวา) */
+.menu-btn {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 9000;
+}
+
+/* MENU LEFT BOX */
+.menu-box {
+  position: fixed;
+  top: 80px;
+  left: 18px;
+  z-index: 9000;
+  background: rgba(0,0,0,0.75);
+  padding: 15px;
+  border-radius: 15px;
+  width: 220px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 20px rgba(255,255,255,0.25);
+}
+.hidden { display: none; }
+
+/* MENU BUTTON — GALAXY RIGHT */
 #mgx-menu-btn {
   position: fixed;
   top: 18px;
@@ -34,7 +57,7 @@
   font-weight: bold;
 }
 
-/* SIDEBAR */
+/* SIDEBAR RIGHT */
 #mgx-sidebar {
   position: fixed;
   top: 0;
@@ -101,7 +124,22 @@
 <!-- DARK SHADE -->
 <div class="shade"></div>
 
-<!-- ⭐⭐⭐ NEW MGX MEGA MENU BUTTON ⭐⭐⭐ -->
+<!-- LEFT MENU BUTTON (กลับมาแล้ว!) -->
+<button class="menu-btn neon-btn">☰ Menu</button>
+
+<!-- LEFT MENU DROPBOX -->
+<div id="dropdownMenu" class="menu-box hidden">
+    <div class="menu-item" onclick="location.href='https://pancakeswap.finance/swap?outputCurrency=0xc2B5cf3312C532B628A2e510f4653B844c1597A9'">💱 Buy / Sell MGX</div>
+    <div class="menu-item" onclick="openFarm()">⛏️ Dashboard</div>
+    <div class="menu-item" onclick="location.href='whitepaper.html'">📜 Whitepaper</div>
+    <div class="menu-item" onclick="location.href='roadmap.html'">🗺️ Roadmap</div>
+    <div class="menu-item" onclick="location.href='airdrop.html'">🎁 Airdrop Center</div>
+    <div class="menu-item" onclick="location.href='treasury.html'">🏦 Treasury Monitor</div>
+    <div class="menu-item" onclick="location.href='partners.html'">🤝 Partners & Exchanges</div>
+    <div class="menu-item" onclick="location.href='contact.html'">📞 Contact Support</div>
+</div>
+
+<!-- ⭐⭐⭐ NEW MGX MEGA MENU BUTTON (RIGHT) ⭐⭐⭐ -->
 <div id="mgx-menu-btn" onclick="toggleMGXMenu()">
   <span>☰</span>
 </div>
@@ -117,45 +155,16 @@
       🔄 Swap MGX
     </a>
 
-    <a href="farmv2.html">
-      ⛏️ Mining Dashboard
-    </a>
-
-    <a href="#" onclick="alert('🎮 GameBoy Coming Soon');">
-      🎮 GameBoy Station
-    </a>
-
-    <a href="#" onclick="alert('🔮 เสี่ยงเซียมซี Coming Soon');">
-      🔮 เสี่ยงเซียมซี MGX
-    </a>
-
-    <a href="#chart">
-      📈 MGX Live Chart
-    </a>
-
-    <a href="treasury.html">
-      🏦 Treasury Monitor
-    </a>
-
-    <a href="airdrop.html">
-      🎁 Airdrop Center
-    </a>
-
-    <a href="roadmap.html">
-      🗺️ Roadmap
-    </a>
-
-    <a href="whitepaper.html">
-      📜 Whitepaper
-    </a>
-
-    <a href="#" onclick="alert('👥 Community Hub Coming Soon');">
-      👥 Community Hub
-    </a>
-
-    <a href="#" onclick="toggleMGXMenu()">
-      ❌ Close Menu
-    </a>
+    <a href="farmv2.html">⛏️ Mining Dashboard</a>
+    <a href="#" onclick="alert('🎮 GameBoy Coming Soon');">🎮 GameBoy Station</a>
+    <a href="#" onclick="alert('🔮 เสี่ยงเซียมซี Coming Soon');">🔮 เสี่ยงเซียมซี MGX</a>
+    <a href="#chart">📈 MGX Live Chart</a>
+    <a href="treasury.html">🏦 Treasury Monitor</a>
+    <a href="airdrop.html">🎁 Airdrop Center</a>
+    <a href="roadmap.html">🗺️ Roadmap</a>
+    <a href="whitepaper.html">📜 Whitepaper</a>
+    <a href="#" onclick="alert('👥 Community Hub Coming Soon');">👥 Community Hub</a>
+    <a href="#" onclick="toggleMGXMenu()">❌ Close Menu</a>
 
   </div>
 </div>
@@ -164,7 +173,6 @@
 <section class="landing" id="landing">
     <h1 class="title glow-gold">✨ MGX GALAXY MINING ✨</h1>
     <p class="subtitle">The Future of Space Mining Begins Here</p>
-
     <button class="enter-btn" onclick="goFarmV2()">🚀 Enter Mining Station</button>
 
 <section class="chart-section" id="chart">
@@ -211,13 +219,15 @@ function goFarmV2() {
     window.location.href = "farmv2.html";
 }
 
-function openLineQR() {
-    window.location.href = "https://raw.githubusercontent.com/gdsxfinance/mgxfarm/main/qr-mgx.png";
-}
-
 function toggleMGXMenu() {
     document.getElementById("mgx-sidebar").classList.toggle("active");
 }
+
+/* LEFT MENU TOGGLE */
+document.querySelector(".menu-btn").onclick = function () {
+    const box = document.getElementById("dropdownMenu");
+    box.classList.toggle("hidden");
+};
 </script>
 
 <script src="script.js"></script>
