@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📞 Contact Support — MGX</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Poppins","Noto Sans Thai",sans-serif;
+        background: radial-gradient(circle at top, #020611, #050816);
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 32px;
+        color: #ffd700;
+        text-shadow: 0 0 20px #ffd700, 0 0 45px #ffd700;
+        animation: glow 2s infinite alternate;
+        margin-top: 20px;
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 15px #ffd700; }
+        to   { text-shadow: 0 0 40px #ffeb8a; }
+    }
+
+    .box {
+        width: 90%;
+        max-width: 450px;
+        margin: 25px auto;
+        padding: 25px;
+        background: rgba(255,255,255,0.08);
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.25);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 0 20px rgba(255,215,0,0.20);
+        animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn {
+        display: block;
+        margin: 12px auto;
+        width: 85%;
+        padding: 14px;
+        background: rgba(255,255,255,0.12);
+        border: 1px solid rgba(255,255,255,0.3);
+        border-radius: 14px;
+        color: #ffd700;
+        font-size: 18px;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 0 12px rgba(255,215,0,0.4);
+        transition: 0.25s;
+    }
+
+    .btn:hover {
+        background: rgba(255,255,255,0.18);
+        transform: scale(1.05);
+    }
+
+    .warning {
+        background: rgba(255,50,50,0.25);
+        border: 1px solid rgba(255,80,80,0.45);
+        box-shadow: 0 0 15px rgba(255,50,50,0.45);
+    }
+
+    .sec-title {
+        font-size: 20px;
+        color: #ffd700;
+        margin-bottom: 12px;
+        text-shadow: 0 0 10px #ffd700;
+    }
+
+    footer {
+        margin-top: 45px;
+        opacity: 0.5;
+    }
+</style>
+
+</head>
+<body>
+
+<h1>📞 CONTACT SUPPORT</h1>
+<p style="opacity:.7; margin-top:-5px;">ศูนย์ช่วยเหลือผู้ใช้ MGX ตอบไว ดูแลตลอด 24 ชั่วโมง</p>
+
+<!-- CONTACT BOX -->
+<div class="box">
+    <div class="sec-title">ช่องทางติดต่อด่วน</div>
+
+    <a class="btn" href="https://t.me/xxxx" target="_blank">💬 Telegram Support</a>
+    <a class="btn" href="https://line.me/ti/p/xxxx" target="_blank">💚 Line Official</a>
+    <a class="btn" href="mailto:support@mgx.finance">📧 Email : support@mgx.finance</a>
+</div>
+
+<!-- WARNING BOX -->
+<div class="box warning">
+    <div class="sec-title">⚠️ คำเตือนด้านความปลอดภัย</div>
+    <p style="line-height:1.6; font-size:15px;">
+        • ห้ามบอกรหัส Seed Phrase กับใครเด็ดขาด<br>
+        • ทีมงานจะไม่ขอให้โอนเหรียญ<br>
+        • หากมีผู้แอบอ้างให้โอนเงิน ให้หยุดทันทีและติดต่อทีมงานผ่านช่องทางด้านบน
+    </p>
+</div>
+
+<!-- FAQ -->
+<div class="box">
+    <div class="sec-title">🛠️ คำถามที่พบบ่อย (FAQ)</div>
+
+    <p><b>Q:</b> เชื่อมกระเป๋าไม่ได้?</p>
+    <p><b>A:</b> ให้ปิดแอป Trust Wallet แล้วเข้าใหม่ หรือใช้ Chrome/MetaMask</p>
+    <hr style="border-color:rgba(255,255,255,0.15);">
+
+    <p><b>Q:</b> ซื้อขาย MGX ไม่ได้?</p>
+    <p><b>A:</b> ตรวจดูว่าใช้คู่เทรด MGX/USDT ถูกต้อง และ gas มีพอ</p>
+    <hr style="border-color:rgba(255,255,255,0.15);">
+
+    <p><b>Q:</b> Claim ไม่ขึ้น?</p>
+    <p><b>A:</b> ให้รอ 10–20 วินาที จากนั้นกด Refresh แล้วลองใหม่</p>
+
+</div>
+
+<footer>© 2025 MGX Project — MetaGoldX Network</footer>
+
+</body>
+</html>
