@@ -82,7 +82,9 @@ body {
     box-shadow: 0 0 25px rgba(0,255,255,0.35), 0 0 45px rgba(255,255,255,0.1) inset;
     z-index: 99999;
 }
-
+max-height: 80vh;   /* ⭐ เพิ่มอันนี้ */
+    overflow-y: auto;   /* ⭐ เพิ่มอันนี้ */
+}
 .menu-item {
     padding: 14px;
     background: rgba(255,255,255,0.22);
