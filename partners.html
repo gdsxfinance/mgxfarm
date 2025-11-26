@@ -3,132 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🤝 Partners & Exchanges — MGX</title>
+<title>🤝 PARTNERS & EXCHANGES</title>
 
 <style>
+    :root {
+        --gold: #ffd700;
+        --dark: #080b16;
+        --card: rgba(255,255,255,0.05);
+        --border: rgba(255,255,255,0.15);
+    }
+
     body {
         margin: 0;
-        font-family: "Poppins", "Noto Sans Thai", sans-serif;
         background: radial-gradient(circle at top, #020611, #050816);
         color: white;
+        font-family: "Poppins","Noto Sans Thai",sans-serif;
         text-align: center;
-        padding: 20px;
+        padding: 30px 15px;
     }
 
     h1 {
-        font-size: 32px;
-        color: #ffd700;
-        text-shadow: 0 0 20px #ffd700, 0 0 45px #ffd700;
-        animation: glow 2s infinite alternate;
-        margin-bottom: 10px;
+        font-size: 34px;
+        margin-bottom: 5px;
+        color: var(--gold);
+        text-shadow: 0 0 20px var(--gold), 0 0 40px var(--gold);
     }
 
-    @keyframes glow {
-        from { text-shadow: 0 0 15px #ffd700; }
-        to   { text-shadow: 0 0 40px #ffeb8a; }
-    }
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 25px;
-        margin-top: 25px;
+    p.sub {
+        opacity: .75;
+        font-size: 15px;
+        margin-bottom: 30px;
     }
 
     .card {
-        width: 330px;
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.15);
-        border-radius: 22px;
-        padding: 28px;
-        backdrop-filter: blur(10px);
+        width: 90%;
+        max-width: 420px;
+        margin: 18px auto;
+        background: var(--card);
+        border: 1px solid var(--border);
+        padding: 25px;
+        border-radius: 20px;
         box-shadow: 0 0 25px rgba(255,215,0,0.15);
+        backdrop-filter: blur(10px);
+        animation: fadeIn 0.9s ease;
     }
 
-    .logo {
-        width: 78px;
-        height: 78px;
-        margin-bottom: 15px;
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo img, .partner-logo {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
         object-fit: contain;
-        background: transparent;
+        background: rgba(0,0,0,0.4);
+        padding: 12px;
+        box-shadow: 0 0 25px rgba(255,215,0,0.4);
+        margin-bottom: 10px;
     }
 
-    .label {
-        font-size: 20px;
-        margin-bottom: 12px;
-        color: #ffd700;
-        font-weight: bold;
+    .title {
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: var(--gold);
+        font-weight: 600;
+        text-shadow: 0 0 20px var(--gold);
     }
 
     .btn {
         display: inline-block;
-        padding: 10px 18px;
-        background: #ffd70011;
-        border: 1px solid #ffd70066;
-        color: #ffd700;
+        background: #fff7c2;
+        color: #000;
+        padding: 13px 28px;
         border-radius: 14px;
-        text-decoration: none;
+        font-size: 16px;
         font-weight: bold;
+        text-decoration: none;
+        transition: 0.2s;
+        box-shadow: 0 0 12px rgba(255,230,150,0.7);
     }
+
+    .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 18px rgba(255,230,150,1);
+    }
+
 </style>
 </head>
-
 <body>
 
 <h1>🤝 PARTNERS & EXCHANGES</h1>
+<p class="sub">เชื่อมต่อด้วยพาร์ทเนอร์ชั้นนำระดับโลก</p>
 
-<div class="container">
-
-    <!-- PancakeSwap -->
-    <div class="card">
-        <img src="https://cryptologos.cc/logos/pancakeswap-cake-logo.png" class="logo">
-        <div class="label">PancakeSwap (MGX / USDT)</div>
-        <a class="btn" href="https://pancakeswap.finance/swap?outputCurrency=0xc2B5cf3312C532B628A2e510f4653B844c1597A9&inputCurrency=0x55d398326f99059fF775485246999027B3197955" target="_blank">Trade MGX/USDT</a>
+<!-- PancakeSwap -->
+<div class="card">
+    <div class="logo">
+        <img src="pancake.png" alt="PancakeSwap">
     </div>
-
-    <!-- DEXTools -->
-    <div class="card">
-        <img src="https://icons.llamao.fi/icons/protocols/dextools.png" class="logo">
-        <div class="label">DEXTools</div>
-        <a class="btn" href="https://www.dextools.io" target="_blank">View Chart</a>
-    </div>
-
-    <!-- PooCoin -->
-    <div class="card">
-        <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/9608.png" class="logo">
-        <div class="label">PooCoin</div>
-        <a class="btn" href="https://poocoin.app" target="_blank">Open Chart</a>
-    </div>
-
-    <!-- CoinMarketCap -->
-    <div class="card">
-    <img src="https://i.imgur.com/Qrr4FXx.png" class="logo">
-    <div class="label">CoinMarketCap</div>
-    <a class="btn" href="https://coinmarketcap.com" target="_blank">View Listing</a>
+    <div class="title">PancakeSwap (MGX / USDT)</div>
+    <a class="btn" href="https://pancakeswap.finance/swap?outputCurrency=0xc2B5cf3312C532B628A2e510f4653B844c1597A9" target="_blank">Trade MGX/USDT</a>
 </div>
 
-    <!-- CoinGecko -->
-    <div class="card">
-    <img src="https://i.imgur.com/lDeArXo.png" class="logo">
-    <div class="label">CoinGecko</div>
-    <a class="btn" href="https://www.coingecko.com" target="_blank">View Listing</a>
+<!-- DEXTools -->
+<div class="card">
+    <div class="logo">
+        <img src="dextools.png" alt="DEXTools" class="partner-logo">
+    </div>
+    <div class="title">DEXTools</div>
+    <a class="btn" href="https://www.dextools.io" target="_blank">View Chart</a>
 </div>
 
-    <!-- Bogged Finance -->
-    <div class="card">
-        <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/14574.png" class="logo">
-        <div class="label">Bogged Finance</div>
-        <a class="btn" href="https://bogged.finance" target="_blank">Trade</a>
+<!-- PooCoin -->
+<div class="card">
+    <div class="logo">
+        <img src="poocoin.png" alt="PooCoin" class="partner-logo">
     </div>
+    <div class="title">PooCoin</div>
+    <a class="btn" href="https://poocoin.app" target="_blank">Open Chart</a>
+</div>
 
-    <!-- BabyDogeSwap -->
-    <div class="card">
-        <img src="https://assets.coingecko.com/coins/images/16125/standard/babydoge.jpg" class="logo">
-        <div class="label">BabyDogeSwap</div>
-        <a class="btn" href="https://babydoge.com/swap" target="_blank">Open DEX</a>
+<!-- CoinMarketCap -->
+<div class="card">
+    <div class="logo">
+        <img src="cmc.png" alt="CoinMarketCap" class="partner-logo">
     </div>
+    <div class="title">CoinMarketCap</div>
+    <a class="btn" href="#" target="_blank">View Listing</a>
+</div>
 
+<!-- CoinGecko -->
+<div class="card">
+    <div class="logo">
+        <img src="coingecko.png" alt="CoinGecko" class="partner-logo">
+    </div>
+    <div class="title">CoinGecko</div>
+    <a class="btn" href="#" target="_blank">View Listing</a>
 </div>
 
 </body>
