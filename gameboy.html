@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎮 MGX GAMEBOY STATION</title>
+
+<style>
+body {
+  margin:0;
+  background: radial-gradient(circle at top, #000014, #001122, #000);
+  color:white;
+  font-family:"Poppins","Noto Sans Thai",sans-serif;
+  text-align:center;
+}
+
+h1 {
+  margin-top:20px;
+  text-shadow:0 0 20px #00ffd5, 0 0 40px #00ffd5;
+}
+
+.gb-box {
+  margin:25px auto;
+  width:90%;
+  max-width:420px;
+  background:rgba(255,255,255,0.08);
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(0,255,213,0.4);
+  backdrop-filter:blur(10px);
+}
+
+canvas {
+  width:100%;
+  border-radius:10px;
+  box-shadow:0 0 15px #00ffd5;
+}
+
+.upload-btn {
+  background:#00ffd5;
+  color:#000;
+  padding:12px 20px;
+  border-radius:50px;
+  border:none;
+  margin-top:15px;
+  font-size:16px;
+  box-shadow:0 0 15px #00ffd5;
+}
+
+.back-btn {
+  position:fixed;
+  top:15px;
+  left:15px;
+  background:#00ffd5;
+  border-radius:10px;
+  padding:8px 15px;
+  color:black;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="back-btn" onclick="history.back()">⬅ Back</div>
+
+<h1>🎮 MGX GAMEBOY STATION</h1>
+
+<div class="gb-box">
+  <canvas id="screen" width="480" height="432"></canvas>
+  <input type="file" id="rom" accept=".gb,.gbc" class="upload-btn">
+  <p>อัปโหลด ROM เกม (ไฟล์ .gb / .gbc)</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/taisel/IodineGBA/js/GameBoyCore.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/taisel/IodineGBA/js/GameBoyIO.js"></script>
+<script>
+document.getElementById("rom").addEventListener("change", function(e){
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function(){
+        startGameBoy(new Uint8Array(reader.result));
+    };
+    reader.readAsArrayBuffer(file);
+});
+
+function startGameBoy(romData){
+    if(typeof GameBoy !== "undefined"){
+        GameBoy.stop();
+    }
+    window.GameBoy = new GameBoyCore(document.getElementById("screen"));
+    GameBoy.loadROM(romData);
+    GameBoy.start();
+}
+</script>
+
+</body>
+</html>
