@@ -14,14 +14,12 @@ body {
   text-align:center;
 }
 
-/* Header */
 h1 {
   margin-top:20px;
   font-size:28px;
   text-shadow:0 0 15px #00ffd5, 0 0 30px #00ffd5;
 }
 
-/* Game frame */
 #gameFrame {
   width: 90%;
   height: 480px;
@@ -32,30 +30,29 @@ h1 {
   background:black;
 }
 
-/* Menu buttons */
+/* Game buttons */
 .game-btn {
   padding:10px 15px;
-  margin:8px;
+  margin:6px;
   border-radius:12px;
   background:rgba(255,255,255,0.1);
   border:1px solid rgba(0,255,255,0.3);
   color:white;
   cursor:pointer;
   display:inline-block;
-  font-size:16px;
+  font-size:15px;
   backdrop-filter:blur(4px);
   box-shadow:0 0 12px rgba(0,255,255,0.25);
 }
-
 .game-btn:hover {
   background:rgba(0,255,255,0.22);
   box-shadow:0 0 25px #00ffe5;
 }
 
-/* Back button */
 .back-btn {
   position:absolute;
-  top:15px; left:15px;
+  top:15px; 
+  left:15px;
   background:#00ffd5;
   color:black;
   border-radius:10px;
@@ -72,6 +69,14 @@ h1 {
 
 <!-- GAME MENU -->
 <div>
+  <div class="game-btn" onclick="loadGame('flappy')">🕊️ Flappy Bird (เสียง)</div>
+  <div class="game-btn" onclick="loadGame('fruit')">🍉 Fruit Ninja (เสียง)</div>
+  <div class="game-btn" onclick="loadGame('slope')">🟢 Slope (เสียง)</div>
+  <div class="game-btn" onclick="loadGame('breakout')">🟧 Breakout (เสียง)</div>
+  <div class="game-btn" onclick="loadGame('helix')">🌀 Helix Jump (เสียง)</div>
+
+  <hr style="width:80%; opacity:0.3;">
+
   <div class="game-btn" onclick="loadGame('tetris')">🟦 Tetris</div>
   <div class="game-btn" onclick="loadGame('pacman')">🟡 Pac-Man</div>
   <div class="game-btn" onclick="loadGame('mario')">🍄 Mario</div>
@@ -80,7 +85,6 @@ h1 {
   <div class="game-btn" onclick="loadGame('snake')">🐍 Snake</div>
   <div class="game-btn" onclick="loadGame('dash')">💥 Geometry Dash</div>
   <div class="game-btn" onclick="loadGame('run3')">🏃 Run 3</div>
-  <div class="game-btn" onclick="loadGame('flappy')">🕊️ Flappy Bird</div>
 </div>
 
 <!-- GAME AREA -->
@@ -89,6 +93,12 @@ h1 {
 <script>
 function loadGame(game) {
   const games = {
+    flappy: "https://flappybird.io/",
+    fruit: "https://games.crazygames.com/en_US/fruit-ninja/",
+    slope: "https://slope-game.github.io/slope/",
+    breakout: "https://breakout.ziggy.games/",
+    helix: "https://helixjump.io/",
+
     tetris: "https://tetris.com/play",
     pacman: "https://scratch.mit.edu/projects/56926846/embed",
     mario: "https://supermario-game.com/embed",
@@ -96,8 +106,7 @@ function loadGame(game) {
     2048: "https://play2048.co/",
     snake: "https://playsnake.org/",
     dash: "https://geometrydashfree.com/games/geometry-dash-lite",
-    run3: "https://run3.io/run-3.embed",
-    flappy: "https://flappybird.io/"
+    run3: "https://run3.io/run-3.embed"
   };
 
   document.getElementById("gameFrame").src = games[game];
