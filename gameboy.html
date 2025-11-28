@@ -61,74 +61,6 @@ h1 {
   border-radius:10px;
   padding:8px 15px;
 }
-
-/* CONTROLLER STYLE */
-#controller {
-  position: fixed;
-  bottom: 25px;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  pointer-events: auto;
-  z-index: 9999;
-}
-
-/* D-PAD */
-#dpad {
-  width: 140px;
-  height: 140px;
-  position: relative;
-}
-
-.dir {
-  position: absolute;
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  border: 1px solid #00ffd5;
-  background: rgba(0,255,255,0.12);
-  color: white;
-  font-size: 22px;
-  box-shadow: 0 0 12px #00ffd5;
-}
-
-.up    { top: 0; left: 46px; }
-.down  { bottom: 0; left: 46px; }
-.left  { top: 46px; left: 0; }
-.right { top: 46px; right: 0; }
-
-/* AB BUTTONS */
-#ab-btns {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-
-#ab-btns button {
-  width: 70px;
-  height: 70px;
-  font-size: 24px;
-  border-radius: 50%;
-  border:1px solid #ff00dd;
-  background: rgba(255,0,200,0.12);
-  color:white;
-  box-shadow:0 0 12px #ff00dd;
-}
-
-/* START / SELECT */
-#startselect {
-  display:flex;
-  flex-direction:column;
-  justify-content:space-around;
-}
-
-#startselect button {
-  padding:8px 20px;
-  background:rgba(255,255,255,0.15);
-  border:1px solid #fff;
-  color:white;
-  border-radius:10px;
-}
 </style>
 </head>
 
@@ -154,26 +86,6 @@ h1 {
 <!-- GAME AREA -->
 <iframe id="gameFrame"></iframe>
 
-<!-- CONTROLLER -->
-<div id="controller">
-  <div id="dpad">
-    <button class="dir up"    data-key="ArrowUp">▲</button>
-    <button class="dir left"  data-key="ArrowLeft">◀</button>
-    <button class="dir right" data-key="ArrowRight">▶</button>
-    <button class="dir down"  data-key="ArrowDown">▼</button>
-  </div>
-
-  <div id="ab-btns">
-    <button class="btn-a" data-key="KeyZ">A</button>
-    <button class="btn-b" data-key="KeyX">B</button>
-  </div>
-
-  <div id="startselect">
-    <button class="start"  data-key="Enter">Start</button>
-    <button class="select" data-key="Space">Select</button>
-  </div>
-</div>
-
 <script>
 function loadGame(game) {
   const games = {
@@ -190,17 +102,6 @@ function loadGame(game) {
 
   document.getElementById("gameFrame").src = games[game];
 }
-
-function sendKey(eventType, key) {
-  const evt = new KeyboardEvent(eventType, { key: key, bubbles: true });
-  const iframe = document.getElementById("gameFrame");
-  iframe.contentWindow.dispatchEvent(evt);
-}
-
-document.querySelectorAll("#controller button").forEach(btn => {
-  btn.addEventListener("touchstart", () => sendKey("keydown", btn.dataset.key));
-  btn.addEventListener("touchend", () => sendKey("keyup", btn.dataset.key));
-});
 </script>
 
 </body>
