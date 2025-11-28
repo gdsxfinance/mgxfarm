@@ -22,7 +22,7 @@ h1 {
 
 #gameFrame {
   width: 90%;
-  height: 480px;
+  height: 500px;
   margin:auto;
   border:none;
   border-radius:18px;
@@ -30,7 +30,6 @@ h1 {
   background:black;
 }
 
-/* Game buttons */
 .game-btn {
   padding:10px 15px;
   margin:6px;
@@ -44,6 +43,7 @@ h1 {
   backdrop-filter:blur(4px);
   box-shadow:0 0 12px rgba(0,255,255,0.25);
 }
+
 .game-btn:hover {
   background:rgba(0,255,255,0.22);
   box-shadow:0 0 25px #00ffe5;
@@ -68,16 +68,19 @@ h1 {
 
 <!-- GAME MENU -->
 <div>
-  <div class="game-btn" onclick="loadGame('g2048')">🔢 2048</div>
-  <div class="game-btn" onclick="loadGame('run3')">🏃 Run 3</div>
-  <div class="game-btn" onclick="loadGame('gdash')">💥 Geometry Dash</div>
   <div class="game-btn" onclick="loadGame('tetris')">🟦 Tetris</div>
-  <div class="game-btn" onclick="loadGame('snake')">🐍 Snake</div>
   <div class="game-btn" onclick="loadGame('hextris')">🔷 Hextris</div>
-  <div class="game-btn" onclick="loadGame('crossy')">🚗 Crossy Road</div>
-  <div class="game-btn" onclick="loadGame('block')">🧩 Block Puzzle</div>
-  <div class="game-btn" onclick="loadGame('sudoku')">🧠 Sudoku</div>
-  <div class="game-btn" onclick="loadGame('flappyblock')">🟩 Flappy Block</div>
+
+  <hr style="width:80%; opacity:0.3;">
+
+  <div class="game-btn" onclick="loadGame('slope3')">🟢 Slope 3</div>
+  <div class="game-btn" onclick="loadGame('tunnel')">🔵 Tunnel Rush 3D</div>
+  <div class="game-btn" onclick="loadGame('stack')">🟧 Stack</div>
+  <div class="game-btn" onclick="loadGame('elastic')">😂 Elastic Man</div>
+  <div class="game-btn" onclick="loadGame('ballsort')">🎨 Ball Sort Puzzle</div>
+  <div class="game-btn" onclick="loadGame('fruitmerge')">🍇 Fruit Merge</div>
+  <div class="game-btn" onclick="loadGame('paper')">🟨 Paper.io 2</div>
+  <div class="game-btn" onclick="loadGame('drift')">🚗 Drift Hunters</div>
 </div>
 
 <!-- GAME AREA -->
@@ -86,16 +89,17 @@ h1 {
 <script>
 function loadGame(game) {
   const games = {
-    g2048: "https://play2048.co/",
-    run3: "https://run3.io/run-3.embed",
-    gdash: "https://geometrydashfree.com/games/geometry-dash-lite",
     tetris: "https://tetris.com/play",
-    snake: "https://playsnake.org/",
     hextris: "https://hextris.io/",
-    crossy: "https://crossyroad.io/",
-    block: "https://blockpuzzlegame.io/",
-    sudoku: "https://sudoku.com/play/",
-    flappyblock: "https://flappyblock.github.io/"
+
+    slope3: "https://slope-game.github.io/slope-3/",
+    tunnel: "https://tunnelrush.app/",
+    stack: "https://stack.enjoy4fun.com/",
+    elastic: "https://elasticman.net/",
+    ballsort: "https://ballsortpuzzle.co/",
+    fruitmerge: "https://fruitmerge.io/",
+    paper: "https://paper-io.com/paper-io-2/",
+    drift: "https://drifthunters.net/"
   };
 
   document.getElementById("gameFrame").src = games[game];
