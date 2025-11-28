@@ -3,94 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎮 MGX GAMEBOY STATION</title>
+<title>MGX GAME STATION</title>
 
 <style>
 body {
   margin:0;
   background: radial-gradient(circle at top, #000014, #001122, #000);
   color:white;
-  font-family:"Poppins","Noto Sans Thai",sans-serif;
+  font-family: "Poppins","Noto Sans Thai",sans-serif;
   text-align:center;
 }
 
+/* Header */
 h1 {
   margin-top:20px;
-  text-shadow:0 0 20px #00ffd5, 0 0 40px #00ffd5;
+  font-size:28px;
+  text-shadow:0 0 15px #00ffd5, 0 0 30px #00ffd5;
 }
 
-.gb-box {
-  margin:25px auto;
-  width:90%;
-  max-width:420px;
-  background:rgba(255,255,255,0.08);
-  padding:20px;
-  border-radius:20px;
-  box-shadow:0 0 25px rgba(0,255,213,0.4);
-  backdrop-filter:blur(10px);
-}
-
-canvas {
-  width:100%;
-  border-radius:10px;
-  box-shadow:0 0 15px #00ffd5;
-}
-
-.upload-btn {
-  background:#00ffd5;
-  color:#000;
-  padding:12px 20px;
-  border-radius:50px;
+/* Game frame */
+#gameFrame {
+  width: 90%;
+  height: 480px;
+  margin:auto;
   border:none;
-  margin-top:15px;
-  font-size:16px;
-  box-shadow:0 0 15px #00ffd5;
+  border-radius:18px;
+  box-shadow:0 0 25px #00ffd5;
+  background:black;
 }
 
+/* Menu buttons */
+.game-btn {
+  padding:10px 15px;
+  margin:8px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(0,255,255,0.3);
+  color:white;
+  cursor:pointer;
+  display:inline-block;
+  font-size:16px;
+  backdrop-filter:blur(4px);
+  box-shadow:0 0 12px rgba(0,255,255,0.25);
+}
+
+.game-btn:hover {
+  background:rgba(0,255,255,0.22);
+  box-shadow:0 0 25px #00ffe5;
+}
+
+/* Back button */
 .back-btn {
-  position:fixed;
-  top:15px;
-  left:15px;
+  position:absolute;
+  top:15px; left:15px;
   background:#00ffd5;
+  color:black;
   border-radius:10px;
   padding:8px 15px;
-  color:black;
-  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div class="back-btn" onclick="history.back()">⬅ Back</div>
+<a class="back-btn" href="index.html">⬅ Back</a>
 
-<h1>🎮 MGX GAMEBOY STATION</h1>
+<h1>🎮 MGX GAME STATION</h1>
 
-<div class="gb-box">
-  <canvas id="screen" width="480" height="432"></canvas>
-  <input type="file" id="rom" accept=".gb,.gbc" class="upload-btn">
-  <p>อัปโหลด ROM เกม (ไฟล์ .gb / .gbc)</p>
+<!-- GAME MENU -->
+<div>
+  <div class="game-btn" onclick="loadGame('tetris')">🟦 Tetris</div>
+  <div class="game-btn" onclick="loadGame('pacman')">🟡 Pac-Man</div>
+  <div class="game-btn" onclick="loadGame('mario')">🍄 Mario</div>
+  <div class="game-btn" onclick="loadGame('space')">🚀 Space Invaders</div>
+  <div class="game-btn" onclick="loadGame('2048')">🔢 2048</div>
+  <div class="game-btn" onclick="loadGame('snake')">🐍 Snake</div>
+  <div class="game-btn" onclick="loadGame('dash')">💥 Geometry Dash</div>
+  <div class="game-btn" onclick="loadGame('run3')">🏃 Run 3</div>
+  <div class="game-btn" onclick="loadGame('flappy')">🕊️ Flappy Bird</div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/taisel/IodineGBA/js/GameBoyCore.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/taisel/IodineGBA/js/GameBoyIO.js"></script>
-<script>
-document.getElementById("rom").addEventListener("change", function(e){
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onload = function(){
-        startGameBoy(new Uint8Array(reader.result));
-    };
-    reader.readAsArrayBuffer(file);
-});
+<!-- GAME AREA -->
+<iframe id="gameFrame"></iframe>
 
-function startGameBoy(romData){
-    if(typeof GameBoy !== "undefined"){
-        GameBoy.stop();
-    }
-    window.GameBoy = new GameBoyCore(document.getElementById("screen"));
-    GameBoy.loadROM(romData);
-    GameBoy.start();
+<script>
+function loadGame(game) {
+  const games = {
+    tetris: "https://tetris.com/play",
+    pacman: "https://scratch.mit.edu/projects/56926846/embed",
+    mario: "https://supermario-game.com/embed",
+    space: "https://freeinvaders.org/",
+    2048: "https://play2048.co/",
+    snake: "https://playsnake.org/",
+    dash: "https://geometrydashfree.com/games/geometry-dash-lite",
+    run3: "https://run3.io/run-3.embed",
+    flappy: "https://flappybird.io/"
+  };
+
+  document.getElementById("gameFrame").src = games[game];
 }
 </script>
 
