@@ -51,8 +51,7 @@ h1 {
 
 .back-btn {
   position:absolute;
-  top:15px; 
-  left:15px;
+  top:15px; left:15px;
   background:#00ffd5;
   color:black;
   border-radius:10px;
@@ -69,22 +68,16 @@ h1 {
 
 <!-- GAME MENU -->
 <div>
-  <div class="game-btn" onclick="loadGame('flappy')">🕊️ Flappy Bird (เสียง)</div>
-  <div class="game-btn" onclick="loadGame('fruit')">🍉 Fruit Ninja (เสียง)</div>
-  <div class="game-btn" onclick="loadGame('slope')">🟢 Slope (เสียง)</div>
-  <div class="game-btn" onclick="loadGame('breakout')">🟧 Breakout (เสียง)</div>
-  <div class="game-btn" onclick="loadGame('helix')">🌀 Helix Jump (เสียง)</div>
-
-  <hr style="width:80%; opacity:0.3;">
-
-  <div class="game-btn" onclick="loadGame('tetris')">🟦 Tetris</div>
-  <div class="game-btn" onclick="loadGame('pacman')">🟡 Pac-Man</div>
-  <div class="game-btn" onclick="loadGame('mario')">🍄 Mario</div>
-  <div class="game-btn" onclick="loadGame('space')">🚀 Space Invaders</div>
-  <div class="game-btn" onclick="loadGame('2048')">🔢 2048</div>
-  <div class="game-btn" onclick="loadGame('snake')">🐍 Snake</div>
-  <div class="game-btn" onclick="loadGame('dash')">💥 Geometry Dash</div>
+  <div class="game-btn" onclick="loadGame('g2048')">🔢 2048</div>
   <div class="game-btn" onclick="loadGame('run3')">🏃 Run 3</div>
+  <div class="game-btn" onclick="loadGame('gdash')">💥 Geometry Dash</div>
+  <div class="game-btn" onclick="loadGame('tetris')">🟦 Tetris</div>
+  <div class="game-btn" onclick="loadGame('snake')">🐍 Snake</div>
+  <div class="game-btn" onclick="loadGame('hextris')">🔷 Hextris</div>
+  <div class="game-btn" onclick="loadGame('crossy')">🚗 Crossy Road</div>
+  <div class="game-btn" onclick="loadGame('block')">🧩 Block Puzzle</div>
+  <div class="game-btn" onclick="loadGame('sudoku')">🧠 Sudoku</div>
+  <div class="game-btn" onclick="loadGame('flappyblock')">🟩 Flappy Block</div>
 </div>
 
 <!-- GAME AREA -->
@@ -93,20 +86,16 @@ h1 {
 <script>
 function loadGame(game) {
   const games = {
-    flappy: "https://flappybird.io/",
-    fruit: "https://games.crazygames.com/en_US/fruit-ninja/",
-    slope: "https://slope-game.github.io/slope/",
-    breakout: "https://breakout.ziggy.games/",
-    helix: "https://helixjump.io/",
-
+    g2048: "https://play2048.co/",
+    run3: "https://run3.io/run-3.embed",
+    gdash: "https://geometrydashfree.com/games/geometry-dash-lite",
     tetris: "https://tetris.com/play",
-    pacman: "https://scratch.mit.edu/projects/56926846/embed",
-    mario: "https://supermario-game.com/embed",
-    space: "https://freeinvaders.org/",
-    2048: "https://play2048.co/",
     snake: "https://playsnake.org/",
-    dash: "https://geometrydashfree.com/games/geometry-dash-lite",
-    run3: "https://run3.io/run-3.embed"
+    hextris: "https://hextris.io/",
+    crossy: "https://crossyroad.io/",
+    block: "https://blockpuzzlegame.io/",
+    sudoku: "https://sudoku.com/play/",
+    flappyblock: "https://flappyblock.github.io/"
   };
 
   document.getElementById("gameFrame").src = games[game];
