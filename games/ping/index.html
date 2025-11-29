@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MGX Ping Ball</title>
+
+<style>
+body {
+  margin: 0;
+  background: #000;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+#game {
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  position: relative;
+}
+
+#paddle {
+  width: 120px;
+  height: 20px;
+  background: #FFD700;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+}
+
+#ball {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px #fff;
+}
+
+#score {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: #FFD700;
+  font-size: 22px;
+  text-shadow: 0 0 8px #FFD700;
+}
+</style>
+</head>
+
+<body>
+
+<div id="game">
+  <div id="paddle"></div>
+  <div id="ball"></div>
+  <div id="score">Score: 0</div>
+</div>
+
+<!-- SOUND EFFECTS -->
+<audio id="hitSound" src="https://assets.mixkit.co/active_storage/sfx/2005/2005-preview.mp3"></audio>
+<audio id="wallSound" src="https://assets.mixkit.co/active_storage/sfx/2001/2001-preview.mp3"></audio>
+
+<script>
+const paddle = document.getElementById("paddle");
+const ball = document.getElementById("ball");
+const scoreText = document.getElementById("score");
+
+const hitSound = document.getElementById("hitSound");
+const wallSound = document.getElementById("wallSound");
+
+let score = 0;
+let ballX = 4;
+let ballY = 4;
+
+// mobile control
+document.addEventListener("touchmove", (e) => {
+  let x = e.touches[0].clientX;
+  paddle.style.left = x - 60 + "px";
+});
+
+// desktop control
+document.addEventListener("mousemove", (e) => {
+  paddle.style.left = e.clientX - 60 + "px";
+});
+
+function loop() {
+  let ballRect = ball.getBoundingClientRect();
+  let paddleRect = paddle.getBoundingClientRect();
+
+  // move ball
+  ball.style.top = ballRect.top + ballY + "px";
+  ball.style.left = ballRect.left + ballX + "px";
+
+  ballRect = ball.getBoundingClientRect();
+
+  // wall bounce
+  if (ballRect.left <= 0 || ballRect.right >= window.innerWidth) {
+    ballX = -ballX;
+    wallSound.play();
+  }
+
+  if (ballRect.top <= 0) {
+    ballY = -ballY;
+    wallSound.play();
+  }
+
+  // paddle collision
+  if (
+    ballRect.bottom >= paddleRect.top &&
+    ballRect.right >= paddleRect.left &&
+    ballRect.left <= paddleRect.right
+  ) {
+    ballY = -ballY;
+    hitSound.play();
+    score++;
+    scoreText.innerText = "Score: " + score;
+  }
+
+  // game over
+  if (ballRect.top > window.innerHeight) {
+    alert("Game Over!\nScore: " + score);
+    score = 0;
+    scoreText.innerText = "Score: 0";
+
+    // reset ball
+    ball.style.top = "40%";
+    ball.style.left = "50%";
+    ballX = 4;
+    ballY = 4;
+  }
+
+  requestAnimationFrame(loop);
+}
+
+loop();
+</script>
+
+</body>
+</html>
