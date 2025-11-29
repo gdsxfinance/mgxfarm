@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MGX GAME STATION</title>
+
+<style>
+  body {
+    margin:0;
+    background: radial-gradient(circle at top, #020617, #000000);
+    color:white;
+    font-family: "Poppins","Noto Sans Thai",sans-serif;
+    text-align:center;
+  }
+
+  h1 {
+    margin-top:20px;
+    font-size:26px;
+    text-shadow:0 0 15px #00ffd5, 0 0 30px #00ffd5;
+  }
+
+  .subtitle {
+    font-size:13px;
+    opacity:0.75;
+    margin-bottom:10px;
+  }
+
+  /* กล่องรวมปุ่มเกม */
+  .game-bar {
+    max-width: 960px;
+    margin: 0 auto 10px auto;
+    padding: 8px 6px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:6px;
+  }
+
+  .game-btn {
+    padding:8px 10px;
+    border-radius:10px;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(0,255,255,0.35);
+    color:white;
+    cursor:pointer;
+    font-size:13px;
+    min-width:90px;
+    backdrop-filter:blur(6px);
+    box-shadow:0 0 10px rgba(0,255,255,0.22);
+    white-space:nowrap;
+  }
+
+  .game-btn:hover {
+    background:rgba(0,255,255,0.16);
+    box-shadow:0 0 20px #00ffe5;
+  }
+
+  /* กรอบเกม */
+  #gameFrame {
+    width: 96vw;
+    max-width: 960px;
+    height: 65vh;
+    max-height: 540px;
+    border:none;
+    border-radius:18px;
+    margin:8px auto 15px auto;
+    background:black;
+    box-shadow:0 0 25px #00ffd5;
+    display:block;
+  }
+
+  .back-btn {
+    position:fixed;
+    top:12px;
+    left:12px;
+    background:#00ffd5;
+    color:black;
+    border-radius:10px;
+    padding:7px 14px;
+    font-size:13px;
+    text-decoration:none;
+    z-index:50;
+  }
+
+  .back-btn:hover {
+    filter:brightness(1.1);
+  }
+
+  .hint {
+    font-size:11px;
+    opacity:0.7;
+    margin-bottom:8px;
+  }
+
+  @media (max-width:600px){
+    h1 { font-size:22px; }
+    .game-btn { font-size:12px; padding:7px 9px; }
+  }
+</style>
+</head>
+
+<body>
+
+<a class="back-btn" href="../index.html">⬅ Back</a>
+
+<h1>🎮 MGX GAME STATION</h1>
+<div class="subtitle">เลือกเกมด้านล่างแล้วเล่นได้ทันที – ไม่ต้องใช้ ROM</div>
+
+<div class="game-bar">
+  <button class="game-btn" onclick="loadGame('slope3')">🟢 Slope 3</button>
+  <button class="game-btn" onclick="loadGame('run3')">🏃 Run 3</button>
+  <button class="game-btn" onclick="loadGame('flappy')">🐦 Flappy Bird</button>
+  <button class="game-btn" onclick="loadGame('tunnel')">🌀 Tunnel Rush</button>
+  <button class="game-btn" onclick="loadGame('stack')">🧱 Stack</button>
+  <button class="game-btn" onclick="loadGame('slopetunnel')">🛰 Slope Tunnel</button>
+  <button class="game-btn" onclick="loadGame('hextris')">🔷 Hextris</button>
+  <button class="game-btn" onclick="loadGame('paper')">📜 Paper.io 2</button>
+  <button class="game-btn" onclick="loadGame('g2048')">🔢 2048</button>
+  <button class="game-btn" onclick="loadGame('gdash')">💥 Geometry Dash</button>
+</div>
+
+<div class="hint">ถ้าเกมไม่โหลด ลองเปลี่ยนไปเกมอื่น – บางเว็บอาจบล็อกการฝัง iFrame</div>
+
+<iframe id="gameFrame"></iframe>
+
+<script>
+  const GAMES = {
+    slope3:      "https://slope-game.github.io/slope-3/",
+    run3:        "https://run3.io/run-3.embed",
+    flappy:      "https://flappybird.io/",
+    tunnel:      "https://tunnelrush.app/tunnel-rush/",
+    stack:       "https://stack-game.github.io/",
+    slopetunnel: "https://slopegame.io/slope-tunnel",
+    hextris:     "https://hextris.io/",
+    paper:       "https://paper-io.com/paper-io-2/",
+    g2048:       "https://play2048.co/",
+    gdash:       "https://geometrydashfree.com/games/geometry-dash-lite"
+  };
+
+  function loadGame(key){
+    const url = GAMES[key];
+    if (!url) return;
+    document.getElementById("gameFrame").src = url;
+  }
+
+  // โหลดเกมแรกไว้เป็นค่าเริ่มต้น
+  window.addEventListener("load", () => {
+    loadGame("slope3");
+  });
+</script>
+
+</body>
+</html>
