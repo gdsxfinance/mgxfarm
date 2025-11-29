@@ -14,41 +14,53 @@ body {
   text-align:center;
 }
 
+/* Header */
 h1 {
   margin-top:20px;
   font-size:28px;
   text-shadow:0 0 15px #00ffd5, 0 0 30px #00ffd5;
 }
 
+/* Game frame */
 #gameFrame {
-  width: 90%;
-  height: 500px;
+  width: 92%;
+  height: 520px;
   margin:auto;
   border:none;
-  border-radius:18px;
+  border-radius:20px;
   box-shadow:0 0 25px #00ffd5;
   background:black;
 }
 
-.game-btn {
-  padding:10px 15px;
-  margin:6px;
-  border-radius:12px;
-  background:rgba(255,255,255,0.1);
-  border:1px solid rgba(0,255,255,0.3);
-  color:white;
-  cursor:pointer;
-  display:inline-block;
-  font-size:15px;
-  backdrop-filter:blur(4px);
-  box-shadow:0 0 12px rgba(0,255,255,0.25);
+/* Game buttons layout */
+.game-container {
+  width: 95%;
+  margin:auto;
+  margin-top:15px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:12px;
 }
 
+.game-btn {
+  padding:12px 18px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(0,255,255,0.4);
+  color:white;
+  cursor:pointer;
+  font-size:18px;
+  min-width:130px;
+  backdrop-filter:blur(4px);
+  box-shadow:0 0 12px rgba(0,255,255,0.28);
+}
 .game-btn:hover {
-  background:rgba(0,255,255,0.22);
+  background:rgba(0,255,255,0.25);
   box-shadow:0 0 25px #00ffe5;
 }
 
+/* Back button */
 .back-btn {
   position:absolute;
   top:15px; left:15px;
@@ -56,6 +68,8 @@ h1 {
   color:black;
   border-radius:10px;
   padding:8px 15px;
+  font-size:18px;
+  text-decoration:none;
 }
 </style>
 </head>
@@ -67,20 +81,23 @@ h1 {
 <h1>🎮 MGX GAME STATION</h1>
 
 <!-- GAME MENU -->
-<div>
-  <div class="game-btn" onclick="loadGame('tetris')">🟦 Tetris</div>
+<div class="game-container">
+
+  <div class="game-btn" onclick="loadGame('tetris')">🟥 Tetris</div>
   <div class="game-btn" onclick="loadGame('hextris')">🔷 Hextris</div>
 
-  <hr style="width:80%; opacity:0.3;">
-
-  <div class="game-btn" onclick="loadGame('slope3')">🟢 Slope 3</div>
+  <div class="game-btn" onclick="loadGame('slope')">🟢 Slope 3</div>
   <div class="game-btn" onclick="loadGame('tunnel')">🔵 Tunnel Rush 3D</div>
   <div class="game-btn" onclick="loadGame('stack')">🟧 Stack</div>
+
   <div class="game-btn" onclick="loadGame('elastic')">😂 Elastic Man</div>
   <div class="game-btn" onclick="loadGame('ballsort')">🎨 Ball Sort Puzzle</div>
-  <div class="game-btn" onclick="loadGame('fruitmerge')">🍇 Fruit Merge</div>
+
+  <div class="game-btn" onclick="loadGame('fruit')">🍇 Fruit Merge</div>
   <div class="game-btn" onclick="loadGame('paper')">🟨 Paper.io 2</div>
+
   <div class="game-btn" onclick="loadGame('drift')">🚗 Drift Hunters</div>
+
 </div>
 
 <!-- GAME AREA -->
@@ -90,16 +107,15 @@ h1 {
 function loadGame(game) {
   const games = {
     tetris: "https://tetris.com/play",
-    hextris: "https://hextris.io/",
-
-    slope3: "https://slope-game.github.io/slope-3/",
-    tunnel: "https://tunnelrush.app/",
-    stack: "https://stack.enjoy4fun.com/",
-    elastic: "https://elasticman.net/",
-    ballsort: "https://ballsortpuzzle.co/",
-    fruitmerge: "https://fruitmerge.io/",
-    paper: "https://paper-io.com/paper-io-2/",
-    drift: "https://drifthunters.net/"
+    hextris: "https://hextris.io",
+    slope: "https://slopegame.online/slope-game.embed",
+    tunnel: "https://tunnelrushgame.com/tunnel-rush.embed",
+    stack: "https://stackgame.io/stack.embed",
+    elastic: "https://pacogames.com/embed/elastic-man",
+    ballsort: "https://ballsortpuzzle.org/ball-sort-puzzle.embed",
+    fruit: "https://fruitsmerge.com/merge-fruits.embed",
+    paper: "https://paper-io.com/paperio2.embed",
+    drift: "https://drifthunters.com/"
   };
 
   document.getElementById("gameFrame").src = games[game];
