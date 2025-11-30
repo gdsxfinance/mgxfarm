@@ -55,6 +55,7 @@ h1 {
   backdrop-filter:blur(4px);
   box-shadow:0 0 12px rgba(0,255,255,0.28);
 }
+
 .game-btn:hover {
   background:rgba(0,255,255,0.25);
   box-shadow:0 0 25px #00ffe5;
@@ -63,7 +64,8 @@ h1 {
 /* Back button */
 .back-btn {
   position:absolute;
-  top:15px; left:15px;
+  top:15px; 
+  left:15px;
   background:#00ffd5;
   color:black;
   border-radius:10px;
@@ -80,19 +82,14 @@ h1 {
 
 <h1>🎮 MGX GAME STATION</h1>
 
-<!-- GAME MENU -->
+<!-- GAME MENU (เฉพาะเกมที่ใช้ได้จริง) -->
 <div class="game-container">
 
-  <div class="game-btn" onclick="loadGame('tetris')">🟥 Tetris</div>
   <div class="game-btn" onclick="loadGame('hextris')">🔷 Hextris</div>
 
   <div class="game-btn" onclick="loadGame('slope')">🟢 Slope 3</div>
 
-  <div class="game-btn" onclick="loadGame('elastic')">😂 Elastic Man</div>
-
   <div class="game-btn" onclick="loadGame('paper')">🟨 Paper.io 2</div>
-
-  <div class="game-btn" onclick="loadGame('drift')">🚗 Drift Hunters</div>
 
 </div>
 
@@ -102,12 +99,9 @@ h1 {
 <script>
 function loadGame(game) {
   const games = {
-    tetris: "https://tetris.com/play",
     hextris: "https://hextris.io",
     slope: "https://slopegame.online/slope-game.embed",
-    elastic: "https://pacogames.com/embed/elastic-man",
-    paper: "https://paper-io.com/paperio2.embed",
-    drift: "https://drifthunters.com/"
+    paper: "https://paper-io.com/paperio2.embed"
   };
 
   document.getElementById("gameFrame").src = games[game];
